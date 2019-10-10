@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".ChooseActivity">
+    <include layout="@layout/choose_toolbar" />
+    <View
+        android:id="@+id/view_layout_abave"
+        android:layout_width="match_parent"
+        android:background="@color/black_light"
+        android:layout_below="@+id/choose_toolbar"
+        android:layout_height="0.1dp"/>
+
+
+
+    <EditText
+        android:id="@+id/input_search"
+        android:hint="Search friend, message,.."
+        android:layout_toRightOf="@id/image_search"
+        android:layout_width="match_parent"
+        android:textAlignment="gravity"
+        android:layout_below="@+id/choose_toolbar"
+        android:drawableLeft="@drawable/icon_search"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="7dp"
+        android:textStyle="normal"
+        android:textSize="18sp"
+        android:background="@drawable/round_corner_gray_18"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"
+        android:layout_height="43dp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_margin="3dp"
+        android:layout_below="@+id/input_search"
+        android:layout_marginTop="7dp"
+        android:id="@+id/list_choose_friend_horizontal"
+        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="7dp"
+        android:layout_margin="3dp"
+        android:id="@+id/list_choose_friend_vertical"
+        android:layout_below="@+id/list_choose_friend_horizontal"
+        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>

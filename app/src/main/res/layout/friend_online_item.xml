@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+    <ImageView
+        android:id="@+id/image_online"
+        android:padding="5dp"
+        android:layout_alignRight="@id/image_avatar"
+        android:layout_alignBottom="@id/image_avatar"
+        android:layout_width="16dp"
+        android:background="@drawable/roun_conner_online"
+        android:layout_height="16dp" />
+
+    <TextView
+        android:id="@+id/text_name"
+        android:text="Vũ Hạnh"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/image_avatar"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

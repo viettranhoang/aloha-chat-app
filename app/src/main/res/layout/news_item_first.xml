@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="170dp"
+    android:layout_height="230dp"
+    android:layout_margin="4dp">
+
+
+    <ImageView
+        android:id="@+id/image_avatar_friend"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="12dp"
+        android:padding="3dp"
+        android:background="@drawable/roun_avatar_news_blue" />
+
+    <ImageView
+        android:id="@+id/image_news_friend"
+        android:layout_width="match_parent"
+        android:background="@drawable/boder_news_gray"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentBottom="true"
+        android:text="Vu Nhat Minh "
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

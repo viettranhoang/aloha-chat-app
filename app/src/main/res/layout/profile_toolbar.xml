@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/blue"
+    android:layout_height="?actionBarSize">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/image_search"
+            android:src="@drawable/icon_search"
+            android:tint="@color/white"
+            android:layout_alignParentLeft="true"
+            android:layout_width="32dp"
+            android:layout_centerInParent="true"
+            android:layout_height="32dp" />
+
+        <EditText
+            android:id="@+id/input_search"
+            android:hint="Search friend, message,.."
+            android:layout_toRightOf="@id/image_search"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAlignment="gravity"
+            android:textStyle="normal"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+
+</androidx.appcompat.widget.Toolbar>

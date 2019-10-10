@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/home_fragment_toolbar">
+    </include>
+
+    <View
+        android:id="@+id/view_layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_above="@id/list_posts_friends"
+        android:background="@color/black_light"
+        android:layout_below="@+id/toolbar_home_posts"
+        android:layout_height="0.1dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="6dp"
+        android:layout_below="@+id/toolbar_home_posts"
+        android:id="@+id/list_posts_friends"
+        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>

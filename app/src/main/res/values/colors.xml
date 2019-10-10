@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="black">#000000</color>
+    <color name="black_light">#111111</color>
+    <color name="gray">#868484</color>
+    <color name="gray2">#EEEBEB</color>
+    <color name="gray_light">#F8F3F3</color>
+    <color name="white">#ffff</color>
+    <color name="blue">#36B9F5</color>
+    <color name="blue1">#0CA5EC</color>
+    <color name="pinkLight">#F23B5F</color>
+    <color name="lighblue">#8FE3FE</color>
+    <color name="green">#22E62C</color>
+    <color name="darkblue">#3B5998</color>
+    <color name="tvbackground">#33253A4B</color>
+
+</resources>

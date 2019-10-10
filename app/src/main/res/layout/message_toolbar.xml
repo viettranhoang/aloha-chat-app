@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:id="@+id/toolbar_message">
+
+    <RelativeLayout
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_width="40dp"
+            android:padding="3dp"
+            android:layout_height="40dp" />
+        <ImageView
+            android:id="@+id/image_online"
+            android:padding="5dp"
+            android:layout_alignRight="@id/image_avatar"
+            android:layout_alignBottom="@id/image_avatar"
+            android:layout_width="16dp"
+            android:background="@drawable/roun_conner_online"
+            android:layout_height="16dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/image_avatar"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Vũ Hạnh"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/text_online"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="Đang hoạt động"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.appcompat.widget.Toolbar>

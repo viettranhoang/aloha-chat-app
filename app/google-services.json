@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "133666479164",
+    "firebase_url": "https://qoobeechat.firebaseio.com",
+    "project_id": "qoobeechat",
+    "storage_bucket": "qoobeechat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133666479164:android:70fe7be8c54379c5faf739",
+        "android_client_info": {
+          "package_name": "com.example.appchat_zalo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133666479164-ni3tog9kcq94hnbioj80ncivg9snlk5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appchat_zalo",
+            "certificate_hash": "b18fb13a067854500555eae2f6b4efda08330a1a"
+          }
+        },
+        {
+          "client_id": "133666479164-81nipg7mii5ltot5vh2ros8ve8e2aen3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRZZ6l4_8SjwW9g5d56XSYDTAYBiXXIIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133666479164-81nipg7mii5ltot5vh2ros8ve8e2aen3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

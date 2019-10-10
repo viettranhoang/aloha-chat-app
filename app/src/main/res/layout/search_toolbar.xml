@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/search_toolbar"
+    android:layout_height="?actionBarSize">
+<EditText
+    android:id="@+id/input_search"
+    android:background="@null"
+    android:maxLines="1"
+    android:textSize="18sp"
+    android:paddingLeft="5dp"
+    android:hint="Tìm kiếm"
+    android:fontFamily="sans-serif-medium"
+    android:textColor="@color/black"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+</androidx.appcompat.widget.Toolbar>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="220dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/logo"
+                android:layout_height="220dp" />
+
+            <TextView
+                android:id="@+id/textVie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="Welcome!"
+                android:textColor="@android:color/black"
+                android:textSize="50sp" />
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_marginLeft="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Nice too see you"
+                android:textStyle="italic"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="60dp"
+            android:layout_weight="3"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button_login_email"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_margin="7dp"
+                android:textSize="18sp"
+                android:background="@drawable/round_conner_login_email_lightblue"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:text="Login with Email" />
+
+
+            <include
+                android:id="@+id/button_login_fb"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_margin="7dp"
+                layout="@layout/custom_button_login_facebook" />
+
+            <!--<Button-->
+                <!--android:id="@+id/button_phone"-->
+                <!--android:layout_width="300dp"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:layout_margin="7dp"-->
+                <!--android:textSize="15sp"-->
+                <!--android:background="@drawable/round_conner_login_email_lightblue"-->
+                <!--android:gravity="center"-->
+                <!--android:drawableLeft="@drawable/icon_phone"-->
+                <!--android:drawableTint="@color/white"-->
+                <!--android:text="login with phonenumber" />-->
+            <LinearLayout
+                android:id="@+id/layput_phone"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:clickable="true"
+                android:background="@drawable/round_conner_login_email_lightblue"
+                android:padding="16dp"
+                android:layout_margin="7dp"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="3dp"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="35dp"
+                    android:maxWidth="35dp"
+                    android:tint="@color/white"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_phone" />
+
+                <TextView
+                    android:id="@+id/text_phone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="19sp"
+                    android:paddingRight="30dp"
+                    android:gravity="center"
+                    android:text="Phone Number" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/text_sigup"
+        android:text="You do not have account? Register!"
+        android:textColor="@color/pinkLight"
+        android:layout_marginBottom="19dp"
+        android:textStyle="italic"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

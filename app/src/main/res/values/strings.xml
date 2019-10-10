@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AppChat_Zalo</string>
+    <string name="facebook_app_id">2436908063257556</string>
+    <string name="fb_login_protocol_scheme">fb442494559834392</string>
+</resources>

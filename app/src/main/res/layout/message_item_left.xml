@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="12dp"
+    android:layout_marginTop="12dp">
+
+    <ImageView
+        android:id="@+id/image_avatar"
+        android:layout_width="40dp"
+        android:padding="3dp"
+        android:layout_height="40dp" />
+    <ImageView
+        android:id="@+id/image_online"
+        android:padding="5dp"
+        android:layout_alignRight="@id/image_avatar"
+        android:layout_alignBottom="@id/image_avatar"
+        android:layout_width="16dp"
+        android:background="@drawable/roun_conner_online"
+        android:layout_height="16dp" />
+
+    <TextView
+        android:id="@+id/text_time"
+        android:fontFamily="sans-serif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/gray"
+        android:textSize="13sp"
+        android:visibility="visible"
+        android:text="12:45" />
+
+    <TextView
+        android:id="@+id/text_message"
+        android:layout_below="@id/text_time"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/image_avatar"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/black_light"
+        android:clickable="true"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/roun_conner_message_gray_light"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:visibility="visible"
+        android:text=" hello han cute nhat quakshs "
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_seen"
+        android:fontFamily="sans-serif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/gray"
+        android:textSize="13sp"
+        android:layout_below="@id/text_message"
+        android:visibility="visible"
+        android:text="da xem" />
+
+    <ImageView
+        android:id="@+id/image_message"
+        android:layout_alignLeft="@id/text_message"
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
+
+
+</RelativeLayout>

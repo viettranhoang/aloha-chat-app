@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.PostsActivity">
+
+    <include layout="@layout/posts_toolbar"/>
+    <View
+        android:id="@+id/view_layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_above="@id/layout_send"
+        android:background="@color/black_light"
+        android:layout_height="0.1dp"/>
+
+    <View
+        android:id="@+id/view_layout_above"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/toolbar_post"
+        android:background="@color/black_light"
+        android:layout_height="0.1dp"/>
+    <RelativeLayout
+        android:id="@+id/layoutpost"
+        android:layout_below="@+id/toolbar_post"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_margin="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_weight="0.55"
+            android:layout_width="70dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:layout_below="@+id/toolbar_post"
+            android:src="@drawable/background_main"
+            android:layout_height="70dp" />
+        <TextView
+            android:id="@+id/text_name"
+            android:text="Vũ Hạnh"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/image_avatar"
+            android:layout_below="@+id/toolbar_post"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/input_content_posts"
+        android:layout_below="@id/layoutpost"
+        android:background="@null"
+        android:maxLines="1"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_margin="3dp"
+        android:textSize="22sp"
+        android:paddingLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:hint="Bạn đang nghĩ gì?"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_add_post"
+        android:layout_below="@+id/input_content_posts"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="3dp"
+        android:layout_margin="7dp"
+        android:layout_marginLeft="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/layout_send"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/text_add_content"
+            android:layout_width="wrap_content"
+            android:text="Thêm vào bài viết của bạn"
+            android:textStyle="normal"
+            android:textColor="@color/black_light"
+            android:textSize="19sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="7dp"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="13dp"
+            android:tint="@color/blue1" />
+
+        <ImageView
+            android:id="@+id/image_picture"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="13dp"
+            android:tint="@color/blue1"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/text_add_content"
+            android:src="@drawable/icons_picture" />
+
+        <ImageView
+            android:id="@+id/image_camera"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginBottom="13dp"
+            android:tint="@color/blue1"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/image_picture"
+            android:src="@drawable/ic_camera" />
+
+        <ImageView
+            android:id="@+id/image_video"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:tint="@color/blue1"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_video" />
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
