@@ -19,6 +19,7 @@ import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.friends.adapter.FriendsOnlineAdapter;
 import com.example.appchat_zalo.friends.listener.OnclickItemFriendListener;
 import com.example.appchat_zalo.model.Users;
+import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,13 +59,13 @@ public class FriendsFragment extends Fragment {
 
     private void readUser() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference  = FirebaseDatabase.getInstance().getReference().child("Users");
+        DatabaseReference reference  = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_USERS);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listUser.clear();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    Users users =  dataSnapshot1.getValue(Users.class);
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    Users users =  data.getValue(Users.class);
                     assert  users != null;
                     assert user != null;
                     if(!user.getUid().equals(users.getId())){

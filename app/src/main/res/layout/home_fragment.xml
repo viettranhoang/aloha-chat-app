@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <include
         layout="@layout/home_fragment_toolbar">
     </include>
@@ -24,4 +26,7 @@
         android:id="@+id/list_posts_friends"
         android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
+
 </RelativeLayout>
+
+</ScrollView>

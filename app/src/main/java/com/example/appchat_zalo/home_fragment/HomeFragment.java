@@ -1,5 +1,6 @@
 package com.example.appchat_zalo.home_fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appchat_zalo.ClickPostActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.home_fragment.adapter.HomePostsAdapter;
+import com.example.appchat_zalo.home_fragment.listner.OnclickItemMyPostListner;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,13 +32,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 public class HomeFragment extends Fragment {
 
-    private List<Posts> listHomePost;
-    private HomePostsAdapter mHomePostAdapter;
+    private List<Posts> listHomePost =  new ArrayList<>();
+    private HomePostsAdapter mHomePostAdapter = new HomePostsAdapter();
 
     DatabaseReference refPost;
     FirebaseUser user;
+    String userId;
 
     @BindView(R.id.list_posts_friends)
     RecyclerView mRcvHomePost;
@@ -47,15 +52,16 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, view);
         innitRcvPost();
 
-//        readPosts();
-        
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userId =  user.getUid();
+        refPost = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_POSTS).child(userId);
+        readPosts();
 
         return view;
     }
 
     private void readPosts() {
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        refPost = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_POSTS);
         refPost.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -82,4 +88,5 @@ public class HomeFragment extends Fragment {
         mRcvHomePost.setLayoutManager(new LinearLayoutManager(getContext()));
         mRcvHomePost.setHasFixedSize(true);
     }
+
 }

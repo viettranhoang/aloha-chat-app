@@ -1,5 +1,6 @@
 package com.example.appchat_zalo.home_fragment.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.home_fragment.listner.OnclickItemMyPostListner;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.utils.Constants;
 
@@ -19,17 +21,23 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class HomePostsAdapter extends RecyclerView.Adapter<HomePostsAdapter.PostViewHolder> {
 
     private List<Posts> listHomePost =  new ArrayList<>();
+    private OnclickItemMyPostListner onlcickItemPost;
+
+    public HomePostsAdapter(OnclickItemMyPostListner onlcickItemPost) {
+        this.onlcickItemPost = onlcickItemPost;
+    }
+
+    public HomePostsAdapter() {
+    }
 
     public void setListHomePost(List<Posts> listHomePost) {
         this.listHomePost = listHomePost;
-    }
-
-    public HomePostsAdapter(List<Posts> listPost) {
-        this.listHomePost = listPost;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -87,13 +95,18 @@ public class HomePostsAdapter extends RecyclerView.Adapter<HomePostsAdapter.Post
 
             mName.setText(posts.getName());
             mContentPost.setText(posts.getContent_posts());
-            mTextPost.setText(posts.getContent_posts());
             mTimePost.setText(posts.getTime());
             mDatePost.setText(posts.getDate());
             Glide.with(itemView)
                     .load(posts.getPicture())
                     .into(mPicturePost);
 
+        }
+
+        @OnClick(R.id.image_picture_posts)
+        void onclick(){
+            Log.d("hanh", "hahaha"+ listHomePost.toString());
+            onlcickItemPost.onClickMyPostItem(listHomePost.get(getAdapterPosition()));
         }
     }
 }

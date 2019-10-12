@@ -24,10 +24,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.appchat_zalo.ClickPostActivity;
 import com.example.appchat_zalo.LoginWithEmailActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.cache.PrefUtils;
 import com.example.appchat_zalo.home_fragment.adapter.HomePostsAdapter;
+import com.example.appchat_zalo.home_fragment.listner.OnclickItemMyPostListner;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
@@ -77,7 +79,7 @@ public class ProfileFragment extends Fragment {
 
     private FirebaseUser user;
     private StorageReference mStorageReference;
-    private DatabaseReference mReference, refPosts;
+    private DatabaseReference refUser, refPosts;
 
     private static final int IMAGE_CHOOSE = 1;
     private StorageTask mUpLoadTask;
@@ -86,7 +88,7 @@ public class ProfileFragment extends Fragment {
 
     private PrefUtils prefUtils;
     private HomePostsAdapter homePostsAdapter;
-    private List<Posts> listMyPosts;
+    private List<Posts> listMyPosts = new ArrayList<>();
 
     @Nullable
     @Override
@@ -108,11 +110,13 @@ public class ProfileFragment extends Fragment {
         mTextStatus = view.findViewById(R.id.text_status);
         mTextPost = view.findViewById(R.id.text_posts);
 
-        mReference.child(Constants.TABLE_USERS).child(Constants.UID).addValueEventListener(new ValueEventListener() {
+
+        refUser.child(Constants.UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 Users users = dataSnapshot.getValue(Users.class);
+
                 if (Constants.UID.equals(users.getId())) {
                     mTextStatus.setText(users.getStatus());
                     mTextName.setText(users.getName());
@@ -155,13 +159,12 @@ public class ProfileFragment extends Fragment {
 
     private void initFirebase() {
         user = FirebaseAuth.getInstance().getCurrentUser();
-        mReference = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
+        refUser = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
         refPosts = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
         mStorageReference = FirebaseStorage.getInstance().getReference("uploads");
     }
 
     private void initRCVMyPosts() {
-        listMyPosts =  new ArrayList<>();
         mRcvListMyPost.setLayoutManager(new LinearLayoutManager(getContext()));
         mRcvListMyPost.setHasFixedSize(true);
 
@@ -269,11 +272,11 @@ public class ProfileFragment extends Fragment {
                 if (task.isSuccessful()) {
                     Uri urlDowlaod = (Uri) task.getResult();
                     String mUriDowload = urlDowlaod.toString();
-                    mReference = FirebaseDatabase.getInstance().getReference("Users").child(Constants.UID);
+                    refUser = FirebaseDatabase.getInstance().getReference("Users").child(Constants.UID);
                     HashMap<String, Object> hashMap = new HashMap<>();
                     if (isUpdateAvatar) hashMap.put("avatar", mUriDowload);
                     else hashMap.put("cover", mUriDowload);
-                    mReference.updateChildren(hashMap);
+                    refUser.updateChildren(hashMap);
                     progressDialog.dismiss();
 
                 } else {
@@ -308,18 +311,25 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    private  void getMyPost(){
-        refPosts = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_POSTS).child(Constants.UID);
-        refPosts.addValueEventListener(new ValueEventListener() {
+    private void getMyPost() {
+        refPosts.child(Constants.UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listMyPosts.clear();
-                for (DataSnapshot data : dataSnapshot.getChildren()){
-                    Posts posts =  data.getValue(Posts.class);
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Posts posts = data.getValue(Posts.class);
                     listMyPosts.add(posts);
                 }
 
-                Log.i("ha", "onDataChangePost: " +listMyPosts.toString());
+                Log.i("ha", "onDataChangePost: " + listMyPosts.toString());
+                homePostsAdapter = new HomePostsAdapter(new OnclickItemMyPostListner() {
+                    @Override
+                    public void onClickMyPostItem(Posts post) {
+                        Intent intent = new Intent(getContext(), ClickPostActivity.class);
+                        intent.putExtra("idPost",post.getIdPost());
+                        startActivity(intent);
+                    }
+                });
                 homePostsAdapter.setListHomePost(listMyPosts);
                 mRcvListMyPost.setAdapter(homePostsAdapter);
             }
@@ -331,3 +341,4 @@ public class ProfileFragment extends Fragment {
         });
     }
 }
+

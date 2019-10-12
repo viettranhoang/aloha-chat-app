@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -107,6 +108,7 @@ public class PostsActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         refUser = FirebaseDatabase.getInstance().getReference().child("Users").child(Constants.UID);
         refPost = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_POSTS).child(Constants.UID);
+
         storageReference = FirebaseStorage.getInstance().getReference();
         Glide.with(this)
                 .load(Constants.UAVATAR)
@@ -171,7 +173,7 @@ public class PostsActivity extends AppCompatActivity {
 
     private void storagePictureToFirebase() {
         Calendar calendarDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-YYYY");
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
         mSaveCurrentDate = currentDate.format(calendarDate.getTime());
 
         Calendar calendarTime = Calendar.getInstance();
@@ -205,11 +207,18 @@ public class PostsActivity extends AppCompatActivity {
         String postId = refPost.push().getKey();
 
         refPost.child(postId).setValue(new Posts(mSaveCurrentDate, mSaveCurrentTime,
-                mInputsContentPost.getText().toString(), urlDownload, Constants.UAVATAR, Constants.UNAME))
+                mInputsContentPost.getText().toString(), urlDownload, Constants.UAVATAR, Constants.UNAME, postId))
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-//                        Intent intent = new Intent(PostsActivity.this, ProfileFragment.class);
-//                        startActivity(intent);
+                        Intent intent = new Intent(this, ProfileFragment.class);
+//                        Bundle bundle = new Bundle();
+////
+//                        bundle.putString("time", "time");
+//                        bundle.putString("date", "date");
+//                        bundle.putString("content_posts", "content");
+//                        bundle.putString("picture", "picture");
+//                        bundle.putString("avatar", "avatar");
+//                        bundle.putString("name", "name");
                         Toast.makeText(PostsActivity.this, "New posts is updated successful!!!", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     } else {

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="12dp"
+    android:weightSum="3"
+    android:id="@id/layout_post"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    tools:context=".ClickPostActivity">
+
+    <RelativeLayout
+        android:layout_below="@id/layout_post"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1.2"
+        android:layout_marginLeft="10dp"
+        android:layout_height="0dp">
+    <TextView
+        android:id="@+id/text_content_post"
+        android:text="hihi  do con ga nay nay :))"
+        android:layout_width="match_parent"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="5dp"
+        android:padding="3dp"
+        android:textColor="@color/black_light"
+        android:fontFamily="sans-serif"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/image_picture_posts"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="3dp"
+        android:layout_below="@+id/text_content_post"
+        android:layout_width="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="center"
+        android:layout_height="200dp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_weight="1.6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+    <Button
+        android:id="@+id/button_edit_post"
+        android:layout_width="300dp"
+        android:text="EditPost"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif-medium"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/roun_conner_message_blue"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/button_delete_post"
+            android:layout_width="300dp"
+            android:text="DeletePost"
+            android:textSize="15sp"
+            android:layout_below="@id/button_edit_post"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/roun_conner_message_blue"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>

@@ -7,14 +7,24 @@ public class Posts {
     private String picture;
     private String avatar;
     private String name;
+    private String idPost;
 
-    public Posts(String date, String time, String content_posts, String picture, String avatar, String name) {
+    public Posts(String date, String time, String content_posts, String picture, String avatar, String name, String idPost) {
         this.date = date;
         this.time = time;
         this.content_posts = content_posts;
         this.picture = picture;
         this.avatar = avatar;
         this.name = name;
+        this.idPost = idPost;
+    }
+
+    public String getIdPost() {
+        return idPost;
+    }
+
+    public void setIdPost(String idPost) {
+        this.idPost = idPost;
     }
 
     public Posts() {
