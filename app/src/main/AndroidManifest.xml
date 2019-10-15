@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ClickPostActivity"></activity>
-        <activity android:name=".message_groups.MessageGroupsActivity" />
+        <activity android:name=".all_user.AllUserActivity"></activity>
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".UpdatePostActivity" />
         <activity android:name=".fragment.PostsActivity" />
         <activity android:name=".search.SearchActivity" />
         <activity android:name=".ChooseActivity" />

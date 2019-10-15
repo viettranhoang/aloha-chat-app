@@ -1,32 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include
         layout="@layout/home_fragment_toolbar">
     </include>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="3"
+        android:layout_below="@+id/toolbar_home_posts"
+        android:id="@+id/layout_three"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/image_avatar1"
+            android:layout_weight="0.55"
+            android:layout_width="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:src="@drawable/background_main"
+            android:layout_gravity="center"
+            android:layout_height="70dp" />
+
+        <TextView
+            android:id="@+id/text_posts"
+            android:layout_below="@id/layout_one"
+            android:layout_width="0dp"
+            android:layout_weight="2.25"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="Bạn đang nghĩ gì?"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textAlignment="gravity"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:background="@drawable/boder_posts_white"
+            android:layout_centerHorizontal="true"
+            android:layout_height="70dp" />
+
+    </LinearLayout>
+
+
     <View
         android:id="@+id/view_layout_bottom"
         android:layout_width="match_parent"
         android:layout_above="@id/list_posts_friends"
         android:background="@color/black_light"
-        android:layout_below="@+id/toolbar_home_posts"
         android:layout_height="0.1dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="2dp"
+        android:layout_below="@+id/layout_three"
         android:layout_marginTop="6dp"
-        android:layout_below="@+id/toolbar_home_posts"
         android:id="@+id/list_posts_friends"
         android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
 
 </RelativeLayout>
-
-</ScrollView>

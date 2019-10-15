@@ -21,17 +21,26 @@
         android:layout_below="@+id/toolbar_friends"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="2dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:id="@+id/list_news"
         android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_friend_online"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="10dp"
+    <ScrollView
+        android:id="@+id/layout_friend_online"
         android:layout_below="@id/list_news"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
-</RelativeLayout>
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="2dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_friend_online"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+
+    </ScrollView>
+   </RelativeLayout>

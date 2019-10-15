@@ -24,12 +24,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.appchat_zalo.ClickPostActivity;
+import com.example.appchat_zalo.UpdatePostActivity;
 import com.example.appchat_zalo.LoginWithEmailActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.cache.PrefUtils;
-import com.example.appchat_zalo.home_fragment.adapter.HomePostsAdapter;
-import com.example.appchat_zalo.home_fragment.listner.OnclickItemMyPostListner;
+import com.example.appchat_zalo.my_profile.adapter.ProfilePostsAdapter;
+import com.example.appchat_zalo.my_profile.listener.OnclickItemMyPostListner;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
@@ -51,6 +51,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -77,6 +78,9 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.list_my_posts)
     RecyclerView mRcvListMyPost;
 
+    @BindView(R.id.image_news)
+    ImageView mImageNews;
+
     private FirebaseUser user;
     private StorageReference mStorageReference;
     private DatabaseReference refUser, refPosts;
@@ -87,7 +91,7 @@ public class ProfileFragment extends Fragment {
     private boolean isUpdateAvatar = true;
 
     private PrefUtils prefUtils;
-    private HomePostsAdapter homePostsAdapter;
+    private ProfilePostsAdapter profilePostsAdapter;
     private List<Posts> listMyPosts = new ArrayList<>();
 
     @Nullable
@@ -122,6 +126,7 @@ public class ProfileFragment extends Fragment {
                     mTextName.setText(users.getName());
                     Constants.UNAME = users.getName();
                     Constants.UAVATAR = users.getAvatar();
+
                     Glide.with(getActivity())
                             .load(users.getAvatar())
                             .circleCrop()
@@ -276,6 +281,7 @@ public class ProfileFragment extends Fragment {
                     HashMap<String, Object> hashMap = new HashMap<>();
                     if (isUpdateAvatar) hashMap.put("avatar", mUriDowload);
                     else hashMap.put("cover", mUriDowload);
+//                    if(isAddNews) hashMap.put("news", mUriDowload);
                     refUser.updateChildren(hashMap);
                     progressDialog.dismiss();
 
@@ -322,16 +328,16 @@ public class ProfileFragment extends Fragment {
                 }
 
                 Log.i("ha", "onDataChangePost: " + listMyPosts.toString());
-                homePostsAdapter = new HomePostsAdapter(new OnclickItemMyPostListner() {
+                profilePostsAdapter = new ProfilePostsAdapter(new OnclickItemMyPostListner() {
                     @Override
                     public void onClickMyPostItem(Posts post) {
-                        Intent intent = new Intent(getContext(), ClickPostActivity.class);
+                        Intent intent = new Intent(getContext(), UpdatePostActivity.class);
                         intent.putExtra("idPost",post.getIdPost());
                         startActivity(intent);
                     }
                 });
-                homePostsAdapter.setListHomePost(listMyPosts);
-                mRcvListMyPost.setAdapter(homePostsAdapter);
+                profilePostsAdapter.setListMyPost(listMyPosts);
+                mRcvListMyPost.setAdapter(profilePostsAdapter);
             }
 
             @Override
@@ -340,5 +346,12 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
+    @OnClick(R.id.image_news)
+    void addNews(){
+        chooseImage();
+
+    }
+
 }
 

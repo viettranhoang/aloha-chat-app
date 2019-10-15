@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,8 +14,8 @@
             android:layout_height="230dp"
             android:layout_marginLeft="18dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/anhbia1"
-            android:layout_marginRight="18dp" />
+            android:layout_marginRight="18dp"
+            android:background="@drawable/anhbia1" />
 
         <ImageView
             android:id="@+id/image_edit_cover"
@@ -31,40 +31,41 @@
             android:paddingRight="10dp"
             android:paddingBottom="3dp"
             android:src="@drawable/ic_camera"
-            android:tint="@color/black_light"/>
+            android:tint="@color/black_light" />
 
         <ImageView
             android:id="@+id/image_back"
-            android:layout_alignTop="@id/image_background"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignLeft="@id/image_background"
-            android:src="@drawable/ic_back"
+            android:layout_alignTop="@id/image_background"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:tint="@color/white"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
-
+            android:src="@drawable/ic_back"
+            android:tint="@color/white" />
 
         <ImageView
             android:id="@+id/image_more"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignTop="@id/image_background"
             android:layout_alignRight="@id/image_background"
-            android:src="@drawable/icon_more"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
-            android:tint="@color/white"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_marginRight="20dp"
+            android:src="@drawable/icon_more"
+            android:tint="@color/white" />
+
         <ImageView
             android:id="@+id/image_avatar"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:scaleType="fitCenter"
-            android:clickable="true"
-            android:src="@drawable/background_main"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="140dp"
-            android:padding="3dp" />
+            android:clickable="true"
+            android:padding="3dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/background_main" />
+
         <ImageView
             android:id="@+id/image_edit_avatar"
             android:layout_width="35dp"
@@ -72,159 +73,203 @@
             android:layout_alignRight="@id/image_avatar"
             android:layout_alignBottom="@id/image_avatar"
             android:layout_margin="10dp"
-            android:clickable="true"
             android:background="@drawable/round_corner_gray_6"
+            android:clickable="true"
             android:padding="9dp"
-            android:tint="@color/black_light"
-            android:src="@drawable/ic_camera" />
+            android:src="@drawable/ic_camera"
+            android:tint="@color/black_light" />
 
         <TextView
             android:id="@+id/text_name"
-            android:text="Kim Cho"
-            android:textSize="21sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_avatar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:layout_below="@id/image_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:fontFamily="sans-serif-medium"
+            android:text="Kim Cho"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_status"
-            android:text="Chó Kim ăn Shit :v "
-            android:textSize="18sp"
-            android:textStyle="normal"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="7dp"
-            android:layout_below="@id/text_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:fontFamily="sans-serif-medium"
+            android:text="Chó Kim ăn Shit :v "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="normal" />
 
         <LinearLayout
             android:id="@+id/layout_one"
-            android:layout_below="@id/text_status"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_status"
             android:layout_marginTop="40dp"
-            android:weightSum="4"
             android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:weightSum="4">
 
             <TextView
                 android:id="@+id/text_one"
-                android:layout_weight="2"
-                android:text="22"
-                android:textSize="23sp"
-                android:textColor="@color/pinkLight"
-                android:gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="22"
+                android:textColor="@color/pinkLight"
+                android:textSize="23sp" />
 
 
             <TextView
                 android:id="@+id/text_two"
-                android:layout_weight="2"
                 android:layout_width="0dp"
-                android:text="99+"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:gravity="center"
-                android:textSize="22sp"
+                android:text="99+"
                 android:textColor="@color/pinkLight"
-                android:layout_height="wrap_content" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_below="@id/layout_one"
-            android:layout_width="match_parent"
-            android:weightSum="4"
             android:id="@+id/layout_tow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_one"
             android:layout_marginTop="5dp"
             android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:weightSum="4">
 
             <TextView
                 android:id="@+id/text_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="center"
                 android:text="Friend"
                 android:textColor="@color/black"
-                android:textStyle="bold"
                 android:textSize="21sp"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textStyle="bold" />
 
 
             <TextView
                 android:id="@+id/text_follow"
-                android:layout_weight="2"
-                android:text="Follow"
-                android:textStyle="bold"
-                android:textSize="21sp"
-                android:textColor="@color/black"
-                android:gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Follow"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-
         <LinearLayout
-            android:layout_below="@id/layout_tow"
-            android:layout_width="match_parent"
-            android:weightSum="3"
             android:id="@+id/layout_three"
-            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_tow"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
             android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:weightSum="3">
 
 
             <ImageView
                 android:id="@+id/image_avatar1"
-                android:layout_weight="0.55"
                 android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_weight="0.55"
                 android:padding="5dp"
-                android:src="@drawable/background_main"
-                android:layout_gravity="center"
-                android:layout_height="70dp" />
+                android:src="@drawable/background_main" />
 
             <TextView
                 android:id="@+id/text_posts"
-                android:layout_below="@id/layout_one"
                 android:layout_width="0dp"
-                android:layout_weight="2.25"
-                android:layout_marginRight="5dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/layout_one"
+                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="5dp"
-                android:text="Bạn đang nghĩ gì?"
-                android:padding="8dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2.25"
+                android:background="@drawable/boder_posts_white"
                 android:gravity="center_vertical"
-                android:textAllCaps="false"
-                android:textStyle="normal"
+                android:padding="8dp"
+                android:text="Bạn đang nghĩ gì?"
                 android:textAlignment="gravity"
+                android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="15sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_four"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_three"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+
+            <ImageView
+                android:id="@+id/image_news"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.55"
                 android:background="@drawable/boder_posts_white"
+                android:padding="10dp"
+                android:src="@drawable/ic_add"
+                android:tint="@color/gray" />
+
+            <TextView
+                android:id="@+id/text_news"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
-                android:layout_height="70dp" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2.25"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Tạo tin mới  của bạn"
+                android:textAlignment="gravity"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
 
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
             android:id="@+id/list_my_posts"
-            android:layout_below="@id/layout_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_four"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_marginRight="5dp"></androidx.recyclerview.widget.RecyclerView>
 
     </RelativeLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

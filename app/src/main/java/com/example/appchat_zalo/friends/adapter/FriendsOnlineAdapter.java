@@ -28,8 +28,6 @@ public class FriendsOnlineAdapter extends RecyclerView.Adapter<FriendsOnlineAdap
 
     private OnclickItemFriendListener listener;
 
-
-
     public FriendsOnlineAdapter(Context context, List<Users> listUser, OnclickItemFriendListener onclick) {
 
         this.context = context;
@@ -92,11 +90,12 @@ public class FriendsOnlineAdapter extends RecyclerView.Adapter<FriendsOnlineAdap
                     .load(users.getOnline())
                     .into(mOnline);
         }
-        @OnClick(R.id.image_avatar)
+        @OnClick(R.id.layout_friend_online)
         void  onClickItem(){
             listener.onClickFriendOnlineItem(usersList.get(getAdapterPosition()));
 
         }
+
     }
 
 

@@ -43,6 +43,19 @@
             android:visibility="visible" />
 
 
+        <ImageView
+
+            android:id="@+id/image_contact"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@id/image_add"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_contact"
+            android:tint="@color/white"
+            android:visibility="visible" />
+
+
 
     </RelativeLayout>
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appchat_zalo.Message.MessageActivity;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.UserProfileActivity;
+import com.example.appchat_zalo.all_user.AllUserActivity;
+import com.example.appchat_zalo.fragment.ProfileFragment;
 import com.example.appchat_zalo.friends.adapter.FriendsOnlineAdapter;
 import com.example.appchat_zalo.friends.listener.OnclickItemFriendListener;
 import com.example.appchat_zalo.model.Users;
@@ -33,6 +37,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FriendsFragment extends Fragment {
 
@@ -42,6 +47,9 @@ public class FriendsFragment extends Fragment {
     private FriendsOnlineAdapter friendsOnlineAdapter;
     private List<Users> listUser = new ArrayList<>();
 
+
+    @BindView(R.id.image_contact)
+    ImageView mImageContact;
 
     @Nullable
     @Override
@@ -80,6 +88,9 @@ public class FriendsFragment extends Fragment {
                         Intent intent =  new Intent(getContext(), MessageActivity.class);
                         intent.putExtra("userId",users.getId());
                         startActivity(intent);
+
+
+
                     }
                 });
                 mRcvListFriend.setAdapter(friendsOnlineAdapter);
@@ -92,6 +103,12 @@ public class FriendsFragment extends Fragment {
             }
         });
 
+    }
+
+    @OnClick(R.id.image_contact)
+    void displayAllUser(){
+        Intent intent =  new Intent(getContext(), AllUserActivity.class);
+        startActivity(intent);
     }
 
 }

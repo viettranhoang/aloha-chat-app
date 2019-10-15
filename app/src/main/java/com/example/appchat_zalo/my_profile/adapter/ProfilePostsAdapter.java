@@ -1,4 +1,4 @@
-package com.example.appchat_zalo.home_fragment.adapter;
+package com.example.appchat_zalo.my_profile.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
-import com.example.appchat_zalo.home_fragment.listner.OnclickItemMyPostListner;
+import com.example.appchat_zalo.my_profile.listener.OnclickItemMyPostListner;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.utils.Constants;
 
@@ -23,39 +23,44 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomePostsAdapter extends RecyclerView.Adapter<HomePostsAdapter.PostViewHolder> {
+public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapter.PostViewHolder> {
 
-    private List<Posts> listHomePost =  new ArrayList<>();
+    private List<Posts> listMyPost =  new ArrayList<>();
     private OnclickItemMyPostListner onlcickItemPost;
+    private Posts posts;
 
-    public HomePostsAdapter(OnclickItemMyPostListner onlcickItemPost) {
+    public void setPosts(Posts posts) {
+        this.posts = posts;
+    }
+
+    public ProfilePostsAdapter(OnclickItemMyPostListner onlcickItemPost) {
         this.onlcickItemPost = onlcickItemPost;
     }
 
-    public HomePostsAdapter() {
+    public ProfilePostsAdapter() {
     }
 
-    public void setListHomePost(List<Posts> listHomePost) {
-        this.listHomePost = listHomePost;
+    public void setListMyPost(List<Posts> listMyPost) {
+        this.listMyPost = listMyPost;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public HomePostsAdapter.PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProfilePostsAdapter.PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_fragment_item, parent, false);
         return new PostViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomePostsAdapter.PostViewHolder holder, int position) {
-        holder.bindata(listHomePost.get(position));
+    public void onBindViewHolder(@NonNull ProfilePostsAdapter.PostViewHolder holder, int position) {
+        holder.bindata(listMyPost.get(position)); holder.bindata(listMyPost.get(position));
 
     }
 
     @Override
     public int getItemCount() {
-        return listHomePost.size();
+        return listMyPost.size();
     }
 
     public class PostViewHolder extends RecyclerView.ViewHolder {
@@ -105,8 +110,8 @@ public class HomePostsAdapter extends RecyclerView.Adapter<HomePostsAdapter.Post
 
         @OnClick(R.id.image_picture_posts)
         void onclick(){
-            Log.d("hanh", "hahaha"+ listHomePost.toString());
-            onlcickItemPost.onClickMyPostItem(listHomePost.get(getAdapterPosition()));
+            Log.d("hanh", "hahaha"+ listMyPost.toString());
+            onlcickItemPost.onClickMyPostItem(listMyPost.get(getAdapterPosition()));
         }
     }
 }

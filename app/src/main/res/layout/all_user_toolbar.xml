@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/toolbar_all_user"
+    android:layout_height="?attr/actionBarSize">
+
+    <TextView
+        android:id="@+id/text_all_user"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:text="Tất cả mọi người"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:id="@+id/view_layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_above="@id/layout_send"
+        android:background="@color/black_light"
+        android:layout_height="0.1dp"/>
+
+</androidx.appcompat.widget.Toolbar>

@@ -15,8 +15,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.gifdecoder.GifDecoder;
-import com.example.appchat_zalo.fragment.ProfileFragment;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ClickPostActivity extends AppCompatActivity {
+public class UpdatePostActivity extends AppCompatActivity {
 
 
     @BindView(R.id.text_content_post)
@@ -108,7 +106,7 @@ public class ClickPostActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 refPost.child("content_posts").setValue(inputContentPost.getText().toString());
-                Toast.makeText(ClickPostActivity.this, "posts updated successful...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdatePostActivity.this, "posts updated successful...", Toast.LENGTH_SHORT).show();
             }
         });
 

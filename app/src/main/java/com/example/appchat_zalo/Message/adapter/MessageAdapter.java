@@ -35,6 +35,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     public void setUsers(Users users) {
         this.users = users;
+
     }
 
 
