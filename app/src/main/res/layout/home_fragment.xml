@@ -13,6 +13,7 @@
         android:layout_below="@+id/toolbar_home_posts"
         android:id="@+id/layout_three"
         android:layout_marginTop="5dp"
+        android:background="@drawable/boder_post"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:orientation="horizontal"
@@ -32,7 +33,6 @@
 
         <TextView
             android:id="@+id/text_posts"
-            android:layout_below="@id/layout_one"
             android:layout_width="0dp"
             android:layout_weight="2.25"
             android:layout_marginRight="5dp"
@@ -45,18 +45,31 @@
             android:textAlignment="gravity"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:background="@drawable/boder_posts_white"
             android:layout_centerHorizontal="true"
             android:layout_height="70dp" />
 
     </LinearLayout>
-
+    <View
+        android:id="@+id/view_layout_above"
+        android:layout_width="match_parent"
+        android:layout_below="@id/toolbar_home_posts"
+        android:background="@color/gray"
+        android:layout_height="0.1dp"/>
 
     <View
         android:id="@+id/view_layout_bottom"
         android:layout_width="match_parent"
         android:layout_above="@id/list_posts_friends"
-        android:background="@color/black_light"
+        android:background="@color/gray"
+        android:layout_marginTop="10dp"
+        android:layout_height="0.1dp"/>
+
+    <View
+        android:id="@+id/view_layout_bottom_list_post"
+        android:layout_width="match_parent"
+        android:layout_below="@id/list_posts_friends"
+        android:background="@color/gray"
+        android:layout_marginTop="10dp"
         android:layout_height="0.1dp"/>
 
     <androidx.recyclerview.widget.RecyclerView

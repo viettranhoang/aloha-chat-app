@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +19,6 @@ import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
 import com.example.appchat_zalo.my_profile.adapter.ProfilePostsAdapter;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,9 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -260,39 +256,64 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void AcceptInviteFromFriend(String fromId, String toId) {
-        Calendar date = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
-        String saveCurrentDate = currentDate.format(date.getTime());
 
-        mFriendRef.child(fromId).child(toId).setValue(saveCurrentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mFriendRequestRef.child(fromId).child(toId).setValue("friend").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    mFriendRequestRef.child(toId).child(fromId).setValue("friend").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
 
-                mFriendRef.child(toId).child(fromId).setValue(saveCurrentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-
-                        mFriendRequestRef.child(fromId).child(toId).setValue("friend").addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    mFriendRequestRef.child(toId).child(fromId).setValue("friend").addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            mImageAddFriend.setEnabled(true);
-                                            mImageAddFriend.setImageResource(R.drawable.ic_account_check);
-                                            mTextAddFriend.setText("Hủy kết bạn");
-                                            mTextAddFriend.setTextColor(R.color.black);
-                                        }
-                                    });
-                                }
-                            }
-                        });
-
-                    }
-                });
+                            mImageAddFriend.setEnabled(true);
+                            mImageAddFriend.setImageResource(R.drawable.ic_account_check);
+                            mTextAddFriend.setText("Hủy kết bạn");
+                            mTextAddFriend.setTextColor(R.color.black);
+                            mImageDeclineFriend.setVisibility(View.GONE);
+                            mTextDeclineFriend.setVisibility(View.GONE);
+                            mImageDeclineFriend.setEnabled(false);
+                        }
+                    });
+                }
             }
         });
+//        Calendar date = Calendar.getInstance();
+//        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
+//        String saveCurrentDate = currentDate.format(date.getTime());
+//
+//        mFriendRef.child(fromId).child(toId).child("date").setValue(saveCurrentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//
+//                mFriendRef.child(toId).child(fromId).child("date").setValue(saveCurrentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//
+//                        mFriendRequestRef.child(fromId).child(toId).setValue("friend").addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                if (task.isSuccessful()) {
+//                                    mFriendRequestRef.child(toId).child(fromId).setValue("friend").addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//                                            mImageAddFriend.setEnabled(true);
+//                                            mImageAddFriend.setImageResource(R.drawable.ic_account_check);
+//                                            mTextAddFriend.setText("Hủy kết bạn");
+//                                            mTextAddFriend.setTextColor(R.color.black);
+//                                            mImageDeclineFriend.setVisibility(View.GONE);
+//                                            mTextDeclineFriend.setVisibility(View.GONE);
+//                                            mImageDeclineFriend.setEnabled(false);
+//
+//                                        }
+//                                    });
+//                                }
+//                            }
+//                        });
+//
+//                    }
+//                });
+//            }
+//        });
     }
 
     private void CancleInviteOfFriend(String fromId, String toId) {
@@ -444,36 +465,50 @@ public class UserProfileActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(View view) {
                                             DeclineFriendRequest(Constants.UID, mUserId);
-                                            
+
                                         }
                                     });
                                 }
-                            }
+                                else if (mCurrentRelative.equals(FRIEND)) {
+                                    mImageAddFriend.setImageResource(R.drawable.ic_account_check);
+                                    mTextAddFriend.setText("Hủy kết bạn");
+                                    mTextAddFriend.setTextColor(R.color.black);
+                                    mImageDeclineFriend.setVisibility(View.GONE);
+                                    mTextDeclineFriend.setVisibility(View.GONE);
+                                    mImageDeclineFriend.setEnabled(false);
+//                                    mImageDeclineFriend.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View view) {
+//                                            DeclineFriendRequest(Constants.UID, mUserId);
+//
+//                                        }
+//                                    });
+                                }
+                            } else {
 
-                        } else {
+                                mFriendRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.hasChild(mUserId)) {
+                                            mCurrentRelative = FRIEND;
+                                            mImageAddFriend.setImageResource(R.drawable.ic_account_check);
+                                            mTextAddFriend.setText("Hủy kết bạn");
+                                            mTextAddFriend.setTextColor(R.color.black);
+                                            mImageDeclineFriend.setVisibility(View.GONE);
+                                            mTextDeclineFriend.setVisibility(View.GONE);
+                                            mImageDeclineFriend.setEnabled(false);
 
-                            mFriendRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.hasChild(mUserId)) {
-                                        mCurrentRelative = FRIEND;
-                                        mImageAddFriend.setImageResource(R.drawable.ic_account_check);
-                                        mTextAddFriend.setText("Hủy kết bạn");
-                                        mTextAddFriend.setTextColor(R.color.black);
-                                        mImageDeclineFriend.setVisibility(View.GONE);
-                                        mTextDeclineFriend.setVisibility(View.GONE);
-                                        mImageDeclineFriend.setEnabled(false);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                     }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
+                                });
+                            }
                         }
-                        }
+                    }
 
 
                     @Override
@@ -519,8 +554,8 @@ public class UserProfileActivity extends AppCompatActivity {
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUserPost = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
         mUserRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
-        mFriendRequestRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_FRIEND_REQUEST);
-        mFriendRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_FRIEND);
+        mFriendRequestRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_FRIEND);
+//        mFriendRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_FRIEND);
 
     }
 }

@@ -53,7 +53,7 @@ public class UpdatePostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_click_post);
+        setContentView(R.layout.update__my_post_activity);
         ButterKnife.bind(this);
 
         intent = getIntent();

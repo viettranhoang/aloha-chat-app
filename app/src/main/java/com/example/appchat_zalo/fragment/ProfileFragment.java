@@ -72,14 +72,8 @@ public class ProfileFragment extends Fragment {
     private ImageView mImageAvatar1;
     private TextView mTextPost;
 
-    @BindView(R.id.layout_tow)
-    LinearLayout mLayoutTow;
-
     @BindView(R.id.list_my_posts)
     RecyclerView mRcvListMyPost;
-
-    @BindView(R.id.image_news)
-    ImageView mImageNews;
 
     private FirebaseUser user;
     private StorageReference mStorageReference;
@@ -345,12 +339,6 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-    }
-
-    @OnClick(R.id.image_news)
-    void addNews(){
-        chooseImage();
-
     }
 
 }

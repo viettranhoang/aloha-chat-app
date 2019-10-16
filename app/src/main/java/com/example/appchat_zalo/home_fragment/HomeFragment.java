@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getListPosts() {
-        mPostRef.addValueEventListener(new ValueEventListener() {
+        mPostRef.orderByChild("time").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listHomePost.clear();
