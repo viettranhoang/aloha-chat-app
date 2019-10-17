@@ -36,7 +36,7 @@
         android:clickable="true"
         android:background="@drawable/roun_conner_message_blue"
         android:textSize="15sp"
-        android:padding="5dp"
+        android:padding="10dp"
         android:visibility="visible"
         android:text=" hello han cute naweqweqwewweewhat quakshs "
         android:layout_height="wrap_content" />

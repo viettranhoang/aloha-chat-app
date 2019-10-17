@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_marginRight="5dp"
     android:layout_marginLeft="5dp"
+    android:layout_margin="7dp"
     android:layout_marginTop="5dp"
     android:id="@+id/layout_friend_online"
     android:orientation="vertical" android:layout_width="match_parent"
@@ -28,6 +29,6 @@
         android:layout_toRightOf="@id/image_avatar"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="14dp"
         android:layout_height="wrap_content" />
 </RelativeLayout>

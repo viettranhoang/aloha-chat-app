@@ -21,7 +21,6 @@
         android:layout_below="@+id/toolbar_friends"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="2dp"
-        android:layout_marginTop="10dp"
         android:layout_margin="10dp"
         android:id="@+id/list_news"
         android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>

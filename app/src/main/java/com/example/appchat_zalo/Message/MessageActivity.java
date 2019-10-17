@@ -2,7 +2,6 @@ package com.example.appchat_zalo.Message;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,13 +24,11 @@ import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
@@ -85,8 +81,8 @@ public class MessageActivity extends AppCompatActivity {
 
 
     MessageAdapter adapter;
-    List<Message> listMessage =  new ArrayList<>();
-    List<Users> listUsers =  new ArrayList<>();
+    List<Message> listMessage = new ArrayList<>();
+    List<Users> listUsers = new ArrayList<>();
 
     FirebaseUser user;
     DatabaseReference reference;
@@ -96,7 +92,6 @@ public class MessageActivity extends AppCompatActivity {
 
     String userId;
     Intent intent;
-
 
 
     @Override
@@ -109,7 +104,7 @@ public class MessageActivity extends AppCompatActivity {
         getUser();
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference();
-        sendMessgae(Constants.UID,userId,mInputMessage.getText().toString(),"");
+        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(), "");
         getListMessage(userId);
 
     }
@@ -144,28 +139,28 @@ public class MessageActivity extends AppCompatActivity {
     @OnClick(R.id.image_send)
     void OnClickSend() {
 
-        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(),"text");
+        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(), "text");
         mInputMessage.setText("");
     }
 
     @OnClick(R.id.image_icon)
-    void onClickIcon(){
-        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(),"text");
+    void onClickIcon() {
+        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(), "text");
         mInputMessage.setText("");
 
     }
 
     @OnTextChanged(R.id.input_message)
-    void onTextChangeMessage(){
-        if(!TextUtils.isEmpty(mInputMessage.getText())){
+    void onTextChangeMessage() {
+        if (!TextUtils.isEmpty(mInputMessage.getText())) {
             mImageIcon.setVisibility(View.INVISIBLE);
             mImageSend.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             mImageIcon.setVisibility(View.VISIBLE);
             mImageSend.setVisibility(View.INVISIBLE);
         }
     }
+
     private void getListMessage(final String userId) {
 
         reference = FirebaseDatabase.getInstance().getReference();
@@ -173,13 +168,14 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listMessage.clear();
-                for (DataSnapshot data :  dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Message message = data.getValue(Message.class);
                     listMessage.add(message);
                 }
-                Log.i("ha", "onDataChange: " +listMessage.toString());
+                Log.i("ha", "onDataChange: " + listMessage.toString());
                 adapter.setmMessageList(listMessage);
-                mRcvMessage.scrollToPosition(adapter.getItemCount() -1);
+                mRcvMessage.scrollToPosition(adapter.getItemCount() - 1);
+//                Log.d("a", "onDataChange: lissdfd " + );
 
             }
 
@@ -192,23 +188,20 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     private void sendMessgae(String from, String receiver, String message, String type) {
+
         reference = FirebaseDatabase.getInstance().getReference();
-        Message message1 = new Message(message, from, false, 12, type);
-
+        Message message1 = new Message(message, from, false, System.currentTimeMillis(), type);
         HashMap<String, Object> hashMap = new HashMap<>();
-
         String key = reference.child("Message").child(from).child(receiver).push().getKey();
-
         hashMap.put("from", from);
         hashMap.put("message", message);
         hashMap.put("seen", message1.isSeen());
-        hashMap.put("time", 121212);
+        hashMap.put("time", message1.getTime());
         hashMap.put("type", type);
         reference.child("Message").child(from).child(receiver).child(key).updateChildren(hashMap);
         reference.child("Message").child(receiver).child(from).child(key).updateChildren(hashMap);
 
     }
-
 
 
     private void initToolbar() {
@@ -222,7 +215,7 @@ public class MessageActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Users users =  dataSnapshot.getValue(Users.class);
+                Users users = dataSnapshot.getValue(Users.class);
 
                 Glide.with(getApplicationContext())
                         .load(users.getAvatar())

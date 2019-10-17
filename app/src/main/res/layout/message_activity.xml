@@ -39,7 +39,7 @@
         android:layout_margin="2dp"
         android:layout_below="@id/toolbar_message"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 
 
 </ScrollView>
@@ -49,6 +49,7 @@
         android:id="@+id/layout_send"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="7dp"
+        android:background="@color/white"
         android:layout_marginLeft="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

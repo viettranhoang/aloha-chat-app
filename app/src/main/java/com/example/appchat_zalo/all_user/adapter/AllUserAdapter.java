@@ -27,9 +27,6 @@ public class AllUserAdapter extends RecyclerView.Adapter<AllUserAdapter.AllUserV
 
     private OnclickItemUserListener listener;
 
-    public AllUserAdapter() {
-    }
-
     public AllUserAdapter(OnclickItemUserListener listener) {
         this.listener = listener;
     }
@@ -89,7 +86,7 @@ public class AllUserAdapter extends RecyclerView.Adapter<AllUserAdapter.AllUserV
                     .into(mImageOnline);
         }
 
-        @OnClick(R.id.image_avatar)
+        @OnClick(R.id.layout_user)
         void  onClickItem(){
             listener.onClickFriendOnlineItem(mListUSer.get(getAdapterPosition()));
 

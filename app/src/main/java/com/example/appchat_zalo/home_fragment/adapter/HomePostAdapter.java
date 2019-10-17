@@ -29,8 +29,19 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
 
     public void setmPostList(List<Posts> mPostList) {
         this.mPostList = mPostList;
+        notifyDataSetChanged();
     }
 
+    //
+//    public void setmPostList(List<Posts> mPostList) {
+//        this.mPostList = mPostList;
+//    }
+
+    public void adddPost( Posts posts){
+        mPostList.add(posts);
+        notifyDataSetChanged();
+
+    }
     @NonNull
     @Override
     public HomePostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

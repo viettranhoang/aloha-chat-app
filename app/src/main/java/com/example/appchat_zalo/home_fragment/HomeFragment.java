@@ -1,6 +1,7 @@
 package com.example.appchat_zalo.home_fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,8 @@ import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.home_fragment.adapter.HomePostAdapter;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
+import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
 import com.example.appchat_zalo.utils.Constants;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,8 +36,10 @@ import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
 
-    private List<Posts> listHomePost = new ArrayList<>();
     private HomePostAdapter mHomePostAdapter = new HomePostAdapter();
+
+
+    List<Posts> postList = new ArrayList<>();
 
     @BindView(R.id.list_posts_friends)
     RecyclerView mRcvHomePost;
@@ -48,8 +50,7 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.text_posts)
     TextView mTextPost;
 
-    private DatabaseReference mUserRef, mPostRef;
-    private String mUserId;
+    private DatabaseReference mUserRef, mPostRef, mFriendRef, mRef;
 
     @Nullable
     @Override
@@ -67,7 +68,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getUser() {
-        mUserRef.addValueEventListener(new ValueEventListener() {
+        mUserRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -86,26 +87,32 @@ public class HomeFragment extends Fragment {
     }
 
     private void initFirebase() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        mUserId = user.getUid();
         mPostRef = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_POSTS);
         mUserRef = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_USERS);
-
+        mFriendRef = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_FRIEND);
+        mRef = FirebaseDatabase.getInstance().getReference();
     }
 
     private void getListPosts() {
-        mPostRef.orderByChild("time").addValueEventListener(new ValueEventListener() {
+
+        mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listHomePost.clear();
-                for (DataSnapshot userData : dataSnapshot.getChildren()) {
-                    for (DataSnapshot postData : userData.getChildren()) {
-                        Posts posts = postData.getValue(Posts.class);
-                        listHomePost.add(posts);
+                List<Posts> listPost = new ArrayList<>();
+                for (DataSnapshot data : dataSnapshot.child(Constants.TABLE_FRIEND).child(Constants.UID).getChildren()) {
+                    if (data.getValue(String.class).equals(UserRelationshipConfig.FRIEND)) {
+                        String idFriend = data.getKey();
+
+                        for (DataSnapshot PostData : dataSnapshot.child(Constants.TABLE_POSTS).child(idFriend).getChildren()){
+                            listPost.add(PostData.getValue(Posts.class));
+                            Log.d("a", "onDataChange: post" +listPost.toString());
+
+                        }
                     }
+
                 }
-                mHomePostAdapter.setmPostList(listHomePost);
-                mRcvHomePost.setAdapter(mHomePostAdapter);
+                mHomePostAdapter.setmPostList(listPost);
+
             }
 
             @Override
@@ -113,13 +120,70 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+//        mFriendRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot data : dataSnapshot.getChildren()) {
+//                    String idFriend = data.getKey();
+//                    Log.d("a", "idFriend:===" + idFriend);
+//
+//                    mPostRef.child(idFriend).addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            for (DataSnapshot  friendData : dataSnapshot.getChildren()){
+//                                Posts posts =  friendData.getValue(Posts.class);
+//                                mHomePostAdapter.adddPost(posts);
+////                                postList.add(posts);
+////                                Log.d("a", "listpost ===" + postList.toString());
+//
+//                            }
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+////                    mPostRef.child(idFriend).addValueEventListener(new ValueEventListener() {
+////                        @Override
+////                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+////                            for (DataSnapshot friendPost : dataSnapshot.getChildren()) {
+////
+////                                Posts posts = friendPost.getValue(Posts.class);
+////                                postList.add(posts);
+////
+////                                Log.d("a", "listPost==" + postList.toString());
+////
+//////                                mHomePostAdapter.adddPost(posts);
+////                            }
+////                            Log.d("a", "listPost==" + postList.toString());
+////
+////                        }
+////
+////                        @Override
+////                        public void onCancelled(@NonNull DatabaseError databaseError) {
+////
+////                        }
+////                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+
     }
 
 
     private void innitRcvPost() {
-        listHomePost = new ArrayList<>();
         mRcvHomePost.setLayoutManager(new LinearLayoutManager(getContext()));
         mRcvHomePost.setHasFixedSize(true);
+        mRcvHomePost.setAdapter(mHomePostAdapter);
     }
 
 }

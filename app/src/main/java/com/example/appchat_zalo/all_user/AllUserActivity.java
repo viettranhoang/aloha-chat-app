@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appchat_zalo.Message.MessageActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.UserProfileActivity;
 import com.example.appchat_zalo.all_user.adapter.AllUserAdapter;
@@ -40,8 +41,6 @@ public class AllUserActivity extends AppCompatActivity {
     private AllUserAdapter mAdapter;
 
     private List<Users> mListUser = new ArrayList<>();
-
-
 
 
     @Override
@@ -101,7 +100,6 @@ public class AllUserActivity extends AppCompatActivity {
     }
 
     private void initRcv() {
-        mAdapter = new AllUserAdapter();
         mRcvAllUser.setLayoutManager(new LinearLayoutManager(this));
         mRcvAllUser.setHasFixedSize(true);
     }

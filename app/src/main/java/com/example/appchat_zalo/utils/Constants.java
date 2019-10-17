@@ -1,5 +1,7 @@
 package com.example.appchat_zalo.utils;
 
+import com.example.appchat_zalo.model.Users;
+
 public class Constants {
 
     public static String UID = "";
@@ -16,4 +18,7 @@ public class Constants {
 
     public static final String ROW_NAME = "name";
     public static final String ROW_AVATAR = "avatar";
+    public static final long ONLINE = 1;
+    public static String CURRENT_UID = "";
+    public static Users CURRENT_USER = null;
 }

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_marginLeft="2dp"
-    android:layout_marginTop="3dp"
-    android:layout_marginRight="2dp"
+    android:layout_marginLeft="7dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="6dp"
+    android:layout_margin="8dp"
     android:weightSum="3"
     android:layout_height="wrap_content">
     <RelativeLayout
+        android:layout_marginLeft="7dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
@@ -26,12 +28,12 @@
 
 
     <RelativeLayout
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/txt_name"
+            android:id="@+id/text_name"
             android:text="Vũ Hạnh"
             android:textSize="20sp"
             android:textColor="@color/black"
@@ -44,7 +46,7 @@
             android:layout_width="wrap_content"
             android:maxLines="1"
             android:inputType="text"
-            android:layout_below="@+id/txt_name"
+            android:layout_below="@+id/text_name"
             android:fontFamily="sans-serif"
             android:text="Yeu bom nhat "
             android:textColor="@color/black"
@@ -54,7 +56,7 @@
             android:id="@+id/text_time_seen"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/txt_name"
+            android:layout_below="@+id/text_name"
             android:layout_marginLeft="14dp"
             android:layout_toRightOf="@+id/text_message"
             android:fontFamily="sans-serif"
@@ -62,11 +64,11 @@
             android:textColor="@color/black"
             android:textSize="15sp" />
 
-
         <ImageView
             android:id="@+id/image_seen"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:layout_margin="7dp"
             android:layout_centerInParent="true"
             android:background="@drawable/roun_conner_seen"
             android:layout_width="16dp"

@@ -42,4 +42,13 @@ public class Chat {
     public void setLastMessage(Message lastMessage) {
         this.lastMessage = lastMessage;
     }
+
+    @Override
+    public String toString() {
+        return "Chat{" +
+                "users=" + users +
+                ", groups=" + groups +
+                ", lastMessage=" + lastMessage +
+                '}';
+    }
 }

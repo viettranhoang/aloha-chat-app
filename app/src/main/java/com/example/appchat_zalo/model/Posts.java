@@ -77,4 +77,17 @@ public class Posts {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Posts{" +
+                "date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", content_posts='" + content_posts + '\'' +
+                ", picture='" + picture + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", name='" + name + '\'' +
+                ", idPost='" + idPost + '\'' +
+                '}';
+    }
 }

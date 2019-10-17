@@ -24,29 +24,20 @@ import butterknife.OnClick;
 public class FriendsOnlineAdapter extends RecyclerView.Adapter<FriendsOnlineAdapter.FriendOnlineViewHolder>{
 
     private List<Users> usersList = new ArrayList<>();
-    private Context context;
 
     private OnclickItemFriendListener listener;
 
-    public FriendsOnlineAdapter() {
-    }
-
-    public FriendsOnlineAdapter(Context context, List<Users> listUser, OnclickItemFriendListener onclick) {
-
-        this.context = context;
-        this.usersList =  listUser;
-        this.listener= onclick;
-
-
-    }
-
-    public void setUsersList(List<Users> usersList) {
-        this.usersList = usersList;
-        notifyDataSetChanged();
+    public FriendsOnlineAdapter(OnclickItemFriendListener listener) {
+        this.listener = listener;
     }
 
     public void addUser(Users user) {
         usersList.add(user);
+        notifyDataSetChanged();
+    }
+
+    public void setUsersList(List<Users> usersList) {
+        this.usersList = usersList;
         notifyDataSetChanged();
     }
 
