@@ -124,7 +124,19 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     .into(mImageAvatar);
 
             mTextTime.setText(Utils.getTime(message.getTime()));
-            mTextSeen.setText(message.isSeen() ? "Đã xem" : "Đã chuyển");
+
+            String  seen = message.isSeen() ?  "đã xem" : "đã chuyển";
+            mTextSeen.setText(seen);
+
+//            mTextSeen.setText(message.isSeen() ?  : "");
+//            boolean seen =  message.isSeen();
+//           if(seen){
+//               mTextSeen.setText("đã xem");
+//           }
+//           else {
+//               mTextSeen.setText("đã chuyển");
+//           }
+//            mTextSeen.setText(message.isSeen() ? "Đã xem" : "Đã chuyển");1
 
             if (message.getType().equals(MessageTypeConfig.TEXT)){
                 mTextMessage.setText(message.getMessage());

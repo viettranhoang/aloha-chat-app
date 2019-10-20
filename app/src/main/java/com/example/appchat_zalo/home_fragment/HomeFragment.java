@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,7 +51,7 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.text_posts)
     TextView mTextPost;
 
-    private DatabaseReference mUserRef, mPostRef, mFriendRef, mRef;
+    private DatabaseReference mUserRef, mPostRef, mFriendRef, mRef, mLikeRef;
 
     @Nullable
     @Override
@@ -100,13 +101,13 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Posts> listPost = new ArrayList<>();
                 for (DataSnapshot data : dataSnapshot.child(Constants.TABLE_FRIEND).child(Constants.UID).getChildren()) {
+
                     if (data.getValue(String.class).equals(UserRelationshipConfig.FRIEND)) {
                         String idFriend = data.getKey();
 
                         for (DataSnapshot PostData : dataSnapshot.child(Constants.TABLE_POSTS).child(idFriend).getChildren()){
                             listPost.add(PostData.getValue(Posts.class));
                             Log.d("a", "onDataChange: post" +listPost.toString());
-
                         }
                     }
 

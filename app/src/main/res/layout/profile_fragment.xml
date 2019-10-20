@@ -151,60 +151,63 @@
 
         </LinearLayout>
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/layout_four"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@id/layout_three"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginRight="5dp"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:weightSum="3">-->
-
-
-            <!--<ImageView-->
-                <!--android:id="@+id/image_news"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="100dp"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:layout_marginRight="5dp"-->
-                <!--android:layout_weight="0.55"-->
-                <!--android:background="@drawable/boder_posts_white"-->
-                <!--android:padding="10dp"-->
-                <!--android:src="@drawable/ic_add"-->
-                <!--android:tint="@color/gray" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/text_news"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="70dp"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:layout_marginTop="18dp"-->
-                <!--android:layout_marginRight="5dp"-->
-                <!--android:layout_weight="2.25"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:padding="8dp"-->
-                <!--android:text="Tạo tin mới  của bạn"-->
-                <!--android:textAlignment="gravity"-->
-                <!--android:textAllCaps="false"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="15sp"-->
-                <!--android:textStyle="normal" />-->
-
-        <!--</LinearLayout>-->
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_my_posts"
+        <LinearLayout
+            android:id="@+id/layout_four"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_three"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+
+            <ImageView
+                android:id="@+id/image_news"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.55"
+                android:background="@drawable/boder_posts_white"
+                android:padding="10dp"
+                android:src="@drawable/ic_add"
+                android:tint="@color/gray" />
+
+            <TextView
+                android:id="@+id/text_news"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2.25"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Tạo tin mới  của bạn"
+                android:textAlignment="gravity"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+
+                android:id="@+id/list_my_posts"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="5dp"
+                android:layout_below="@id/layout_four"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
     </RelativeLayout>
 

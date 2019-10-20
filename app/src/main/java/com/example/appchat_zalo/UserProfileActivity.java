@@ -86,7 +86,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private String mCurrentRelative = NOT;
 
     FirebaseUser mUser;
-    DatabaseReference mUserRef, mUserPost, mFriendRequestRef, mFriendRef;
+    DatabaseReference mUserRef, mUserPost, mFriendRequestRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +143,7 @@ public class UserProfileActivity extends AppCompatActivity {
 //    }
 
     @OnClick(R.id.image_decline_friend)
-    void onClickDeclineFriend(){
+    void onClickDeclineFriend() {
 
         mImageDeclineFriend.setEnabled(false);
         mImageDeclineFriend.setVisibility(View.GONE);
@@ -211,48 +211,29 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void Unfriend(String fromId, String toId) {
-        mFriendRef.child(fromId).child(toId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+        mFriendRequestRef.child(fromId).child(toId).setValue("not").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                mFriendRef.child(toId).child(fromId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
 
-                            mFriendRequestRef.child(fromId).child(toId).setValue("not").addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-
-                                    if(task.isSuccessful()){
-                                        mFriendRequestRef.child(toId).child(fromId).setValue("not").addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                mImageAddFriend.setEnabled(true);
-                                                mImageAddFriend.setImageResource(R.drawable.ic_add_friends);
-                                                mTextAddFriend.setText("Thêm bạn bè");
-                                                mTextAddFriend.setTextColor(R.color.black);
-                                                mImageDeclineFriend.setVisibility(View.GONE);
-                                                mTextDeclineFriend.setVisibility(View.GONE);
-                                                mImageDeclineFriend.setEnabled(false);
-                                            }
-                                        });
-                                    }
-                                }
-                            });
-
-                            mFriendRef.child(toId).child(fromId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-
-                                }
-                            });
+                if (task.isSuccessful()) {
+                    mFriendRequestRef.child(toId).child(fromId).setValue("not").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            mImageAddFriend.setEnabled(true);
+                            mImageAddFriend.setImageResource(R.drawable.ic_add_friends);
+                            mTextAddFriend.setText("Thêm bạn bè");
+                            mTextAddFriend.setTextColor(R.color.black);
+                            mImageDeclineFriend.setVisibility(View.GONE);
+                            mTextDeclineFriend.setVisibility(View.GONE);
+                            mImageDeclineFriend.setEnabled(false);
                         }
-                    }
-                });
-
-
+                    });
+                }
             }
         });
+
     }
 
     private void AcceptInviteFromFriend(String fromId, String toId) {
@@ -260,7 +241,7 @@ public class UserProfileActivity extends AppCompatActivity {
         mFriendRequestRef.child(fromId).child(toId).setValue("friend").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     mFriendRequestRef.child(toId).child(fromId).setValue("friend").addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -468,8 +449,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                                         }
                                     });
-                                }
-                                else if (mCurrentRelative.equals(FRIEND)) {
+                                } else if (mCurrentRelative.equals(FRIEND)) {
                                     mImageAddFriend.setImageResource(R.drawable.ic_account_check);
                                     mTextAddFriend.setText("Hủy kết bạn");
                                     mTextAddFriend.setTextColor(R.color.black);
@@ -486,7 +466,7 @@ public class UserProfileActivity extends AppCompatActivity {
                                 }
                             } else {
 
-                                mFriendRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
+                                mFriendRequestRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         if (dataSnapshot.hasChild(mUserId)) {
@@ -555,7 +535,6 @@ public class UserProfileActivity extends AppCompatActivity {
         mUserPost = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
         mUserRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
         mFriendRequestRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_FRIEND);
-//        mFriendRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_FRIEND);
 
     }
 }

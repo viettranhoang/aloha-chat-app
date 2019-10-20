@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.friends.listener.OnclickItemFriendListener;
 import com.example.appchat_zalo.model.Users;
+import com.example.appchat_zalo.utils.Constants;
+import com.example.appchat_zalo.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +78,7 @@ public class FriendsOnlineAdapter extends RecyclerView.Adapter<FriendsOnlineAdap
         void bindata(Users users){
             mName.setText(users.getName());
 
+
             if(users.getAvatar().equals("default")){
                 mAvatar.setImageResource(R.drawable.background_main);
             }
@@ -85,9 +88,17 @@ public class FriendsOnlineAdapter extends RecyclerView.Adapter<FriendsOnlineAdap
                         .circleCrop()
                         .into(mAvatar);
             }
-            Glide.with(itemView)
-                    .load(users.getOnline())
-                    .into(mOnline);
+
+
+            if(users.getOnline() == Constants.ONLINE){
+                mOnline.setVisibility(View.VISIBLE);
+                Glide.with(itemView)
+                        .load(users.getOnline())
+                        .into(mOnline);
+            } else{
+                mOnline.setVisibility(View.GONE);
+            }
+
         }
         @OnClick(R.id.layout_friend_online)
         void  onClickItem(){

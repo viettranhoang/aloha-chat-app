@@ -1,7 +1,6 @@
 package com.example.appchat_zalo.fragment;
 
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,7 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.webkit.MimeTypeMap;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,14 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.add_posts.adapter.AddPostAdapter;
-import com.example.appchat_zalo.home_fragment.HomeFragment;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.android.gms.tasks.Continuation;
@@ -181,8 +178,11 @@ public class PostsActivity extends AppCompatActivity {
         mSaveCurrentTime = currentTime.format(calendarDate.getTime());
 
         mPostRandomName = mSaveCurrentDate + mSaveCurrentTime;
+        Log.i("aa", "storagePictureToFirebase:  " +mUrl.getLastPathSegment());
+
 
         StorageReference filePath = storageReference.child("UploadPost").child(mUrl.getLastPathSegment() + mPostRandomName + ".jpg");
+
 
         filePath.putFile(mUrl).continueWithTask((Continuation) task -> {
             if (!task.isSuccessful()) {
@@ -209,17 +209,23 @@ public class PostsActivity extends AppCompatActivity {
         refPost.child(postId).setValue(new Posts(mSaveCurrentDate, mSaveCurrentTime,
                 mInputsContentPost.getText().toString(), urlDownload, Constants.UAVATAR, Constants.UNAME, postId))
                 .addOnCompleteListener(task -> {
+
                     if (task.isSuccessful()) {
-                        Intent intent = new Intent(this, ProfileFragment.class);
 //                        Bundle bundle = new Bundle();
-////
-//                        bundle.putString("time", "time");
-//                        bundle.putString("date", "date");
-//                        bundle.putString("content_posts", "content");
-//                        bundle.putString("picture", "picture");
-//                        bundle.putString("avatar", "avatar");
-//                        bundle.putString("name", "name");
+//                        bundle.putString("time", "time_post");
+//                        bundle.putString("date", "date_post");
+//                        bundle.putString("content_posts", "content_post");
+//                        bundle.putString("picture", "picture_post");
+//                        bundle.putString("avatar", "avatar_post");
+//                        bundle.putString("name", "name_post");
+//
+//                        FragmentManager fragmentManager = getSupportFragmentManager();
+//                        ProfileFragment profileFragment =  new ProfileFragment();
+//                        profileFragment.setArguments(bundle);
+//                        fragmentManager.beginTransaction().replace(R.id.frame_layout_post, profileFragment).commit();
                         Toast.makeText(PostsActivity.this, "New posts is updated successful!!!", Toast.LENGTH_SHORT).show();
+
+
                         progressDialog.dismiss();
                     } else {
 

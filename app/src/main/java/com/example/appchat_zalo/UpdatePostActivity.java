@@ -70,11 +70,13 @@ public class UpdatePostActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    Posts posts = dataSnapshot.getValue(Posts.class);
+                Posts posts = dataSnapshot.getValue(Posts.class);
+                if (posts != null) {
                     mContentPost.setText(posts.getContent_posts());
                     Glide.with(getApplicationContext())
                             .load(posts.getPicture())
                             .into(mPicturePost);
+                }
 
             }
 
@@ -86,7 +88,7 @@ public class UpdatePostActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.button_delete_post)
-    void deldePost(){
+    void deldePost() {
         refPost.removeValue();
         Toast.makeText(this, "Posts is deleted!!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, HomeChatActivity.class);
@@ -95,8 +97,8 @@ public class UpdatePostActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.button_edit_post)
-    void editPost(){
-        AlertDialog.Builder builder =  new AlertDialog.Builder(this);
+    void editPost() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Edit Post:");
 
         final EditText inputContentPost = new EditText(this);
@@ -117,7 +119,7 @@ public class UpdatePostActivity extends AppCompatActivity {
                 dialogInterface.cancel();
             }
         });
-        Dialog  dialog =  builder.create();
+        Dialog dialog = builder.create();
         dialog.show();
         dialog.getWindow().setBackgroundDrawableResource(R.color.blue);
     }

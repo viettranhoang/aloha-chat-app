@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include
-        layout="@layout/friend_toolbar">
-    </include>
+    <include layout="@layout/friend_toolbar"></include>
 
     <View
         android:id="@+id/view_layout_bottom"
         android:layout_width="match_parent"
+        android:layout_height="0.1dp"
         android:layout_above="@id/list_news"
-        android:background="@color/black_light"
         android:layout_below="@+id/toolbar_friends"
-        android:layout_height="0.1dp"/>
-
+        android:background="@color/black_light" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_below="@+id/toolbar_friends"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="2dp"
-        android:layout_margin="10dp"
         android:id="@+id/list_news"
-        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
-
-
-    <ScrollView
-        android:id="@+id/layout_friend_online"
-        android:layout_below="@id/list_news"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_friends"
+        android:layout_marginStart="10dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="2dp"
-        android:layout_margin="10dp"
         android:layout_marginTop="10dp"
-        android:layout_height="wrap_content">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_friend_online"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="10dp"></androidx.recyclerview.widget.RecyclerView>
 
+    <!--<ScrollView-->
+    <!--android:id="@+id/layout_friend_online"-->
 
-    </ScrollView>
-   </RelativeLayout>
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_marginRight="2dp"-->
+    <!--android:layout_margin="10dp"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_friend_online"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/list_news"></androidx.recyclerview.widget.RecyclerView>
+
+    <!--</ScrollView>-->
+</RelativeLayout>

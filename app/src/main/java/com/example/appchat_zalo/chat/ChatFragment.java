@@ -50,7 +50,7 @@ public class ChatFragment extends Fragment {
         }
     });
 
-    private DatabaseReference mMessageRef, mUserRef, mRef;
+    private DatabaseReference mRef;
 
     @Nullable
     @Override
@@ -148,8 +148,6 @@ public class ChatFragment extends Fragment {
 
     private void initFirebase() {
         mRef = FirebaseDatabase.getInstance().getReference();
-        mMessageRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_MESSAGE);
-        mUserRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
     }
 
 

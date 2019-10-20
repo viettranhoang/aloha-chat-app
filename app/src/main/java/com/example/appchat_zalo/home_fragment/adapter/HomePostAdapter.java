@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePostViewHolder> {
 
@@ -82,6 +83,16 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
 
         @BindView(R.id.image_picture_posts)
         ImageView mPicturePost;
+
+        @BindView(R.id.image_like)
+        ImageView mImageLike;
+
+        @BindView(R.id.image_comment)
+        ImageView mImageComment;
+
+        @BindView(R.id.text_numbeber_like)
+        TextView mTextNumberLike;
+
         public HomePostViewHolder(@NonNull View itemView) {
             super(itemView);
            ButterKnife.bind(this, itemView);

@@ -1,11 +1,15 @@
 package com.example.appchat_zalo.fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +49,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,11 +70,11 @@ public class ProfileFragment extends Fragment {
     private ImageView mImageEditCover;
     private TextView mTextName;
     private TextView mTextStatus;
-    private TextView mTextOne;
-    private TextView mTextTwo;
-    private TextView mTextFriend;
-    private TextView mTextFollow;
     private ImageView mImageAvatar1;
+
+    @BindView(R.id.image_news)
+    ImageView mImageNews;
+
     private TextView mTextPost;
 
     @BindView(R.id.list_my_posts)
@@ -80,6 +85,8 @@ public class ProfileFragment extends Fragment {
     private DatabaseReference refUser, refPosts;
 
     private static final int IMAGE_CHOOSE = 1;
+    private static final int IMAGE_PHOTO = 2;
+
     private StorageTask mUpLoadTask;
     private Uri mUrl;
     private boolean isUpdateAvatar = true;
@@ -101,13 +108,30 @@ public class ProfileFragment extends Fragment {
         mImageAvatar = view.findViewById(R.id.image_avatar);
         mImageAvatar1 = view.findViewById(R.id.image_avatar1);
         mImageBack = view.findViewById(R.id.image_back);
+        mTextPost = view.findViewById(R.id.text_posts);
         mImageCover = view.findViewById(R.id.image_background);
         mImageEditAvatar = view.findViewById(R.id.image_edit_avatar);
         mImageEditCover = view.findViewById(R.id.image_edit_cover);
         mTextName = view.findViewById(R.id.text_name);
         mTextStatus = view.findViewById(R.id.text_status);
-        mTextPost = view.findViewById(R.id.text_posts);
 
+//        Bundle bundle = this.getArguments();
+//        if (bundle != null){
+//
+//            bundle.putString("time", "time");
+//            String time = bundle.getString("time");
+//            String date = bundle.getString("date");
+//            String content_posts = bundle.getString("content_posts");
+//            String picture = bundle.getString("time");
+//            String avatar = bundle.getString("picture");
+//            String name = bundle.getString("name");
+//            Log.d("aa", "onCreateView: ddd" + time);
+//            Log.d("aa", "onCreateView: ddd" + date);
+//            Log.d("aa", "onCreateView: ddd" + content_posts);
+//            Log.d("aa", "onCreateView: ddd" + picture);
+//            Log.d("aa", "onCreateView: ddd" + avatar);
+//            Log.d("aa", "onCreateView: ddd" + name);
+//        }
 
         refUser.child(Constants.UID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -130,6 +154,7 @@ public class ProfileFragment extends Fragment {
                     } else {
                         Glide.with(getActivity())
                                 .load(users.getCover())
+                                .centerCrop()
                                 .into(mImageCover);
                     }
 
@@ -155,7 +180,6 @@ public class ProfileFragment extends Fragment {
 
         return view;
     }
-
     private void initFirebase() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         refUser = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
@@ -231,6 +255,24 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+
+//    @OnClick(R.id.image_news)
+//    void onClickNews(){
+//
+//        takePhoto();
+//
+//    }
+
+    private void takePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+        mUrl = Uri.fromFile(photo);
+        ProfileFragment.this.startActivityForResult(intent, IMAGE_PHOTO);
+
+    }
+
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -273,6 +315,8 @@ public class ProfileFragment extends Fragment {
                     String mUriDowload = urlDowlaod.toString();
                     refUser = FirebaseDatabase.getInstance().getReference("Users").child(Constants.UID);
                     HashMap<String, Object> hashMap = new HashMap<>();
+
+                    hashMap.put("news", mUriDowload);
                     if (isUpdateAvatar) hashMap.put("avatar", mUriDowload);
                     else hashMap.put("cover", mUriDowload);
 //                    if(isAddNews) hashMap.put("news", mUriDowload);
@@ -298,6 +342,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+
         if (requestCode == IMAGE_CHOOSE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             mUrl = data.getData();
 
@@ -308,6 +354,26 @@ public class ProfileFragment extends Fragment {
 
             }
         }
+
+//        else if(resultCode == Activity.RESULT_OK){
+//
+//            Uri selectedImage = mUrl;
+//            getActivity().getContentResolver().notifyChange(selectedImage, null);
+//            ContentResolver cr = getActivity().getContentResolver();
+//            Bitmap bitmap;
+//            try {
+//                bitmap = android.provider.MediaStore.Images.Media
+//                        .getBitmap(cr, selectedImage);
+//            mImageNews.setImageBitmap(bitmap);
+//                Toast.makeText(getActivity(), selectedImage.toString(),
+//                        Toast.LENGTH_LONG).show();
+//            } catch (Exception e) {
+//                Toast.makeText(getActivity(), "Failed to load", Toast.LENGTH_SHORT)
+//                        .show();
+//                Log.e("Camera", e.toString());
+//            }
+//
+//        }
 
     }
 
@@ -322,13 +388,10 @@ public class ProfileFragment extends Fragment {
                 }
 
                 Log.i("ha", "onDataChangePost: " + listMyPosts.toString());
-                profilePostsAdapter = new ProfilePostsAdapter(new OnclickItemMyPostListner() {
-                    @Override
-                    public void onClickMyPostItem(Posts post) {
-                        Intent intent = new Intent(getContext(), UpdatePostActivity.class);
-                        intent.putExtra("idPost",post.getIdPost());
-                        startActivity(intent);
-                    }
+                profilePostsAdapter = new ProfilePostsAdapter(post -> {
+                    Intent intent = new Intent(getContext(), UpdatePostActivity.class);
+                    intent.putExtra("idPost",post.getIdPost());
+                    startActivity(intent);
                 });
                 profilePostsAdapter.setListMyPost(listMyPosts);
                 mRcvListMyPost.setAdapter(profilePostsAdapter);

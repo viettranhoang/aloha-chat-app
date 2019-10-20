@@ -1,5 +1,7 @@
 package com.example.appchat_zalo.model;
 
+import java.io.Serializable;
+
 public class Posts {
     private String date;
     private String time;

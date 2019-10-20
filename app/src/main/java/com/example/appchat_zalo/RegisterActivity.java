@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.appchat_zalo.cache.PrefUtils;
+import com.example.appchat_zalo.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,6 +38,8 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView mImageBack;
     private DatabaseReference reference;
     private ProgressDialog loadingBar;
+
+    private long  online = Constants.ONLINE;
 //    private PrefUtils prefUtils;
 
     @Override

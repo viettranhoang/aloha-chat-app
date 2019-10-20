@@ -19,5 +19,6 @@
     <color name="tvbackground">#33253A4B</color>
     <color name="black87">#DE000000</color>
     <color name="black40">#66000000</color>
+    <color name="red">#F71313</color>
 
 </resources>

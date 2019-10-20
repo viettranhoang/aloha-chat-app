@@ -2,7 +2,6 @@ package com.example.appchat_zalo.friends;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appchat_zalo.Message.MessageActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.all_user.AllUserActivity;
+import com.example.appchat_zalo.friends.adapter.FriendNewsAdapter;
 import com.example.appchat_zalo.friends.adapter.FriendsOnlineAdapter;
-import com.example.appchat_zalo.friends.listener.OnclickItemFriendListener;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
 import com.example.appchat_zalo.utils.Constants;
@@ -40,19 +39,22 @@ public class FriendsFragment extends Fragment {
     @BindView(R.id.list_friend_online)
     RecyclerView mRcvListFriend;
 
+
+    @BindView(R.id.list_news)
+    RecyclerView mRcvListNews;
+
     @BindView(R.id.image_contact)
     ImageView mImageContact;
 
-    private FriendsOnlineAdapter friendsOnlineAdapter = new FriendsOnlineAdapter(new OnclickItemFriendListener() {
-        @Override
-        public void onClickFriendOnlineItem(Users users) {
-            Intent intent = new Intent(getContext(), MessageActivity.class);
-            intent.putExtra("userId", users.getId());
-            startActivity(intent);
-        }
+    private FriendNewsAdapter mNewsAdapter = new FriendNewsAdapter();
+
+    private FriendsOnlineAdapter mFriendAdapter = new FriendsOnlineAdapter(users -> {
+        Intent intent = new Intent(getContext(), MessageActivity.class);
+        intent.putExtra("userId", users.getId());
+        startActivity(intent);
     });
 
-    private DatabaseReference mRef, mFriendRef, mUserRef;
+    private DatabaseReference mRef;
 
     private String type = UserRelationshipConfig.FRIEND;
 
@@ -68,8 +70,33 @@ public class FriendsFragment extends Fragment {
         initRcv();
 
 
-        getListFriendOnline(Constants.UID, type);
+        getListFriend(Constants.UID, type);
+
+        getListNews(type);
         return view;
+    }
+
+    private void getListNews(String type) {
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Users> listNewsFriend =  new ArrayList<>();
+                for (DataSnapshot  data : dataSnapshot.child(Constants.TABLE_FRIEND). child(Constants.UID).getChildren()){
+                    if(data.getValue(String.class).equals(type)){
+                        String  idFriend =  data.getKey();
+                        listNewsFriend.add(dataSnapshot.child(Constants.TABLE_USERS).child(idFriend).getValue(Users.class));
+                    }
+                }
+
+                mNewsAdapter.setmUserNewsList(listNewsFriend);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @OnClick(R.id.image_contact)
@@ -81,17 +108,18 @@ public class FriendsFragment extends Fragment {
     private void initRcv() {
         mRcvListFriend.setLayoutManager(new LinearLayoutManager(getContext()));
         mRcvListFriend.setHasFixedSize(true);
-        mRcvListFriend.setAdapter(friendsOnlineAdapter);
-    }
+        mRcvListFriend.setAdapter(mFriendAdapter);
 
+        mRcvListNews.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mRcvListNews.setHasFixedSize(true);
+        mRcvListNews.setAdapter(mNewsAdapter);
+
+    }
     private void initFireBase() {
         mRef = FirebaseDatabase.getInstance().getReference();
-        mFriendRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_FRIEND);
-        mUserRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
-
     }
 
-    private void getListFriendOnline(String currentId, String type) {
+    private void getListFriend(String currentId, String type) {
 
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,12 +130,10 @@ public class FriendsFragment extends Fragment {
                     if (data.getValue(String.class).equals(type)) {
                         String idFriend = data.getKey();
                         list.add(dataSnapshot.child(Constants.TABLE_USERS).child(idFriend).getValue(Users.class));
-
                     }
-
                 }
 
-                friendsOnlineAdapter.setUsersList(list);
+                mFriendAdapter.setUsersList(list);
             }
 
             @Override
