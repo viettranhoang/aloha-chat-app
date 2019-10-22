@@ -30,6 +30,6 @@
         android:layout_marginBottom="12dp"
         android:fontFamily="sans-serif-medium"
         android:text="Vu Nhat Minh "
-        android:textColor="@color/black" />
+        android:textColor="@color/white" />
 
 </RelativeLayout>

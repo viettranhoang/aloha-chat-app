@@ -1,5 +1,6 @@
 package com.example.appchat_zalo.home_fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.comment.CommentActivity;
 import com.example.appchat_zalo.home_fragment.adapter.HomePostAdapter;
+import com.example.appchat_zalo.home_fragment.listner.OnclickHomeFragmentItemListener;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
@@ -37,8 +40,12 @@ import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
 
-    private HomePostAdapter mHomePostAdapter = new HomePostAdapter();
+    private HomePostAdapter mHomePostAdapter = new HomePostAdapter(posts -> {
+        Intent intent =  new Intent(getContext(), CommentActivity.class);
+        intent.putExtra("postId", posts.getIdPost());
+        startActivity(intent);
 
+    });
 
     List<Posts> postList = new ArrayList<>();
 
@@ -104,7 +111,6 @@ public class HomeFragment extends Fragment {
 
                     if (data.getValue(String.class).equals(UserRelationshipConfig.FRIEND)) {
                         String idFriend = data.getKey();
-
                         for (DataSnapshot PostData : dataSnapshot.child(Constants.TABLE_POSTS).child(idFriend).getChildren()){
                             listPost.add(PostData.getValue(Posts.class));
                             Log.d("a", "onDataChange: post" +listPost.toString());

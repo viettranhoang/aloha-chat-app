@@ -225,7 +225,6 @@ public class PostsActivity extends AppCompatActivity {
 //                        fragmentManager.beginTransaction().replace(R.id.frame_layout_post, profileFragment).commit();
                         Toast.makeText(PostsActivity.this, "New posts is updated successful!!!", Toast.LENGTH_SHORT).show();
 
-
                         progressDialog.dismiss();
                     } else {
 

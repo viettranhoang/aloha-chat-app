@@ -210,6 +210,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("seen", message1.isSeen());
         hashMap.put("time", message1.getTime());
         hashMap.put("type", type);
+
         reference.child("Message").child(from).child(receiver).child(key).updateChildren(hashMap).addOnSuccessListener(aVoid -> {
             mRcvMessage.scrollToPosition(adapter.getItemCount() - 1);
         });

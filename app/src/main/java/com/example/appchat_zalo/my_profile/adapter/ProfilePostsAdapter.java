@@ -93,18 +93,20 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
 
         }
         void bindata(Posts posts){
-            Glide.with(itemView)
-                    .load(Constants.UAVATAR)
-                    .circleCrop()
-                    .into(mAvatar);
+            if (Constants.UID.equals(Constants.UID)) {
+                Glide.with(itemView)
+                        .load(Constants.UAVATAR)
+                        .circleCrop()
+                        .into(mAvatar);
 
-            mName.setText(posts.getName());
-            mContentPost.setText(posts.getContent_posts());
-            mTimePost.setText(posts.getTime());
-            mDatePost.setText(posts.getDate());
-            Glide.with(itemView)
-                    .load(posts.getPicture())
-                    .into(mPicturePost);
+                mName.setText(posts.getName());
+                mContentPost.setText(posts.getContent_posts());
+                mTimePost.setText(posts.getTime());
+                mDatePost.setText(posts.getDate());
+                Glide.with(itemView)
+                        .load(posts.getPicture())
+                        .into(mPicturePost);
+            }
 
         }
 

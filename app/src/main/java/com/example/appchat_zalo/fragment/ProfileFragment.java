@@ -1,22 +1,18 @@
 package com.example.appchat_zalo.fragment;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,16 +24,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.appchat_zalo.UpdatePostActivity;
 import com.example.appchat_zalo.LoginWithEmailActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.cache.PrefUtils;
 import com.example.appchat_zalo.my_profile.adapter.ProfilePostsAdapter;
-import com.example.appchat_zalo.my_profile.listener.OnclickItemMyPostListner;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,7 +49,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,13 +74,16 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.image_news)
     ImageView mImageNews;
 
+    @BindView(R.id.image_my_news)
+    ImageView mImageMyNews;
+
     private TextView mTextPost;
 
     @BindView(R.id.list_my_posts)
     RecyclerView mRcvListMyPost;
 
     private FirebaseUser user;
-    private StorageReference mStorageReference;
+    private StorageReference mStorageReference, mStorgeNews;
     private DatabaseReference refUser, refPosts;
 
     private static final int IMAGE_CHOOSE = 1;
@@ -90,6 +92,7 @@ public class ProfileFragment extends Fragment {
     private StorageTask mUpLoadTask;
     private Uri mUrl;
     private boolean isUpdateAvatar = true;
+    private boolean isUpdateNews = true;
 
     private PrefUtils prefUtils;
     private ProfilePostsAdapter profilePostsAdapter;
@@ -167,6 +170,20 @@ public class ProfileFragment extends Fragment {
                                 .into(mImageAvatar);
                     }
 
+
+                    if (users.getNews().equals("default")) {
+                        mImageNews.setImageResource(R.drawable.boder_news_gray);
+                    } else {
+
+                        RequestOptions requestOptions = new RequestOptions();
+                        requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(20));
+
+                        Glide.with(getActivity())
+                                .load(users.getNews())
+                                .apply(requestOptions)
+                                .into(mImageMyNews);
+                    }
+
                 }
 
             }
@@ -185,6 +202,7 @@ public class ProfileFragment extends Fragment {
         refUser = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
         refPosts = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
         mStorageReference = FirebaseStorage.getInstance().getReference("uploads");
+        mStorgeNews = FirebaseStorage.getInstance().getReference("upload_news");
     }
 
     private void initRCVMyPosts() {
@@ -233,6 +251,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 chooseImage();
                 isUpdateAvatar = false;
+                isUpdateNews =  false;
             }
         });
 
@@ -242,6 +261,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 chooseImage();
                 isUpdateAvatar = true;
+                isUpdateNews = false;
             }
         });
 
@@ -256,22 +276,29 @@ public class ProfileFragment extends Fragment {
     }
 
 
-//    @OnClick(R.id.image_news)
-//    void onClickNews(){
-//
-//        takePhoto();
-//
-//    }
-
-    private void takePhoto() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-        mUrl = Uri.fromFile(photo);
-        ProfileFragment.this.startActivityForResult(intent, IMAGE_PHOTO);
+    @OnClick(R.id.image_news)
+    void onClickNews(){
+       chooseImageNews();
+       isUpdateNews =  true;
 
     }
+
+    private void chooseImageNews() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "choose photo for  profile"), IMAGE_CHOOSE);
+    }
+
+//    private void takePhoto() {
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//        File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+//        mUrl = Uri.fromFile(photo);
+//        ProfileFragment.this.startActivityForResult(intent, IMAGE_PHOTO);
+//
+//    }
 
     private void chooseImage() {
         Intent intent = new Intent();
@@ -294,10 +321,49 @@ public class ProfileFragment extends Fragment {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+    private void uploadImageNews() {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Uploading");
+        progressDialog.show();
+
+        if(mUrl != null){
+            final  StorageReference storageReference = mStorgeNews.child(System.currentTimeMillis() + "." + getFileImage(mUrl));
+            mUpLoadTask = storageReference.putFile(mUrl);
+            mUpLoadTask.continueWithTask((Continuation) task -> {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+//                        Toast.makeText(getContext(), "upload image fail", Toast.LENGTH_SHORT).show();
+                }
+                return storageReference.getDownloadUrl();
+            }).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if(task.isSuccessful()){
+                        Uri urlDowlaod = (Uri) task.getResult();
+                        String mUriDowload = urlDowlaod.toString();
+                        refUser = FirebaseDatabase.getInstance().getReference("Users").child(Constants.UID);
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        if (isUpdateNews)
+                        hashMap.put("news", mUriDowload);
+                        refUser.updateChildren(hashMap);
+
+                        Toast.makeText(getContext(), "get news  succes full", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+
+                    } else {
+                        Toast.makeText(getContext(), "Fail", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+
+                }
+            });
+
+        }
+    }
+
     private void upLoadImage() {
 
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
-
         progressDialog.setMessage("Uploading");
         progressDialog.show();
         if (mUrl != null) {
@@ -315,10 +381,9 @@ public class ProfileFragment extends Fragment {
                     String mUriDowload = urlDowlaod.toString();
                     refUser = FirebaseDatabase.getInstance().getReference("Users").child(Constants.UID);
                     HashMap<String, Object> hashMap = new HashMap<>();
-
-                    hashMap.put("news", mUriDowload);
-                    if (isUpdateAvatar) hashMap.put("avatar", mUriDowload);
-                    else hashMap.put("cover", mUriDowload);
+//                    hashMap.put("news", mUriDowload);
+                    if (isUpdateAvatar == true && isUpdateNews == false) hashMap.put("avatar", mUriDowload);
+                    else if (isUpdateNews == false && isUpdateAvatar == false)hashMap.put("cover", mUriDowload);
 //                    if(isAddNews) hashMap.put("news", mUriDowload);
                     refUser.updateChildren(hashMap);
                     progressDialog.dismiss();
@@ -333,7 +398,6 @@ public class ProfileFragment extends Fragment {
                 progressDialog.dismiss();
             });
 
-
         } else {
             Toast.makeText(getContext(), "Not Select Image", Toast.LENGTH_SHORT).show();
         }
@@ -343,15 +407,17 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         if (requestCode == IMAGE_CHOOSE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             mUrl = data.getData();
 
             if (mUpLoadTask != null && mUpLoadTask.isInProgress()) {
                 Toast.makeText(getContext(), "image  is uploading", Toast.LENGTH_SHORT).show();
-            } else {
-                upLoadImage();
+            } else  if(isUpdateNews) {
+                uploadImageNews();
+            }
+            else {
 
+                upLoadImage();
             }
         }
 
@@ -376,6 +442,8 @@ public class ProfileFragment extends Fragment {
 //        }
 
     }
+
+
 
     private void getMyPost() {
         refPosts.child(Constants.UID).addValueEventListener(new ValueEventListener() {

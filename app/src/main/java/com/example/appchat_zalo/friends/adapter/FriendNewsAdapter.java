@@ -11,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Users;
 
@@ -97,22 +100,21 @@ public class FriendNewsAdapter extends RecyclerView.Adapter<FriendNewsAdapter.Fr
             if (!TextUtils.isEmpty(users.getNews())) {
 
                 mTextName.setText(users.getName());
-
-                if (users.getAvatar().equals("default")) {
-                    mImageAvatar.setImageResource(R.drawable.background_main);
-                } else {
-
-                    Glide.with(itemView)
-                            .load(users.getAvatar())
-                            .circleCrop()
-                            .into(mImageAvatar);
-                }
+                RequestOptions requestOptions = new RequestOptions();
+                requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(20));
 
                 Glide.with(itemView)
                         .load(users.getNews())
-                        .centerCrop()
-//                        .override(100, 150)
+                        .apply(requestOptions)
                         .into(mImageNews);
+            }
+            if (users.getAvatar().equals("default")) {
+                mImageAvatar.setImageResource(R.drawable.background_main);
+            } else {
+                Glide.with(itemView)
+                        .load(users.getAvatar())
+                        .circleCrop()
+                        .into(mImageAvatar);
             }
 
         }

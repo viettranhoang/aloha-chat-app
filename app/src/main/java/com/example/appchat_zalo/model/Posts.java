@@ -10,6 +10,8 @@ public class Posts {
     private String avatar;
     private String name;
     private String idPost;
+    private String like;
+
 
     public Posts(String date, String time, String content_posts, String picture, String avatar, String name, String idPost) {
         this.date = date;
