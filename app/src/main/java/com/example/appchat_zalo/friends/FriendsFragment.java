@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.example.appchat_zalo.friends.adapter.FriendNewsAdapter;
 import com.example.appchat_zalo.friends.adapter.FriendsOnlineAdapter;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
+import com.example.appchat_zalo.search.SearchActivity;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +47,15 @@ public class FriendsFragment extends Fragment {
 
     @BindView(R.id.image_contact)
     ImageView mImageContact;
+
+    @BindView(R.id.input_search)
+    EditText mInputSearch;
+
+    @OnClick({R.id.input_search})
+    void clickSearch(){
+        Intent intent = new Intent(getContext(), SearchActivity.class);
+        startActivity(intent);
+    }
 
     private FriendNewsAdapter mNewsAdapter = new FriendNewsAdapter();
 

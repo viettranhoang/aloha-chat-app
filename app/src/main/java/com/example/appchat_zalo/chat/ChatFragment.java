@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,8 @@ import com.example.appchat_zalo.chat.model.Chat;
 import com.example.appchat_zalo.model.Groups;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
+import com.example.appchat_zalo.search.SearchActivity;
+import com.example.appchat_zalo.search.adapter.SearchAdapter;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,12 +38,24 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ChatFragment extends Fragment {
 
     @BindView(R.id.list_chat)
     RecyclerView mRcvChat;
 
+    @BindView(R.id.input_search)
+    EditText mInputSearch;
+
+    private List<Users> mUserList;
+    private SearchAdapter mAdapterSearch;
+
+    @OnClick({R.id.input_search})
+    void clickSearch(){
+        Intent intent = new Intent(getContext(), SearchActivity.class);
+        startActivity(intent);
+    }
     private ChatAdapter mChatAdapter = new ChatAdapter(new OnclickChatItemListner() {
         @Override
         public void onClickChatItem(Chat chat) {
