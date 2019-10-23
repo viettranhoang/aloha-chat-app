@@ -1,5 +1,7 @@
 package com.example.appchat_zalo.comment.adapter;
 
+import android.app.admin.DelegatedAdminReceiver;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +33,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     private Users mUser;
 
+//    private DatabaseReference mUserRef, mCommentRef;
+
     public void setmUser(Users mUser) {
         this.mUser = mUser;
+        notifyDataSetChanged();
     }
 
     public CommentAdapter() {
@@ -85,20 +92,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         }
 
         void bindata(Comment comment){
-            Glide.with(itemView)
-                    .load(comment.getAvatarUser())
-                    .circleCrop()
-                    .into(imageAvatar);
+                textContentComment.setText(comment.getContent());
+                textTimeComment.setText(comment.getTime());
+                textDateComment.setText(comment.getDate());
 
-//            Glide.with(itemView)
-//                    .load(comment.getmUsers().getOnline())
-//                    .circleCrop()
-//                    .into(imageOnline);
 
-            textName.setText(comment.getNameUser());
-            textContentComment.setText(comment.getContent());
-            textTimeComment.setText(comment.getTime());
-            textDateComment.setText(comment.getDate());
+
 
         }
     }

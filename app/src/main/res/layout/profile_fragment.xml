@@ -2,205 +2,318 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray1"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/image_background"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/layout_one"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="18dp"
-            android:background="@drawable/anhbia1" />
-
-        <ImageView
-            android:id="@+id/image_edit_cover"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignRight="@id/image_background"
-            android:layout_alignBottom="@id/image_background"
-            android:layout_margin="7dp"
-            android:background="@drawable/round_corner_gray_6"
-            android:clickable="true"
-            android:paddingLeft="10dp"
-            android:paddingTop="3dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="3dp"
-            android:src="@drawable/ic_camera"
-            android:tint="@color/black_light" />
-
-        <ImageView
-            android:id="@+id/image_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignLeft="@id/image_background"
-            android:layout_alignTop="@id/image_background"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_back"
-            android:tint="@color/white" />
-
-        <ImageView
-            android:id="@+id/image_more"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignTop="@id/image_background"
-            android:layout_alignRight="@id/image_background"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/icon_more"
-            android:tint="@color/white" />
-
-        <ImageView
-            android:id="@+id/image_avatar"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="140dp"
-            android:clickable="true"
-            android:padding="3dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/background_main" />
-
-        <ImageView
-            android:id="@+id/image_edit_avatar"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignRight="@id/image_avatar"
-            android:layout_alignBottom="@id/image_avatar"
-            android:layout_margin="10dp"
-            android:background="@drawable/round_corner_gray_6"
-            android:clickable="true"
-            android:padding="9dp"
-            android:src="@drawable/ic_camera"
-            android:tint="@color/black_light" />
-
-        <TextView
-            android:id="@+id/text_name"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/image_avatar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Kim Cho"
-            android:textColor="@color/black"
-            android:textSize="21sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="2dp">
 
-        <TextView
-            android:id="@+id/text_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_name"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="7dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Chó Kim ăn Shit :v "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="normal" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:background="@color/pinkLight" />
+
+                <ImageView
+                    android:id="@+id/image_edit_cover"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:layout_alignRight="@id/image_background"
+                    android:layout_alignBottom="@id/image_background"
+                    android:layout_margin="9dp"
+                    android:background="@drawable/round_corner_gray_6"
+                    android:clickable="true"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="3dp"
+                    android:src="@drawable/ic_camera"
+                    android:tint="@color/black_light" />
+
+                <ImageView
+                    android:id="@+id/image_back"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/image_background"
+                    android:layout_alignTop="@id/image_background"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_back"
+                    android:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/image_more"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignTop="@id/image_background"
+                    android:layout_alignRight="@id/image_background"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/icon_more"
+                    android:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/image_avatar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignBottom="@id/image_background"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/roun_avatar_news_blue"
+                    android:padding="3dp" />
+
+                <ImageView
+                    android:id="@+id/image_edit_avatar"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_alignRight="@id/image_avatar"
+                    android:layout_alignBottom="@id/image_avatar"
+                    android:background="@drawable/round_corner_gray_6"
+                    android:clickable="true"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_camera" />
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="180dp"
+                    android:layout_toRightOf="@id/image_avatar"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Vũ Hạnh"
+                    android:textColor="@color/black87"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/text_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_name"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/image_avatar"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Chó Kim ăn Shit :v "
+                    android:textColor="@color/black87"
+                    android:textSize="18sp" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_status"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_below="@id/text_name"-->
+                <!--                    android:layout_marginLeft="19dp"-->
+                <!--                    android:layout_marginTop="7dp"-->
+                <!--                    android:layout_toRightOf="@id/image_avatar"-->
+                <!--                    android:fontFamily="sans-serif-medium"-->
+                <!--                    android:text="Hặn yêu Bờm nhất <3 "-->
+                <!--                    android:textSize="18sp" />-->
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/image_avatar"-->
+                <!--                    android:layout_width="80dp"-->
+                <!--                    android:layout_height="80dp"-->
+                <!--                    android:clickable="true"-->
+                <!--                    android:layout_marginBottom="10dp"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:layout_marginEnd="10dp"-->
+                <!--                    android:layout_alignParentBottom="true"-->
+                <!--                    android:background="@drawable/roun_avatar_news_blue"-->
+                <!--                    android:padding="3dp"-->
+                <!--                    android:scaleType="fitCenter" />-->
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/image_edit_avatar"-->
+                <!--                    android:layout_width="30dp"-->
+                <!--                    android:layout_height="30dp"-->
+                <!--                    android:layout_alignRight="@id/image_avatar"-->
+                <!--                    android:layout_alignBottom="@id/image_avatar"-->
+                <!--                    android:layout_alignParentBottom="true"-->
+                <!--                    android:layout_margin="10dp"-->
+                <!--                    android:background="@drawable/round_corner_gray_6"-->
+                <!--                    android:clickable="true"-->
+                <!--                    android:padding="9dp"-->
+                <!--                    android:src="@drawable/ic_camera"-->
+                <!--                    android:tint="@color/black_light" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_name"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:fontFamily="sans-serif-medium"-->
+                <!--                    android:text="Kim Cho"-->
+                <!--                    android:layout_toRightOf="@id/image_avatar"-->
+                <!--                    android:textColor="@color/black"-->
+                <!--                    android:textSize="21sp"-->
+                <!--                    android:textStyle="bold" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_status"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_below="@id/text_name"-->
+                <!--                    android:layout_toRightOf="@id/image_avatar"-->
+                <!--                    android:layout_marginTop="7dp"-->
+                <!--                    android:layout_alignParentBottom="true"-->
+                <!--                    android:fontFamily="sans-serif-medium"-->
+                <!--                    android:text="Chó Kim ăn Shit :v "-->
+                <!--                    android:textColor="@color/black"-->
+                <!--                    android:textSize="18sp"-->
+                <!--                    android:textStyle="normal" />-->
+
+            </RelativeLayout>
 
 
-        <LinearLayout
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/layout_three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_status"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/layout_one"
             android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:background="@drawable/boder_posts_white">
 
-
-            <ImageView
-                android:id="@+id/image_avatar1"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginRight="5dp"
-                android:layout_weight="0.55"
+                android:orientation="horizontal"
                 android:padding="5dp"
-                android:src="@drawable/background_main" />
+                android:weightSum="3">
 
-            <TextView
-                android:id="@+id/text_posts"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="2.25"
-                android:background="@drawable/boder_posts_white"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:text="Bạn đang nghĩ gì?"
-                android:textAlignment="gravity"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="normal" />
+                <ImageView
+                    android:id="@+id/image_avatar1"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.55"
+                    android:padding="5dp"
+                    android:src="@drawable/background_main" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/text_posts"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2.25"
+                    android:background="@drawable/boder_posts_white"
+                    android:gravity="center_vertical"
+                    android:padding="8dp"
+                    android:text="Bạn đang nghĩ gì?"
+                    android:textAlignment="gravity"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
 
-        <LinearLayout
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/layout_four"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_below="@id/layout_three"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_marginTop="8dp">
 
-
-            <ImageView
-                android:id="@+id/image_news"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginRight="5dp"
-                android:layout_weight="0.85"
-                android:background="@drawable/boder_posts_white"
-                android:padding="10dp"
-                android:src="@drawable/ic_add"
-                android:tint="@color/gray" />
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="2">
 
-            <ImageView
-                android:id="@+id/image_my_news"
-                android:layout_width="160dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginRight="5dp"
-                android:padding="10dp"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25">
 
-        </LinearLayout>
+                    <ImageView
+                        android:id="@+id/image_news"
+                        android:layout_width="65dp"
+                        android:layout_height="80dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/boder_posts_white"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_add"
+                        android:tint="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/text_news"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/image_news"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Thêm vào tin của bạn"
+                        android:textColor="@color/black87" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/image_my_news"
+                    android:layout_width="160dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1.5"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_four"
+            android:layout_marginTop="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
 
                 android:id="@+id/list_my_posts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:layout_marginLeft="7dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginRight="5dp"
-                android:layout_below="@id/layout_four"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:padding="5dp">
 
             </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.cardview.widget.CardView>
+
 
     </RelativeLayout>
 

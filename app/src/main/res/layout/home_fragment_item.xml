@@ -1,150 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/boder_posts_white"
-    android:padding="8dp"
-    android:layout_margin="10dp"
+    android:background="@color/gray1"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
     android:layout_height="wrap_content">
     <RelativeLayout
-        android:id="@+id/layout_post"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/image_avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-        <ImageView
-            android:id="@+id/image_online"
-            android:padding="5dp"
-            android:layout_alignRight="@id/image_avatar"
-            android:layout_alignBottom="@id/image_avatar"
-            android:layout_width="16dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/roun_conner_online"
-            android:layout_height="16dp" />
-        <TextView
-            android:id="@+id/text"
-            android:text="has been updated a posts"
-            android:textSize="13sp"
-            android:textColor="@color/black_light"
-            android:layout_toRightOf="@id/image_avatar"
-            android:layout_below="@id/text_name"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/text_name"
-            android:text="Vũ Hạnh"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_toRightOf="@id/image_avatar"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/text_date_posts"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:maxLines="1"
-            android:inputType="text"
-            android:layout_marginLeft="10dp"
-            android:layout_below="@+id/text_name"
-            android:layout_toRightOf="@id/text"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:text="Monday"
-            android:textColor="@color/black"
-            android:textSize="13sp" />
-        <TextView
-            android:id="@+id/text_time_posts"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:maxLines="1"
-            android:inputType="text"
-            android:layout_marginLeft="10dp"
-            android:layout_below="@+id/text_name"
-            android:layout_toRightOf="@id/text_date_posts"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:text="12:12"
-            android:textColor="@color/black"
-            android:textSize="13sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layput_contet_post"
-        android:layout_below="@id/layout_post"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/text_content_post"
-            android:text="hihi  do con ga nay nay :))"
-            android:layout_width="match_parent"
-            android:textStyle="normal"
-            android:textSize="14sp"
+        <RelativeLayout
+            android:id="@+id/layout_post"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
-            android:padding="3dp"
-            android:textColor="@color/black_light"
-            android:fontFamily="sans-serif"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/image_picture_posts"
-            android:layout_margin="4dp"
-            android:layout_below="@+id/text_content_post"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="center"
-            android:layout_height="200dp" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image_avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            <ImageView
+                android:id="@+id/image_online"
+                android:padding="5dp"
+                android:layout_alignRight="@id/image_avatar"
+                android:layout_alignBottom="@id/image_avatar"
+                android:layout_width="16dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/roun_conner_online"
+                android:layout_height="16dp" />
+            <TextView
+                android:id="@+id/text"
+                android:text="has been updated a posts"
+                android:textSize="13sp"
+                android:textColor="@color/black_light"
+                android:layout_toRightOf="@id/image_avatar"
+                android:layout_below="@id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/text_name"
+                android:text="Vũ Hạnh"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_toRightOf="@id/image_avatar"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_date_posts"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:inputType="text"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@+id/text_name"
+                android:layout_toRightOf="@id/text"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:text="Monday"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+            <TextView
+                android:id="@+id/text_time_posts"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:inputType="text"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@+id/text_name"
+                android:layout_toRightOf="@id/text_date_posts"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:text="12:12"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layput_contet_post"
+            android:layout_below="@id/layout_post"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text_content_post"
+                android:text="hihi  do con ga nay nay :))"
+                android:layout_width="match_parent"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:padding="3dp"
+                android:textColor="@color/black_light"
+                android:fontFamily="sans-serif"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/image_picture_posts"
+                android:layout_margin="4dp"
+                android:layout_below="@+id/text_content_post"
+                android:layout_width="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="center"
+                android:layout_height="200dp" />
 
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/layout_like"
-        android:layout_below="@id/layput_contet_post"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:weightSum="3"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/image_like"
-        android:src="@drawable/icon_like"
-        android:layout_width="34dp"
-        android:layout_alignParentLeft="true"
-        android:layout_height="34dp"/>
-
-
-        <ImageView
-            android:id="@+id/image_comment"
-            android:src="@drawable/icon_more"
-            android:tint="@color/blue1"
-            android:layout_width="34dp"
-            android:layout_alignParentRight="true"
-            android:layout_height="34dp"/>
-
-        <TextView
-            android:id="@+id/text_numbeber_like"
-            android:layout_toRightOf="@id/image_like"
-            android:text="10 like"
-            android:textSize="16sp"
-            android:textColor="@color/black87"
-            android:layout_marginLeft="15dp"
+        <RelativeLayout
+            android:id="@+id/layout_like"
+            android:layout_below="@id/layput_contet_post"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:weightSum="3"
             android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image_like"
+                android:src="@drawable/icon_like"
+                android:layout_width="34dp"
+                android:layout_alignParentLeft="true"
+                android:layout_height="34dp"/>
+
+
+            <ImageView
+                android:id="@+id/image_comment"
+                android:src="@drawable/icon_more"
+                android:tint="@color/pinkLight"
+                android:layout_width="34dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="34dp"/>
+
+            <TextView
+                android:id="@+id/text_number_like"
+                android:layout_toRightOf="@id/image_like"
+                android:text="10  like"
+                android:textSize="16sp"
+                android:textColor="@color/black87"
+                android:layout_marginLeft="15dp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+
     </RelativeLayout>
 
 
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

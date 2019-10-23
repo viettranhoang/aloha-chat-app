@@ -9,96 +9,181 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/image_background"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/layout_one"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="18dp"
-            android:background="@drawable/anhbia1" />
-
-        <ImageView
-            android:id="@+id/image_avatar"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="140dp"
-            android:clickable="true"
-            android:padding="3dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/background_main" />
-
-
-        <TextView
-            android:id="@+id/text_name"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/image_avatar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Kim Cho"
-            android:textColor="@color/black"
-            android:textSize="21sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="2dp">
 
-        <TextView
-            android:id="@+id/text_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_name"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="7dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Chó Kim ăn Shit :v "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="normal" />
-        <!--<LinearLayout-->
-        <!--android:id="@+id/layout_one"-->
-        <!--android:layout_below="@id/text_status"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_marginTop="40dp"-->
-        <!--android:weightSum="2"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_height="wrap_content">-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        <!--<Button-->
-        <!--android:id="@+id/button_sent_invite_request"-->
-        <!--android:layout_weight="1"-->
-        <!--android:textSize="15sp"-->
-        <!--android:textAllCaps="false"-->
-        <!--android:background="@drawable/roun_conner_request_gray"-->
-        <!--android:text="sent invite request"-->
-        <!--android:padding="5dp"-->
-        <!--android:gravity="center"-->
-        <!--android:layout_marginLeft="20dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_width="10dp"-->
-        <!--android:layout_height="40dp" />-->
+                <ImageView
+                    android:id="@+id/image_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:background="@color/pinkLight" />
 
 
-        <!--<Button-->
-        <!--android:id="@+id/button_decline_invite_request"-->
-        <!--android:layout_weight="1"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:gravity="center"-->
-        <!--android:textSize="15sp"-->
-        <!--android:text="decline invite request"-->
-        <!--android:textAllCaps="false"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="20dp"-->
-        <!--android:background="@drawable/roun_conner_request_gray"-->
-        <!--android:layout_height="40dp"/>-->
+                <ImageView
+                    android:id="@+id/image_edit_cover"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:layout_alignRight="@id/image_background"
+                    android:layout_alignBottom="@id/image_background"
+                    android:layout_margin="9dp"
+                    android:background="@drawable/round_corner_gray_6"
+                    android:clickable="true"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="3dp"
+                    android:src="@drawable/ic_camera"
+                    android:tint="@color/black_light" />
 
+                <ImageView
+                    android:id="@+id/image_back"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/image_background"
+                    android:layout_alignTop="@id/image_background"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_back"
+                    android:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/image_more"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignTop="@id/image_background"
+                    android:layout_alignRight="@id/image_background"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/icon_more"
+                    android:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/image_avatar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignBottom="@id/image_background"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/roun_avatar_news_blue"
+                    android:padding="3dp" />
+
+                <ImageView
+                    android:id="@+id/image_edit_avatar"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_alignRight="@id/image_avatar"
+                    android:layout_alignBottom="@id/image_avatar"
+                    android:background="@drawable/round_corner_gray_6"
+                    android:clickable="true"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_camera" />
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="180dp"
+                    android:textColor="@color/black87"
+                    android:layout_toRightOf="@id/image_avatar"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Vũ Hạnh"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/text_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_name"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@id/image_avatar"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Chó Kim ăn Shit :v "
+                    android:textColor="@color/black87"
+                    android:textSize="18sp" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_status"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_below="@id/text_name"-->
+                <!--                    android:layout_marginLeft="19dp"-->
+                <!--                    android:layout_marginTop="7dp"-->
+                <!--                    android:layout_toRightOf="@id/image_avatar"-->
+                <!--                    android:fontFamily="sans-serif-medium"-->
+                <!--                    android:text="Hặn yêu Bờm nhất <3 "-->
+                <!--                    android:textSize="18sp" />-->
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/image_avatar"-->
+                <!--                    android:layout_width="80dp"-->
+                <!--                    android:layout_height="80dp"-->
+                <!--                    android:clickable="true"-->
+                <!--                    android:layout_marginBottom="10dp"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:layout_marginEnd="10dp"-->
+                <!--                    android:layout_alignParentBottom="true"-->
+                <!--                    android:background="@drawable/roun_avatar_news_blue"-->
+                <!--                    android:padding="3dp"-->
+                <!--                    android:scaleType="fitCenter" />-->
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/image_edit_avatar"-->
+                <!--                    android:layout_width="30dp"-->
+                <!--                    android:layout_height="30dp"-->
+                <!--                    android:layout_alignRight="@id/image_avatar"-->
+                <!--                    android:layout_alignBottom="@id/image_avatar"-->
+                <!--                    android:layout_alignParentBottom="true"-->
+                <!--                    android:layout_margin="10dp"-->
+                <!--                    android:background="@drawable/round_corner_gray_6"-->
+                <!--                    android:clickable="true"-->
+                <!--                    android:padding="9dp"-->
+                <!--                    android:src="@drawable/ic_camera"-->
+                <!--                    android:tint="@color/black_light" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_name"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:fontFamily="sans-serif-medium"-->
+                <!--                    android:text="Kim Cho"-->
+                <!--                    android:layout_toRightOf="@id/image_avatar"-->
+                <!--                    android:textColor="@color/black"-->
+                <!--                    android:textSize="21sp"-->
+                <!--                    android:textStyle="bold" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_status"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_below="@id/text_name"-->
+                <!--                    android:layout_toRightOf="@id/image_avatar"-->
+                <!--                    android:layout_marginTop="7dp"-->
+                <!--                    android:layout_alignParentBottom="true"-->
+                <!--                    android:fontFamily="sans-serif-medium"-->
+                <!--                    android:text="Chó Kim ăn Shit :v "-->
+                <!--                    android:textColor="@color/black"-->
+                <!--                    android:textSize="18sp"-->
+                <!--                    android:textStyle="normal" />-->
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:id="@+id/linear_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_status"
-            android:layout_marginTop="40dp"
+            android:layout_below="@id/layout_one"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="7dp"
@@ -191,8 +276,6 @@
                     android:textColor="@color/black_light"
                     android:textSize="18sp" />
             </LinearLayout>
-
-
 
 
         </LinearLayout>

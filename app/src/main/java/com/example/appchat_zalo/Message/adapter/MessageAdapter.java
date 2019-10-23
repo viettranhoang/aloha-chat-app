@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.appchat_zalo.Message.model.Message;
 import com.example.appchat_zalo.R;
@@ -146,9 +148,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             else {
                 mTextMessage.setVisibility(View.INVISIBLE);
                 mImageMessage.setVisibility(View.VISIBLE);
+                RequestOptions requestOptions = new RequestOptions();
+                requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(10));
                 Glide.with(itemView)
                         .load(message.getMessage())
-                        .apply(new RequestOptions().override(200,500))
+                        .apply(requestOptions)
                         .into(mImageMessage);
             }
 

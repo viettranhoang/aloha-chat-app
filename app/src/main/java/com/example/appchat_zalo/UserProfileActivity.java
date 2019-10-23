@@ -1,5 +1,6 @@
 package com.example.appchat_zalo;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -152,6 +153,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("ResourceAsColor")
     @OnClick(R.id.image_add_friend)
     void onclickAddFriend() {
         if (!Constants.UID.equals(mUserId)) {
@@ -219,6 +221,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
                     mFriendRequestRef.child(toId).child(fromId).setValue("not").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @SuppressLint("ResourceAsColor")
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             mImageAddFriend.setEnabled(true);
@@ -243,6 +246,7 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     mFriendRequestRef.child(toId).child(fromId).setValue("friend").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @SuppressLint("ResourceAsColor")
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
@@ -303,6 +307,7 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     mFriendRequestRef.child(toId).child(fromId).setValue("not").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @SuppressLint("ResourceAsColor")
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             mImageAddFriend.setEnabled(true);
@@ -351,6 +356,7 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     mFriendRequestRef.child(toId).child(fromId).setValue("receive").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @SuppressLint("ResourceAsColor")
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             mImageAddFriend.setEnabled(true);
@@ -418,6 +424,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         .into(mCover);
 
                 mFriendRequestRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
+                    @SuppressLint("ResourceAsColor")
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(mUserId)) {
@@ -512,6 +519,7 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     mFriendRequestRef.child(toId).child(fromId).setValue("not").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @SuppressLint("ResourceAsColor")
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             mImageAddFriend.setEnabled(true);

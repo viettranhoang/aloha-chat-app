@@ -1,6 +1,9 @@
 package com.example.appchat_zalo.Message;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +28,7 @@ import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
+import com.google.android.gms.tasks.Continuation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,10 +36,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -92,8 +102,13 @@ public class MessageActivity extends AppCompatActivity {
     StorageTask mUpLoadTask;
     StorageReference mStorageReference;
 
-    String userId;
-    Intent intent;
+    private String userId;
+    private Intent intent;
+    private String mSaveCurrentDate;
+    private String mSaveCurrentTime;
+    private String mPostRandomName;
+    private Uri mUrl;
+    private String urlDownload;
 
 
     private static final int IMAGE_CHOOSE = 1;
@@ -106,10 +121,17 @@ public class MessageActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initToolbar();
         initRcvMessage();
+        initFirebase();
         getUser();
+
+        getListMessage(userId);
+
+    }
+
+    private void initFirebase() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference();
-        getListMessage(userId);
+        mStorageReference = FirebaseStorage.getInstance().getReference();
 
     }
 
@@ -154,12 +176,50 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.image_picture)
-   void onclickPicture(){
+    void onclickPicture() {
 
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "choose photo for  profile"), IMAGE_CHOOSE);
+        startActivityForResult(Intent.createChooser(intent, "choose photo for message"), IMAGE_CHOOSE);
+//        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(), MessageTypeConfig.IMAGE);
+//        uploadImage();
+
+    }
+
+    private void uploadImage() {
+        Calendar calendarDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
+        mSaveCurrentDate = currentDate.format(calendarDate.getTime());
+
+        Calendar calendarTime = Calendar.getInstance();
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        mSaveCurrentTime = currentTime.format(calendarDate.getTime());
+        mPostRandomName = mSaveCurrentDate + mSaveCurrentTime;
+        Log.i("aa", "uploadImage:  " + mUrl.getLastPathSegment());
+
+//        StorageReference filePath = mStorageReference.child("UploadPost").child(mUrl.getLastPathSegment() + mPostRandomName + ".jpg");
+
+        StorageReference filePath = mStorageReference.child("upload_message").child(mUrl.getLastPathSegment() + mPostRandomName + "jpg");
+        filePath.putFile(mUrl).continueWithTask((Continuation) task -> {
+            if (!task.isSuccessful()) {
+                throw task.getException();
+            }
+            return filePath.getDownloadUrl();
+        }).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Uri uri = (Uri) task.getResult();
+                urlDownload = uri.toString();
+                Toast.makeText(MessageActivity.this, "Picture is aup loading successful!!!", Toast.LENGTH_SHORT).show();
+                sendMessgae(Constants.UID, userId, urlDownload, MessageTypeConfig.IMAGE);
+
+            } else {
+                String message = task.getException().getMessage();
+                Toast.makeText(MessageActivity.this, "Picture update is fail:" + message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     @OnTextChanged(R.id.input_message)
@@ -184,6 +244,7 @@ public class MessageActivity extends AppCompatActivity {
                     Message message = data.getValue(Message.class);
                     listMessage.add(message);
                 }
+
                 Log.i("ha", "onDataChange: " + listMessage.toString());
                 adapter.setmMessageList(listMessage);
                 mRcvMessage.scrollToPosition(adapter.getItemCount() - 1);
@@ -219,7 +280,6 @@ public class MessageActivity extends AppCompatActivity {
         });
 
     }
-
 
     private void initToolbar() {
         setSupportActionBar(mToolbarMessage);
@@ -260,8 +320,49 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_CHOOSE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            mUrl = data.getData();
+
+            if (mUpLoadTask != null && mUpLoadTask.isInProgress()) {
+                Toast.makeText(this, "image  is uploading", Toast.LENGTH_SHORT).show();
+            } else {
+                uploadImage();
+            }
+        }
+
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (data != null && resultCode == RESULT_OK) {
+//            if (requestCode == IMAGE_CHOOSE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//                mUrl = data.getData();
+//
+//                try {
+//                    InputStream inputStream = getContentResolver().openInputStream(mUrl);
+//                    final Bitmap selectedImage = BitmapFactory.decodeStream(inputStream);
+//                    mImagePicture.setImageBitmap(selectedImage);
+//
+//
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+////            } else if (requestCode == IMAGE_PHOTO) {
+////                Bundle extras = data.getExtras();
+////                Bitmap bitmap = (Bitmap) extras.get("data");
+////                mistBitmap.add(bitmap);
+////                mAddPostAdapter = new AddPostAdapter(mistBitmap);
+////                mRcvAddPosts.setAdapter(mAddPostAdapter);
+////            }
+//
+//            super.onActivityResult(requestCode, resultCode, data);
+//        }
+//
+//
+//    }
 }
 

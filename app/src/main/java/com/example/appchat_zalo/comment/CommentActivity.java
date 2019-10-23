@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.Message.adapter.MessageTypeConfig;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.comment.adapter.CommentAdapter;
@@ -81,62 +82,38 @@ public class CommentActivity extends AppCompatActivity {
 
     }
 
-//    private void getUser() {
-//        mUserRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                List<Users> userList = new ArrayList<>();
-//               Users users=  dataSnapshot.getValue(Users.class);
-//                userList.add(users);
-//                mAdapter.setmUser(users);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
+    private void getUser() {
+        mUserRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Users> userList = new ArrayList<>();
+               Users users=  dataSnapshot.getValue(Users.class);
+               users.getAvatar();
+               users.getName();
+                userList.add(new Users());
+                mAdapter.setmUser(users);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     private void getComment() {
 
-//        mRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot data : dataSnapshot.child(Constants.TABLE_COMMENT).child(mPostId).getChildren()){
-//                    Comment comment =  data.getValue(Comment.class);
-//
-//                    Log.d("ss", "onDataChange: commt " + comment.getCommentId());
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
-        mCommentRef.addValueEventListener(new ValueEventListener() {
+        mCommentRef.child(mPostId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.child(mPostId).getChildren()){
-                    String  key = data.getKey();
-                    if(key == mPostId ){
-                        Log.d(TAG, "onDataChange:  post current" + key);
-                    }
+                for ( DataSnapshot data : dataSnapshot.getChildren()){
+//                    mCommentList.clear();
+                    Comment comment =  data.getValue(Comment.class);
+                    mCommentList.add(comment);
                 }
+                mAdapter.setmListComment(mCommentList);
 
-//
-//                mCommentList.clear();
-//                for (DataSnapshot data : dataSnapshot.getChildren()){
-//
-//                        Comment comment  = data.getValue(Comment.class);
-//                        Log.d("dd", "onDataChange: list comment " + comment.getCommentId());
-//                        mCommentList.add(comment);
-//
-//                }
-//
-//                mAdapter.setmListComment(mCommentList);
 
             }
 
@@ -146,13 +123,21 @@ public class CommentActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     @OnClick(R.id.image_send)
     void onclickSend() {
 
-        sendComment();
-        mInputComment.setText("");
+        if(mInputComment.getText().toString().equals("")){
+            Toast.makeText(this, "you can't send comment", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            sendComment();
+            mInputComment.setText("");
+        }
+
+
 
     }
 

@@ -147,7 +147,8 @@ public class PostsActivity extends AppCompatActivity {
     }
 
     @OnClick({R.id.text_posts})
-    void post() {
+    void post()
+    {
         ValidatePostInfo();
     }
 
@@ -176,7 +177,6 @@ public class PostsActivity extends AppCompatActivity {
         Calendar calendarTime = Calendar.getInstance();
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         mSaveCurrentTime = currentTime.format(calendarDate.getTime());
-
         mPostRandomName = mSaveCurrentDate + mSaveCurrentTime;
         Log.i("aa", "storagePictureToFirebase:  " +mUrl.getLastPathSegment());
 
@@ -203,9 +203,7 @@ public class PostsActivity extends AppCompatActivity {
     }
 
     private void savePostsInfoToDatabase() {
-
         String postId = refPost.push().getKey();
-
         refPost.child(postId).setValue(new Posts(mSaveCurrentDate, mSaveCurrentTime,
                 mInputsContentPost.getText().toString(), urlDownload, Constants.UAVATAR, Constants.UNAME, postId))
                 .addOnCompleteListener(task -> {

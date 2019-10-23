@@ -1,5 +1,6 @@
 package com.example.appchat_zalo.home_fragment.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -28,12 +30,12 @@ import butterknife.OnClick;
 
 public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePostViewHolder> {
 
-    private List<Posts> mPostList =  new ArrayList<>();
+    private List<Posts> mPostList = new ArrayList<>();
 
     private OnclickHomeFragmentItemListener listener;
     private DatabaseReference mLikeRef, mPostRef;
 
-    private  boolean mCheckLike = false;
+    private boolean mCheckLike = false;
 
     public HomePostAdapter(OnclickHomeFragmentItemListener listener) {
         this.listener = listener;
@@ -44,11 +46,12 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
         notifyDataSetChanged();
     }
 
-    public void adddPost( Posts posts){
+    public void adddPost(Posts posts) {
         mPostList.add(posts);
         notifyDataSetChanged();
 
     }
+
     @NonNull
     @Override
     public HomePostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,9 +60,17 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
         return new HomePostViewHolder(view);
     }
 
+    private void initFirebase() {
+        mPostRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
+        mLikeRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE);
+
+
+    }
+
     @Override
     public void onBindViewHolder(@NonNull HomePostViewHolder holder, int position) {
         holder.bindata(mPostList.get(position));
+
 
     }
 
@@ -96,14 +107,17 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
         @BindView(R.id.image_comment)
         ImageView mImageComment;
 
-        @BindView(R.id.text_numbeber_like)
+        @BindView(R.id.text_number_like)
         TextView mTextNumberLike;
+
+
 
         public HomePostViewHolder(@NonNull View itemView) {
             super(itemView);
-           ButterKnife.bind(this, itemView);
+            ButterKnife.bind(this, itemView);
         }
-        void bindata(Posts posts){
+
+        void bindata(Posts posts) {
             Glide.with(itemView)
                     .load(posts.getAvatar())
                     .circleCrop()
@@ -118,13 +132,70 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
                     .load(posts.getPicture())
                     .into(mPicturePost);
 
+            final String postKey = posts.getIdPost();
+            initFirebase();
+            checkLike(postKey);
+            numberLike(postKey);
+            mImageLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mImageLike.getTag().equals("like")) {
+                        FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE).child(postKey).child(Constants.UID).setValue("true");
+                    } else {
+                        FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE).child(postKey).child(Constants.UID).removeValue();
+
+                    }
+                }
+            });
+
+        }
+
+        private void numberLike(String postKey) {
+            mLikeRef.child(postKey).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    mTextNumberLike.setText(dataSnapshot.getChildrenCount() + " " + "like");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        private void checkLike(String postKey) {
+
+            mLikeRef.child(postKey).addValueEventListener(new ValueEventListener() {
+                @SuppressLint("ResourceAsColor")
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child(Constants.UID).exists()) {
+
+                        mImageLike.setImageResource(R.drawable.icliked);
+                        mImageLike.setTag("liked");
+                        mTextNumberLike.setTextColor(R.color.red);
+                    } else {
+                        mImageLike.setImageResource(R.drawable.icon_like);
+                        mImageLike.setTag("like");
+                        mTextNumberLike.setTextColor(R.color.pinkLight);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
         }
 
         @OnClick(R.id.image_comment)
-        void onclickComment(){
+        void onclickComment() {
             listener.onClickHomeFragmentItem(mPostList.get(getAdapterPosition()));
         }
-
 
 //        @OnClick(R.id.image_like)
 //        void onclickLike(){
@@ -166,4 +237,6 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
 //        }
 
     }
+
+
 }

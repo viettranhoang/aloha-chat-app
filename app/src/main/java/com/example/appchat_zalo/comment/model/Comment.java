@@ -4,60 +4,29 @@ import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
 
 public class Comment {
-    private String userId;
-    private String commentId;
-    private String nameUser;
-
-    public String getAvatarUser() {
-        return avatarUser;
-    }
-
-    public void setAvatarUser(String avatarUser) {
-        this.avatarUser = avatarUser;
-    }
-
-    private String avatarUser;
+    private Users uses;
     private String content;
     private String date;
     private String time;
     private String type;
 
-    public Comment() {
-    }
-
-    public Comment(String userId, String commentId, String nameUser, String avatarUser, String content, String date, String time, String type) {
-        this.userId = userId;
-        this.commentId = commentId;
-        this.nameUser = nameUser;
-        this.avatarUser = avatarUser;
+    public Comment(Users uses, String content, String date, String time, String type) {
+        this.uses = uses;
         this.content = content;
         this.date = date;
         this.time = time;
         this.type = type;
     }
 
-    public String getUserId() {
-        return userId;
+    public Comment() {
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public Users getUses() {
+        return uses;
     }
 
-    public String getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
-    }
-
-    public String getNameUser() {
-        return nameUser;
-    }
-
-    public void setNameUser(String nameUser) {
-        this.nameUser = nameUser;
+    public void setUses(Users uses) {
+        this.uses = uses;
     }
 
     public String getContent() {
@@ -95,10 +64,7 @@ public class Comment {
     @Override
     public String toString() {
         return "Comment{" +
-                "userId='" + userId + '\'' +
-                ", commentId='" + commentId + '\'' +
-                ", nameUser='" + nameUser + '\'' +
-                ", avatarUser='" + avatarUser + '\'' +
+                "uses=" + uses +
                 ", content='" + content + '\'' +
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
