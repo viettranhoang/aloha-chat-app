@@ -64,7 +64,6 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
         mPostRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
         mLikeRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE);
 
-
     }
 
     @Override

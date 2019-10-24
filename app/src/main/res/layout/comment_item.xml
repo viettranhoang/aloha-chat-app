@@ -3,17 +3,21 @@
     android:orientation="horizontal"
     android:layout_margin="5dp"
     android:layout_marginTop="5dp"
+    android:id="@+id/layput_comment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_marginLeft="7dp"
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/image_avatar"
             android:layout_width="50dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="3dp"
             android:layout_height="50dp" />
 
         <ImageView
@@ -39,41 +43,70 @@
             android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/text_content_comment"
-            android:layout_height="wrap_content"
-            android:layout_width="150dp"
-            android:maxLines="1"
-            android:inputType="text"
-            android:layout_below="@+id/text_name"
-            android:fontFamily="sans-serif"
-            android:text="tao  thich any nay nhieu lam nha! "
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/text_date_comment"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:id="@+id/layput_content_comment"
             android:layout_width="wrap_content"
             android:layout_below="@+id/text_name"
-            android:layout_marginLeft="14dp"
-            android:layout_toRightOf="@+id/text_content_comment"
-            android:fontFamily="sans-serif"
-            android:text="Yesterday"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text_content_comment"
+                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:maxLines="1"
+                android:inputType="text"
+                android:fontFamily="sans-serif"
+                android:text="tao  thich any nay nhieu lam nha! "
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/image_comment"
+                android:layout_width="100dp"
+                android:visibility="gone"
+                android:layout_height="120dp"/>
+
+<!--            <ImageView-->
+<!--                android:id="@+id/image_like"-->
+<!--                android:src="@drawable/icon_like"-->
+<!--                android:visibility="gone"-->
+<!--                android:layout_alignRight="@id/text_content_comment"-->
+<!--                android:layout_width="20dp"-->
+<!--                android:layout_alignBottom="@id/text_content_comment"-->
+<!--                android:layout_height="20dp"/>-->
+            <TextView
+                android:id="@+id/text_time_comment"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_toRightOf="@+id/text_content_comment"
+                android:fontFamily="sans-serif"
+                android:text="Yesterday - 12:00"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+
+        </RelativeLayout>
+
         <TextView
-            android:id="@+id/text_time_comment"
-            android:layout_height="wrap_content"
+            android:id="@+id/text_like"
+            android:text="Like"
+            android:layout_below="@id/layput_content_comment"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/text_name"
-            android:layout_marginLeft="14dp"
-            android:layout_toRightOf="@+id/text_date_comment"
-            android:fontFamily="sans-serif"
-            android:text="12:12"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_number_like"
+            android:text="100 like "
+            android:layout_below="@id/layput_content_comment"
+            android:layout_toRightOf="@id/text_like"
+            android:layout_marginTop="5dp"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

@@ -1,51 +1,56 @@
 package com.example.appchat_zalo.comment.adapter;
 
-import android.app.admin.DelegatedAdminReceiver;
-import android.text.TextUtils;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.util.Log;
+import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.chat.listner.OnclickChatItemListner;
+import com.example.appchat_zalo.comment.listener.OnclickCommentItemListener;
 import com.example.appchat_zalo.comment.model.Comment;
-import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
-import com.example.appchat_zalo.utils.Utils;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
-    private List<Comment> mListComment =  new ArrayList<>();
+    private List<Comment> mComentList = new ArrayList<>();
+    private DatabaseReference mUserRef, mLikeRef, mRef;
 
-    private Users mUser;
+    private OnclickCommentItemListener mListner;
 
-//    private DatabaseReference mUserRef, mCommentRef;
-
-    public void setmUser(Users mUser) {
-        this.mUser = mUser;
+    public void setmComentList(List<Comment> mComentList) {
+        this.mComentList = mComentList;
         notifyDataSetChanged();
     }
 
-    public CommentAdapter() {
-    }
-
-    public void setmListComment(List<Comment> mListComment) {
-        this.mListComment = mListComment;
-        notifyDataSetChanged();
+    public CommentAdapter(OnclickCommentItemListener mListner) {
+        this.mListner = mListner;
     }
 
     @NonNull
@@ -57,48 +62,178 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
+        holder.bindata(mComentList.get(position));
 
-        holder.bindata(mListComment.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mListComment.size();
+        return mComentList.size();
     }
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.image_avatar)
-        ImageView imageAvatar;
+        ImageView mImageAvatar;
 
         @BindView(R.id.image_online)
-        ImageView imageOnline;
+        ImageView mImageOnline;
 
         @BindView(R.id.text_name)
-        TextView textName;
-
-        @BindView(R.id.text_content_comment)
-        TextView textContentComment;
+        TextView mTextName;
 
         @BindView(R.id.text_time_comment)
-        TextView textTimeComment;
+        TextView mTextTime;
 
-        @BindView(R.id.text_date_comment)
-        TextView textDateComment;
+        @BindView(R.id.text_content_comment)
+        TextView mTextContent;
+
+        @BindView(R.id.text_like)
+        TextView mTextLike;
+
+        @BindView(R.id.text_number_like)
+        TextView mTextnumberlike;
+
+        @BindView(R.id.layput_comment)
+        LinearLayout mLayputComment;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+
         }
 
-        void bindata(Comment comment){
-                textContentComment.setText(comment.getContent());
-                textTimeComment.setText(comment.getTime());
-                textDateComment.setText(comment.getDate());
+        void bindata(Comment comment) {
+
+            mTextTime.setText(comment.getTime());
+            mTextContent.setText(comment.getContent());
+            initFirbase();
+            String userIdComment = comment.getUserId();
+            getInforUser(userIdComment);
+
+            String idComment = comment.getCommentId();
+            String idPost = comment.getPostId();
+            mRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_COMMENT).child(idPost);
+            checkLike(idComment);
+            numberlike(idComment);
+
+            mTextLike.setOnClickListener(v -> {
+                if (mTextLike.getText().equals("thích")) {
+                    FirebaseDatabase.getInstance().getReference("Like_Comment").child(idComment).child(Constants.UID).setValue("true");
+                } else {
+                    FirebaseDatabase.getInstance().getReference("Like_Comment").child(idComment).child(Constants.UID).removeValue();
+
+                }
+            });
 
 
+            mLayputComment.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                builder.setTitle("Delete Comment");
+                builder.setMessage("Are you sure to delete this comment?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteComment(idComment);
 
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.create().show();
+            });
+
+
+        }
+
+        @OnClick(R.id.image_avatar)
+        void onClickItem() {
+
+            mListner.onclicCommentItem(mComentList.get(getAdapterPosition()));
+        }
+
+        private void deleteComment(String commentId) {
+            mRef.child(commentId).removeValue();
+            Toast.makeText(itemView.getContext(), "comment is deleted!!", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+        private void numberlike(String idComment) {
+            mLikeRef.child(idComment).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    mTextnumberlike.setText(dataSnapshot.getChildrenCount() + "");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        private void initFirbase() {
+            mUserRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
+            mLikeRef = FirebaseDatabase.getInstance().getReference("Like_Comment");
+        }
+
+
+        private void checkLike(String idComment) {
+            mLikeRef.child(idComment).addValueEventListener(new ValueEventListener() {
+                @SuppressLint("ResourceAsColor")
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child(Constants.UID).exists()) {
+                        mTextLike.setText("đã thích");
+                        mTextLike.setTextColor(R.color.red);
+
+                    } else {
+                        mTextLike.setText("thích");
+                        mTextLike.setTextColor(R.color.gray);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+        private void getInforUser(String userId) {
+
+            mUserRef.child(userId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Users users = dataSnapshot.getValue(Users.class);
+                    Log.d("dd", "onDataChange: dd" + users.getName());
+                    String avatar = users.getAvatar();
+                    String name = users.getName();
+                    Glide.with(itemView)
+                            .load(avatar)
+                            .circleCrop()
+                            .into(mImageAvatar);
+
+                    mTextName.setText(name);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
         }
     }
+
+
 }

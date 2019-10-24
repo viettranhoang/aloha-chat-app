@@ -16,7 +16,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.Message.adapter.MessageTypeConfig;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.UserProfileActivity;
+import com.example.appchat_zalo.all_user.AllUserActivity;
 import com.example.appchat_zalo.comment.adapter.CommentAdapter;
+import com.example.appchat_zalo.comment.listener.OnclickCommentItemListener;
 import com.example.appchat_zalo.comment.model.Comment;
 import com.example.appchat_zalo.friends.model.Friend;
 import com.example.appchat_zalo.model.Users;
@@ -82,39 +85,18 @@ public class CommentActivity extends AppCompatActivity {
 
     }
 
-    private void getUser() {
-        mUserRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Users> userList = new ArrayList<>();
-               Users users=  dataSnapshot.getValue(Users.class);
-               users.getAvatar();
-               users.getName();
-                userList.add(new Users());
-                mAdapter.setmUser(users);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     private void getComment() {
-
         mCommentRef.child(mPostId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for ( DataSnapshot data : dataSnapshot.getChildren()){
-//                    mCommentList.clear();
-                    Comment comment =  data.getValue(Comment.class);
+            @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                mCommentList.clear();
+                for (DataSnapshot dataComment : dataSnapshot.getChildren()){
+                    Comment comment =   dataComment.getValue(Comment.class);
+                    Log.d(TAG, "onDataChange:dddd " + comment.getUserId());
                     mCommentList.add(comment);
                 }
-                mAdapter.setmListComment(mCommentList);
 
-
+                mAdapter.setmComentList(mCommentList);
             }
 
             @Override
@@ -122,9 +104,27 @@ public class CommentActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
+
+//    private void getUser() {
+//        mUserRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                List<Users> userList = new ArrayList<>();
+//               Users users=  dataSnapshot.getValue(Users.class);
+//               users.getAvatar();
+//               users.getName();
+//                userList.add(new Users());
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
+
 
     @OnClick(R.id.image_send)
     void onclickSend() {
@@ -133,8 +133,8 @@ public class CommentActivity extends AppCompatActivity {
             Toast.makeText(this, "you can't send comment", Toast.LENGTH_SHORT).show();
         }
         else {
-            sendComment();
-            mInputComment.setText("");
+            sendComment(MessageTypeConfig.TEXT);
+//            mInputComment.setText("");
         }
 
 
@@ -146,11 +146,11 @@ public class CommentActivity extends AppCompatActivity {
         mUserRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
         mPostRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
         mCommentRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_COMMENT);
-        mRef = FirebaseDatabase.getInstance().getReference();
+//        mRef = FirebaseDatabase.getInstance().getReference();
 
     }
 
-    private void sendComment() {
+    private void sendComment(String type) {
 
         Calendar calendarDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
@@ -159,29 +159,39 @@ public class CommentActivity extends AppCompatActivity {
         Calendar calendarTime = Calendar.getInstance();
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         mSaveCurrentTime = currentTime.format(calendarDate.getTime());
+
+        String timeComment = mSaveCurrentDate + " -- " +  mSaveCurrentTime;
         String commentId = mCommentRef.push().getKey();
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("currentId", Constants.UID);
-        hashMap.put("avatar", Constants.UAVATAR);
-        hashMap.put("name", Constants.UNAME);
-        hashMap.put("idComment", commentId);
-        hashMap.put("content_comment", mInputComment.getText().toString());
-        hashMap.put("date", mSaveCurrentDate);
-        hashMap.put("time", mSaveCurrentTime);
-        hashMap.put("type", MessageTypeConfig.TEXT);
 
-        mCommentRef.child(mPostId).child(commentId).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
+        HashMap<String, Object> hashMap = new HashMap<>();
 
-                Toast.makeText(CommentActivity.this, "send comment id successfull", Toast.LENGTH_SHORT).show();
-            }
-        });
+        hashMap.put("content", mInputComment.getText().toString());
+        hashMap.put("userId", Constants.UID);
+        hashMap.put("time", timeComment);
+        hashMap.put("postId", mPostId);
+        hashMap.put("type", type);
+        hashMap.put("CommentId", commentId);
+
+        mCommentRef.child(mPostId).child(commentId).setValue(hashMap);
+        Toast.makeText(this, "add comment success full", Toast.LENGTH_SHORT).show();
+        mInputComment.setText("");
 
     }
 
     private void initRcv() {
-        mAdapter = new CommentAdapter();
+        mAdapter = new CommentAdapter(new OnclickCommentItemListener() {
+            @Override
+            public void onclicCommentItem(Comment comment) {
+//                if(Constants.CURRENT_UID.contains(user.getId())){
+//                    Intent intent = new Intent(CommentActivity.this, .class);
+//                    intent.putExtra("userId", user.getId());
+//                    startActivity(intent)
+//                }
+                Intent intent = new Intent(CommentActivity.this, UserProfileActivity.class);
+                intent.putExtra("userId", comment.getUserId());
+                startActivity(intent);
+            }
+        });
         mRcvComment.setLayoutManager(new LinearLayoutManager(this));
         mRcvComment.setHasFixedSize(true);
         mRcvComment.setAdapter(mAdapter);

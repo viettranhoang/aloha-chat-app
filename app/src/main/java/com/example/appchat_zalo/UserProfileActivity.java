@@ -214,7 +214,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void Unfriend(String fromId, String toId) {
 
-
         mFriendRequestRef.child(fromId).child(toId).setValue("not").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -421,6 +420,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 Glide.with(getApplicationContext())
                         .load(users.getCover())
+                        .centerCrop()
                         .into(mCover);
 
                 mFriendRequestRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {

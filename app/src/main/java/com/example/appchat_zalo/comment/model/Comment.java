@@ -4,29 +4,47 @@ import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
 
 public class Comment {
-    private Users uses;
+    private String UserId;
+    private String CommentId;
     private String content;
-    private String date;
     private String time;
+    private String postId;
     private String type;
 
-    public Comment(Users uses, String content, String date, String time, String type) {
-        this.uses = uses;
+    public Comment(String userId, String commentId, String content, String time, String postId, String type) {
+        UserId = userId;
+        CommentId = commentId;
         this.content = content;
-        this.date = date;
         this.time = time;
+        this.postId = postId;
         this.type = type;
     }
 
     public Comment() {
     }
 
-    public Users getUses() {
-        return uses;
+    public String getUserId() {
+        return UserId;
     }
 
-    public void setUses(Users uses) {
-        this.uses = uses;
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    public String getCommentId() {
+        return CommentId;
+    }
+
+    public void setCommentId(String commentId) {
+        CommentId = commentId;
     }
 
     public String getContent() {
@@ -35,14 +53,6 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getTime() {
@@ -64,10 +74,11 @@ public class Comment {
     @Override
     public String toString() {
         return "Comment{" +
-                "uses=" + uses +
+                "UserId='" + UserId + '\'' +
+                ", CommentId='" + CommentId + '\'' +
                 ", content='" + content + '\'' +
-                ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
+                ", postId='" + postId + '\'' +
                 ", type='" + type + '\'' +
                 '}';
     }
