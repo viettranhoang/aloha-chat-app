@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appchat_zalo.Message.MessageActivity;
 import com.example.appchat_zalo.Message.model.Message;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.all_user.AllUserActivity;
 import com.example.appchat_zalo.chat.adapter.ChatAdapter;
 import com.example.appchat_zalo.chat.listner.OnclickChatItemListner;
 import com.example.appchat_zalo.chat.model.Chat;
@@ -54,6 +55,13 @@ public class ChatFragment extends Fragment {
     @OnClick({R.id.input_search})
     void clickSearch(){
         Intent intent = new Intent(getContext(), SearchActivity.class);
+        startActivity(intent);
+    }
+
+
+    @OnClick(R.id.image_contact)
+    void displayAllUser() {
+        Intent intent = new Intent(getContext(), AllUserActivity.class);
         startActivity(intent);
     }
     private ChatAdapter mChatAdapter = new ChatAdapter(new OnclickChatItemListner() {

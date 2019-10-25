@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="3dp"
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image_avatar"
+        android:layout_alignParentLeft="true"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+
+    <RelativeLayout
+        android:layout_toRightOf="@id/image_avatar"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="13dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_name"
+            android:text="Hanh Ham"
+            android:textSize="19sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/button_accept"
+            android:text="Accept"
+            android:layout_below="@id/text_name"
+            android:layout_width="110dp"
+            android:background="@color/blue"
+            android:layout_marginTop="12dp"
+            android:textAllCaps="false"
+            android:layout_height="40dp"/>
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:text="Cancel"
+            android:layout_below="@id/text_name"
+            android:layout_width="110dp"
+            android:layout_marginLeft="20dp"
+            android:background="@color/gray1"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/button_accept"
+            android:textAllCaps="false"
+            android:layout_height="40dp"/>
+    </RelativeLayout>
+</RelativeLayout>

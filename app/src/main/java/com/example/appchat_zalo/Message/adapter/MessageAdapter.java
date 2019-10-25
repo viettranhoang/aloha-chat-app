@@ -140,6 +140,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 //           }
 //            mTextSeen.setText(message.isSeen() ? "Đã xem" : "Đã chuyển");1
 
+
             if (message.getType().equals(MessageTypeConfig.TEXT)){
                 mTextMessage.setText(message.getMessage());
                 mTextMessage.setVisibility(View.VISIBLE);

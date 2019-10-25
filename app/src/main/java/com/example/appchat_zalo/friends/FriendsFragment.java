@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appchat_zalo.confirm_requets.ConfirmRequestActivity;
 import com.example.appchat_zalo.Message.MessageActivity;
 import com.example.appchat_zalo.R;
-import com.example.appchat_zalo.all_user.AllUserActivity;
 import com.example.appchat_zalo.friends.adapter.FriendNewsAdapter;
 import com.example.appchat_zalo.friends.adapter.FriendsOnlineAdapter;
 import com.example.appchat_zalo.model.Users;
@@ -45,14 +45,20 @@ public class FriendsFragment extends Fragment {
     @BindView(R.id.list_news)
     RecyclerView mRcvListNews;
 
-    @BindView(R.id.image_contact)
-    ImageView mImageContact;
+    @BindView(R.id.image_add)
+    ImageView mImageAdd;
 
     @BindView(R.id.input_search)
     EditText mInputSearch;
 
+    @OnClick(R.id.image_confirm)
+    void displayAllUser() {
+        Intent intent = new Intent(getContext(), ConfirmRequestActivity.class);
+        startActivity(intent);
+    }
+
     @OnClick({R.id.input_search})
-    void clickSearch(){
+    void clickSearch() {
         Intent intent = new Intent(getContext(), SearchActivity.class);
         startActivity(intent);
     }
@@ -91,10 +97,10 @@ public class FriendsFragment extends Fragment {
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Users> listNewsFriend =  new ArrayList<>();
-                for (DataSnapshot  data : dataSnapshot.child(Constants.TABLE_FRIEND). child(Constants.UID).getChildren()){
-                    if(data.getValue(String.class).equals(type)){
-                        String  idFriend =  data.getKey();
+                List<Users> listNewsFriend = new ArrayList<>();
+                for (DataSnapshot data : dataSnapshot.child(Constants.TABLE_FRIEND).child(Constants.UID).getChildren()) {
+                    if (data.getValue(String.class).equals(type)) {
+                        String idFriend = data.getKey();
                         listNewsFriend.add(dataSnapshot.child(Constants.TABLE_USERS).child(idFriend).getValue(Users.class));
                     }
                 }
@@ -110,12 +116,6 @@ public class FriendsFragment extends Fragment {
         });
     }
 
-    @OnClick(R.id.image_contact)
-    void displayAllUser() {
-        Intent intent = new Intent(getContext(), AllUserActivity.class);
-        startActivity(intent);
-    }
-
     private void initRcv() {
         mRcvListFriend.setLayoutManager(new LinearLayoutManager(getContext()));
         mRcvListFriend.setHasFixedSize(true);
@@ -126,6 +126,7 @@ public class FriendsFragment extends Fragment {
         mRcvListNews.setAdapter(mNewsAdapter);
 
     }
+
     private void initFireBase() {
         mRef = FirebaseDatabase.getInstance().getReference();
     }

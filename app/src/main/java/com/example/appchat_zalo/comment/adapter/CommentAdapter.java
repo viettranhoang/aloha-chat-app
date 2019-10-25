@@ -17,8 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.chat.listner.OnclickChatItemListner;
+import com.example.appchat_zalo.comment.CommentTypeConfig;
 import com.example.appchat_zalo.comment.listener.OnclickCommentItemListener;
 import com.example.appchat_zalo.comment.model.Comment;
 import com.example.appchat_zalo.model.Users;
@@ -79,6 +83,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         @BindView(R.id.image_online)
         ImageView mImageOnline;
 
+        @BindView(R.id.image_comment)
+        ImageView mImageComment;
+
         @BindView(R.id.text_name)
         TextView mTextName;
 
@@ -107,7 +114,40 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         void bindata(Comment comment) {
 
             mTextTime.setText(comment.getTime());
-            mTextContent.setText(comment.getContent());
+
+            if(comment.getType().equals(CommentTypeConfig.TEXT)){
+                mTextContent.setText(comment.getContent());
+                mTextContent.setVisibility(View.VISIBLE);
+                mImageComment.setVisibility(View.GONE);
+
+            }
+            else  {
+                mTextContent.setVisibility(View.INVISIBLE);
+                mImageComment.setVisibility(View.VISIBLE);
+                RequestOptions requestOptions = new RequestOptions();
+                requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(10));
+                Glide.with(itemView)
+                        .load(comment.getContent())
+                        .apply(requestOptions)
+                        .into(mImageComment);
+
+            }
+//            if(comment.getType().equals(CommentTypeConfig.TEXT)){
+//                mTextContent.setText(comment.getContent());
+//                mTextContent.setVisibility(View.VISIBLE);
+//                mImageComment.setVisibility(View.GONE);
+//            }
+//            else {
+//                mTextContent.setVisibility(View.INVISIBLE);
+//                mImageComment.setVisibility(View.VISIBLE);
+//                RequestOptions requestOptions = new RequestOptions();
+//                requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(10));
+//                Glide.with(itemView)
+//                        .load(comment.getContent())
+//                        .apply(requestOptions)
+//                        .into(mImageComment);
+//            }
+
             initFirbase();
             String userIdComment = comment.getUserId();
             getInforUser(userIdComment);
@@ -126,7 +166,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
                 }
             });
-
 
             mLayputComment.setOnClickListener(v -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());

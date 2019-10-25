@@ -219,7 +219,6 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     @OnTextChanged(R.id.input_message)

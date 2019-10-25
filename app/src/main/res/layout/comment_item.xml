@@ -62,7 +62,6 @@
             <ImageView
                 android:id="@+id/image_comment"
                 android:layout_width="100dp"
-                android:visibility="gone"
                 android:layout_height="120dp"/>
 
 <!--            <ImageView-->

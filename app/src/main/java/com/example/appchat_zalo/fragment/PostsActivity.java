@@ -238,7 +238,6 @@ public class PostsActivity extends AppCompatActivity {
         if (data != null && resultCode == RESULT_OK) {
             if (requestCode == IMAGE_CHOOSE && resultCode == RESULT_OK && data != null && data.getData() != null) {
                 mUrl = data.getData();
-
                 try {
                     InputStream inputStream = getContentResolver().openInputStream(mUrl);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
