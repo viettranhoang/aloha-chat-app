@@ -1,5 +1,6 @@
-package com.example.appchat_zalo.Message.adapter;
+package com.example.appchat_zalo.group_message.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +14,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.appchat_zalo.Message.adapter.MessageTypeConfig;
 import com.example.appchat_zalo.Message.model.Message;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.model.Groups;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,32 +31,29 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
+public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapter.MessageViewHolder> {
 
     private List<Message> mMessageList =  new ArrayList<>();
 
-    private  Users users ;
+    private Groups group ;
 
-    public void setUsers(Users users) {
-        this.users = users;
-
+    public void setGroup(Groups group) {
+        this.group = group;
     }
-
-
-    private FirebaseUser user;
 
     public static final int MESSAGE_LEFT = 1;
     public static final int MESSAGE_RIGHT = 2;
 
     private int selectedPosition = -100;
 
-    public MessageAdapter() {
+    public GroupMessageAdapter() {
     }
 
     public void setmMessageList(List<Message> mMessageList) {
         this.mMessageList = mMessageList;
         notifyDataSetChanged();
     }
+
 
     @NonNull
     @Override
@@ -68,17 +67,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             return new MessageViewHolder(view) ;
         }
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
        holder.bindata(mMessageList.get(position));
+
     }
 
     @Override
     public int getItemViewType(int position) {
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        if(mMessageList.get(position).getFrom().equals(user.getUid())){
+        if(mMessageList.get(position).getFrom().equals(Constants.UID)){
             return MESSAGE_RIGHT;
         }
         else return MESSAGE_LEFT;
@@ -115,12 +115,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             //doan nay crash vi mUser.getAvatar() null. do mUser chua dc set
             // mUser nay la nguoi dang nt cung. c phai set tu activity
 
-            user = FirebaseAuth.getInstance().getCurrentUser();
-
             Glide.with(itemView)
-                    .load(users.getAvatar())
+                    .load(group.getAvatar())
                     .circleCrop()
                     .into(mImageAvatar);
+
+            Log.d("aaa", "bindata: avat groups " + group.getAvatar());
 
             mTextTime.setText(Utils.getTime(message.getTime()));
 
@@ -135,7 +135,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 //           else {
 //               mTextSeen.setText("đã chuyển");
 //           }
-//            mTextSeen.setText(message.isSeen() ? "Đã xem" : "Đã chuyển")
+//            mTextSeen.setText(message.isSeen() ? "Đã xem" : "Đã chuyển");1
+
 
             if (message.getType().equals(MessageTypeConfig.TEXT)){
                 mTextMessage.setText(message.getMessage());

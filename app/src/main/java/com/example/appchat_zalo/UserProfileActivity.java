@@ -442,7 +442,20 @@ public class UserProfileActivity extends AppCompatActivity {
                                     mTextDeclineFriend.setVisibility(View.GONE);
                                     mImageDeclineFriend.setEnabled(false);
 
-                                } else if (mCurrentRelative.equals(RECEIVE)) {
+                                }
+                                else  if (mCurrentRelative.equals(NOT)) {
+
+//                                mCurrentRelative = SENT;
+                                    mImageAddFriend.setImageResource(R.drawable.ic_add_friends);
+                                    mTextAddFriend.setText("Thêm bạn bè");
+                                    mTextAddFriend.setTextColor(R.color.black);
+                                    mImageDeclineFriend.setVisibility(View.GONE);
+                                    mTextDeclineFriend.setVisibility(View.GONE);
+                                    mImageDeclineFriend.setEnabled(false);
+
+                                }
+
+                                else if (mCurrentRelative.equals(RECEIVE)) {
                                     mImageAddFriend.setImageResource(R.drawable.ic_receive_invite_friend);
                                     mTextAddFriend.setText("Trả lời");
                                     mTextAddFriend.setTextColor(R.color.black);

@@ -1,6 +1,7 @@
 package com.example.appchat_zalo.chat.adapter;
 
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         listUser.add(chat);
         notifyDataSetChanged();
     }
-
 
     public void setListUser(List<Chat> listUser) {
         this.listUser = listUser;
@@ -90,6 +90,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         @BindColor(R.color.black40)
         int mBlack40;
 
+        boolean checkUser = true;
+
         public ChatViewHolder(@NonNull View itemView) {
 
             super(itemView);
@@ -99,17 +101,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
         void bindata(Chat chat) {
 
-            Glide.with(itemView)
-                    .load(chat.getUsers().getAvatar())
-                    .circleCrop()
-                    .into(mAvatar);
+//            if(chat.getUsers() == null){
+                Glide.with(itemView)
+                        .load(chat.getUsers().getAvatar())
+                        .circleCrop()
+                        .into(mAvatar);
+                mTextName.setText(chat.getUsers().getName());
+
 
             Glide.with(itemView)
                     .load(R.drawable.roun_conner_seen)
-                    .centerCrop()
+                    .circleCrop()
                     .into(mImageSeen);
 
-            mTextName.setText(chat.getUsers().getName());
             mTextLastMessage.setText(chat.getLastMessage().getMessage());
             mTextTimeSeen.setText(Utils.getTime(chat.getLastMessage().getTime()));
             mImageOnline.setVisibility(View.VISIBLE);
@@ -124,9 +128,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                 mTextName.setTypeface(mTextName.getTypeface(), Typeface.DEFAULT_BOLD.getStyle());
                 mTextLastMessage.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
                 mTextLastMessage.setTextColor(mBlack87);
-            }
-
-            else {
+            } else {
 
                 mImageSeen.setVisibility(View.GONE);
                 mTextName.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appchat_zalo.add_user.SentInviteActivity;
 import com.example.appchat_zalo.confirm_requets.ConfirmRequestActivity;
 import com.example.appchat_zalo.Message.MessageActivity;
 import com.example.appchat_zalo.R;
@@ -57,6 +58,12 @@ public class FriendsFragment extends Fragment {
         startActivity(intent);
     }
 
+    @OnClick(R.id.image_add)
+    void displayAddUser() {
+        Intent intent = new Intent(getContext(), SentInviteActivity.class);
+        startActivity(intent);
+    }
+
     @OnClick({R.id.input_search})
     void clickSearch() {
         Intent intent = new Intent(getContext(), SearchActivity.class);
@@ -85,7 +92,6 @@ public class FriendsFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         initRcv();
-
 
         getListFriend(Constants.UID, type);
 

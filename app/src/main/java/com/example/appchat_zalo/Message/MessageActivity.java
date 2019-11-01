@@ -119,11 +119,12 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message_activity);
         ButterKnife.bind(this);
+        intent = getIntent();
+        userId = intent.getStringExtra("userId");
         initToolbar();
         initRcvMessage();
         initFirebase();
         getUser();
-
         getListMessage(userId);
 
     }
@@ -136,13 +137,12 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     private void getUser() {
-        intent = getIntent();
-        userId = intent.getStringExtra("userId");
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+        reference = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS).child(userId);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Users users = dataSnapshot.getValue(Users.class);
+                Log.d("ddd", "onDataChange: users " + users.toString());
                 listUsers.add(users);
                 adapter.setUsers(users);
             }
@@ -177,7 +177,6 @@ public class MessageActivity extends AppCompatActivity {
 
     @OnClick(R.id.image_picture)
     void onclickPicture() {
-
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -235,7 +234,7 @@ public class MessageActivity extends AppCompatActivity {
     private void getListMessage(final String userId) {
 
         reference = FirebaseDatabase.getInstance().getReference();
-        reference.child("Message").child(Constants.UID).child(userId).addValueEventListener(new ValueEventListener() {
+        reference.child(Constants.TABLE_MESSAGE).child(Constants.UID).child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listMessage.clear();
@@ -264,17 +263,17 @@ public class MessageActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference();
         Message message1 = new Message(message, from, false, System.currentTimeMillis(), type);
         HashMap<String, Object> hashMap = new HashMap<>();
-        String key = reference.child("Message").child(from).child(receiver).push().getKey();
+        String key = reference.child(Constants.TABLE_MESSAGE).child(from).child(receiver).push().getKey();
         hashMap.put("from", from);
         hashMap.put("message", message);
         hashMap.put("seen", message1.isSeen());
         hashMap.put("time", message1.getTime());
         hashMap.put("type", type);
 
-        reference.child("Message").child(from).child(receiver).child(key).updateChildren(hashMap).addOnSuccessListener(aVoid -> {
+        reference.child(Constants.TABLE_MESSAGE).child(from).child(receiver).child(key).updateChildren(hashMap).addOnSuccessListener(aVoid -> {
             mRcvMessage.scrollToPosition(adapter.getItemCount() - 1);
         });
-        reference.child("Message").child(receiver).child(from).child(key).updateChildren(hashMap).addOnSuccessListener(aVoid -> {
+        reference.child(Constants.TABLE_MESSAGE).child(receiver).child(from).child(key).updateChildren(hashMap).addOnSuccessListener(aVoid -> {
             mRcvMessage.scrollToPosition(adapter.getItemCount() - 1);
         });
 
@@ -285,19 +284,17 @@ public class MessageActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        intent = getIntent();
-        userId = intent.getStringExtra("userId");
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+
+        reference = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS).child(userId);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Users users = dataSnapshot.getValue(Users.class);
-
+                Log.d("aa", "onDataChange: avatar  user" + users.getAvatar());
                 Glide.with(getApplicationContext())
                         .load(users.getAvatar())
                         .circleCrop()
                         .into(mImageAvatar);
-
                 mTextName.setText(users.getName());
 
                 if (users.getOnline() == 1) {

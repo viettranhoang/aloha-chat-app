@@ -2,4 +2,8 @@
     <string name="app_name">AppChat_Zalo</string>
     <string name="facebook_app_id">2436908063257556</string>
     <string name="fb_login_protocol_scheme">fb442494559834392</string>
+
+    // choose friend
+    <string name="choose_friend_error">Vui lòng chọn bạn bè!</string>
+    <string name="choose_friend_invalid_name">Vui lòng nhập tên nhóm!</string>
 </resources>

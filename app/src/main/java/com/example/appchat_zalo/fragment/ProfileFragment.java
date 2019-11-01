@@ -87,6 +87,7 @@ public class ProfileFragment extends Fragment {
     private DatabaseReference refUser, refPosts;
 
     private static final int IMAGE_CHOOSE = 1;
+
     private static final int IMAGE_PHOTO = 2;
 
     private StorageTask mUpLoadTask;

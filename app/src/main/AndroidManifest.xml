@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GroupMessageActivity"></activity>
+        <activity android:name=".add_user.SentInviteActivity"></activity>
+        <activity android:name=".group_message.GroupMessageActivity" />
         <activity android:name=".confirm_requets.ConfirmRequestActivity" />
         <activity android:name=".comment.CommentActivity" />
         <activity android:name=".NewsActivity" />
@@ -20,7 +21,7 @@
         <activity android:name=".UpdatePostActivity" />
         <activity android:name=".fragment.PostsActivity" />
         <activity android:name=".search.SearchActivity" />
-        <activity android:name=".ChooseActivity" />
+        <activity android:name=".choose_friends.ChooseActivity" />
         <activity android:name=".Message.MessageActivity" />
         <activity android:name=".LoginWithEmailActivity" />
         <activity android:name=".RegisterActivity" />

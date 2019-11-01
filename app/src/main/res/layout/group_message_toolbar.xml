@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:id="@+id/toolbar_message">
+
+    <RelativeLayout
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_width="40dp"
+            android:padding="3dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="Vũ Hạnh"
+            android:layout_marginLeft="13dp"
+            android:layout_toRightOf="@id/image_avatar"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:textSize="17sp" />
+
+
+    </RelativeLayout>
+
+</androidx.appcompat.widget.Toolbar>
