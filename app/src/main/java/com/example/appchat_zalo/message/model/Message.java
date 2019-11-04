@@ -1,4 +1,4 @@
-package com.example.appchat_zalo.Message.model;
+package com.example.appchat_zalo.message.model;
 
 public class Message {
 

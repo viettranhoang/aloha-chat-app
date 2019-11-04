@@ -1,4 +1,4 @@
-package com.example.appchat_zalo.Message.adapter;
+package com.example.appchat_zalo.message.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +13,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.appchat_zalo.Message.model.Message;
+import com.example.appchat_zalo.message.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Users;
-import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +35,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     public void setUsers(Users users) {
         this.users = users;
-
     }
-
 
     private FirebaseUser user;
 
@@ -49,9 +45,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     private int selectedPosition = -100;
 
     public MessageAdapter() {
+
     }
 
-    public void setmMessageList(List<Message> mMessageList) {
+    public void setMessageList(List<Message> mMessageList) {
         this.mMessageList = mMessageList;
         notifyDataSetChanged();
     }

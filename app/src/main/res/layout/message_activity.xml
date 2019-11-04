@@ -8,7 +8,7 @@
     android:layout_marginLeft="3dp"
     android:layout_marginTop="3dp"
     android:layout_marginRight="3dp"
-    tools:context=".Message.MessageActivity">
+    tools:context=".message.MessageActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

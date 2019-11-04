@@ -1,6 +1,5 @@
 package com.example.appchat_zalo.group_message.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.appchat_zalo.Message.adapter.MessageTypeConfig;
-import com.example.appchat_zalo.Message.model.Message;
+import com.example.appchat_zalo.message.adapter.MessageTypeConfig;
+import com.example.appchat_zalo.message.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Groups;
-import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,16 +31,16 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
 
     private List<Message> mMessageList =  new ArrayList<>();
 
-    private Groups group ;
-
-    public void setGroup(Groups group) {
-        this.group = group;
-    }
-
     public static final int MESSAGE_LEFT = 1;
     public static final int MESSAGE_RIGHT = 2;
 
     private int selectedPosition = -100;
+
+    private Groups group;
+
+    public void setGroup(Groups group) {
+        this.group = group;
+    }
 
     public GroupMessageAdapter() {
     }
@@ -64,7 +60,6 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
         }
         else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item_right, parent, false);
-
             return new MessageViewHolder(view) ;
         }
 
@@ -112,31 +107,12 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
         }
 
         void  bindata(Message message){
-            //doan nay crash vi mUser.getAvatar() null. do mUser chua dc set
-            // mUser nay la nguoi dang nt cung. c phai set tu activity
-
-            Glide.with(itemView)
-                    .load(group.getAvatar())
-                    .circleCrop()
-                    .into(mImageAvatar);
-
-            Log.d("aaa", "bindata: avat groups " + group.getAvatar());
+//            Glide.with(itemView)
+//                    .load(group.getAvatar())
+//                    .circleCrop()
+//                    .into(mImageAvatar);
 
             mTextTime.setText(Utils.getTime(message.getTime()));
-
-            String  seen = message.isSeen() ?  "đã xem" : "đã chuyển";
-            mTextSeen.setText(seen);
-
-//            mTextSeen.setText(message.isSeen() ?  : "");
-//            boolean seen =  message.isSeen();
-//           if(seen){
-//               mTextSeen.setText("đã xem");
-//           }
-//           else {
-//               mTextSeen.setText("đã chuyển");
-//           }
-//            mTextSeen.setText(message.isSeen() ? "Đã xem" : "Đã chuyển");1
-
 
             if (message.getType().equals(MessageTypeConfig.TEXT)){
                 mTextMessage.setText(message.getMessage());

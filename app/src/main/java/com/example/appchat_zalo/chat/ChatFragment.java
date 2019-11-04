@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appchat_zalo.choose_friends.ChooseActivity;
-import com.example.appchat_zalo.Message.MessageActivity;
-import com.example.appchat_zalo.Message.model.Message;
+import com.example.appchat_zalo.message.MessageActivity;
+import com.example.appchat_zalo.message.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.all_user.AllUserActivity;
 import com.example.appchat_zalo.chat.adapter.ChatAdapter;
@@ -26,7 +26,6 @@ import com.example.appchat_zalo.group_message.GroupMessageActivity;
 import com.example.appchat_zalo.model.Groups;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.search.SearchActivity;
-import com.example.appchat_zalo.search.adapter.SearchAdapter;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +39,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.example.appchat_zalo.utils.Constants.ROW_AVATAR;
+import static com.example.appchat_zalo.utils.Constants.ROW_MEMBERS;
+import static com.example.appchat_zalo.utils.Constants.ROW_NAME;
 
 public class ChatFragment extends Fragment {
 
@@ -71,14 +74,19 @@ public class ChatFragment extends Fragment {
     }
 
     private ChatAdapter mChatAdapter = new ChatAdapter(new OnclickChatItemListner() {
+        @Override
+        public void onClickUserChatItem(Users user) {
+
+            Intent intent = new Intent(getContext(), MessageActivity.class);
+            intent.putExtra("userId", user.getId());
+            startActivity(intent);
+        }
 
         @Override
-        public void onClickChatItem(Chat chat) {
-//            if(checkUser){
-            Intent intent = new Intent(getContext(), MessageActivity.class);
-            intent.putExtra("userId", chat.getUsers().getId());
+        public void onClickGroupItem(Groups group) {
+            Intent intent = new Intent(getContext(), GroupMessageActivity.class);
+            intent.putExtra("groupId", group.getId());
             startActivity(intent);
-
         }
     });
 
@@ -105,7 +113,7 @@ public class ChatFragment extends Fragment {
                 for (DataSnapshot data : dataSnapshot.child(Constants.TABLE_MESSAGE).child(Constants.UID).getChildren()) {
                     Chat chat = new Chat();
                     String idSender = data.getKey();
-                    Log.i("a","idSender " + idSender);
+                    Log.i("a", "idSender " + idSender);
                     List<Message> list = new ArrayList<>();
                     for (DataSnapshot dataMessage : data.getChildren()) {
                         list.clear();
@@ -113,6 +121,20 @@ public class ChatFragment extends Fragment {
                     }
                     Log.i("b", "onDataChange: setLastMessage" + list.get(list.size() - 1).toString());  // lay duoc tin nhan  cuoi  cung
                     chat.setLastMessage(list.get(list.size() - 1));
+
+
+                    if (idSender.contains(Constants.GROUP_ID)) {
+                        List<String> members = new ArrayList<>();
+
+                        for (DataSnapshot  dataMember : dataSnapshot.child(Constants.TABLE_GROUPS).child(idSender).child(ROW_MEMBERS).getChildren()){
+                            members.add(dataMember.getValue(String.class));
+                        }
+                        String name = (String) dataSnapshot.child(Constants.TABLE_GROUPS).child(idSender).child(ROW_NAME).getValue();
+                        String avatar =(String) dataSnapshot.child(Constants.TABLE_GROUPS).child(idSender).child(ROW_AVATAR).getValue();
+                        Groups group = new Groups(idSender,name,avatar,members);
+                        Log.d("ChatFragment", "onDataChange:group " + group.toString());
+                        chat.setGroups(dataSnapshot.child(Constants.TABLE_GROUPS).child(idSender).getValue(Groups.class));
+                    }
                     chat.setUsers(dataSnapshot.child(Constants.TABLE_USERS).child(idSender).getValue(Users.class));
 
                     listChat.add(chat);
@@ -126,47 +148,6 @@ public class ChatFragment extends Fragment {
 
             }
         });
-
-//        mMessageRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot data : dataSnapshot.getChildren()){
-//                    Chat chat =  new Chat();
-//                    String idSender = data.getKey();
-//                    Log.i("a","idSender " + idSender);
-//
-//
-//
-//                    // get  lastMessage
-//                    chat.setLastMessage(list.get(list.size() -1));
-//
-//                    //get user theo  idSender
-//                    mUserRef.child(idSender).addValueEventListener(new ValueEventListener() {
-//
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            Users users = dataSnapshot.getValue(Users.class);
-//                            Log.d("a", "onDataChange: " + users.toString());
-//                            chat.setUsers(users);
-//                            Log.i("aa", "onDataChange: chat" + chat.toString());
-//                            mChatAdapter.addChat(chat);
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
     }
 
     private void initRcv() {

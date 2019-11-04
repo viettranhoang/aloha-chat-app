@@ -8,7 +8,7 @@ public class Groups {
     private String id;
     private String name;
     private String avatar;
-    private List<String > members;
+    private List<String> members;
 
     public Groups(String id, String name, String avatar, List<String> members) {
         this.id = id;
@@ -50,5 +50,15 @@ public class Groups {
 
     public void setMembers(List<String> members) {
         this.members = members;
+    }
+
+    @Override
+    public String toString() {
+        return "Groups{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", members=" + members +
+                '}';
     }
 }

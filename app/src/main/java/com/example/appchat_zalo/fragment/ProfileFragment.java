@@ -276,7 +276,6 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-
     @OnClick(R.id.image_news)
     void onClickNews(){
        chooseImageNews();

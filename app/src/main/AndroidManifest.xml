@@ -22,7 +22,7 @@
         <activity android:name=".fragment.PostsActivity" />
         <activity android:name=".search.SearchActivity" />
         <activity android:name=".choose_friends.ChooseActivity" />
-        <activity android:name=".Message.MessageActivity" />
+        <activity android:name=".message.MessageActivity" />
         <activity android:name=".LoginWithEmailActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".HomeChatActivity" />

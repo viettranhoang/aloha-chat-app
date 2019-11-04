@@ -15,6 +15,7 @@ import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.my_profile.listener.OnclickItemMyPostListner;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.utils.Constants;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,8 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
 
         @BindView(R.id.image_picture_posts)
         ImageView mPicturePost;
+
+        private DatabaseReference mLikeRef, mPostRef;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);

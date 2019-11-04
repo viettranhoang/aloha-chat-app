@@ -11,7 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import com.example.appchat_zalo.Message.MessageActivity;
+import com.example.appchat_zalo.message.MessageActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.search.adapter.SearchAdapter;

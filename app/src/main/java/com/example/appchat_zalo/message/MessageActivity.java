@@ -1,8 +1,6 @@
-package com.example.appchat_zalo.Message;
+package com.example.appchat_zalo.message;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,16 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.appchat_zalo.Message.adapter.MessageAdapter;
-import com.example.appchat_zalo.Message.adapter.MessageTypeConfig;
-import com.example.appchat_zalo.Message.model.Message;
+import com.example.appchat_zalo.message.adapter.MessageAdapter;
+import com.example.appchat_zalo.message.adapter.MessageTypeConfig;
+import com.example.appchat_zalo.message.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
@@ -40,8 +37,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -244,7 +239,7 @@ public class MessageActivity extends AppCompatActivity {
                 }
 
                 Log.i("ha", "onDataChange: " + listMessage.toString());
-                adapter.setmMessageList(listMessage);
+                adapter.setMessageList(listMessage);
                 mRcvMessage.scrollToPosition(adapter.getItemCount() - 1);
 //                Log.d("a", "onDataChange: lissdfd " + );
 

@@ -1,7 +1,6 @@
 package com.example.appchat_zalo.chat.adapter;
 
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,12 +101,28 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         void bindata(Chat chat) {
 
 //            if(chat.getUsers() == null){
-                Glide.with(itemView)
-                        .load(chat.getUsers().getAvatar())
-                        .circleCrop()
-                        .into(mAvatar);
-                mTextName.setText(chat.getUsers().getName());
 
+            if (chat.getUsers() == null)
+                checkUser = false;
+            else if (chat.getGroups() == null)
+                checkUser = true;
+            else return;
+
+            String avatar = checkUser ? chat.getUsers().getAvatar() : chat.getGroups().getAvatar();
+            String name = checkUser ? chat.getUsers().getName() : chat.getGroups().getName();
+
+            Glide.with(itemView)
+                    .load(avatar)
+                    .circleCrop()
+                    .into(mAvatar);
+
+            mTextName.setText(name);
+//
+//                Glide.with(itemView)
+//                        .load(chat.getUsers().getAvatar())
+//                        .circleCrop()
+//                        .into(mAvatar);
+//                mTextName.setText(chat.getUsers().getName());
 
             Glide.with(itemView)
                     .load(R.drawable.roun_conner_seen)
@@ -137,14 +152,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             }
         }
 
-        @OnClick(R.id.image_avatar)
+        @OnClick(R.id.layput_chat)
         void onclickItem() {
-            mListner.onClickChatItem(listUser.get(getAdapterPosition()));
-            mImageSeen.setVisibility(View.GONE);
-            mTextName.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
-            mTextLastMessage.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
-            mTextLastMessage.setTextColor(mBlack40);
-
+            if (checkUser) {
+                mListner.onClickUserChatItem(listUser.get(getAdapterPosition()).getUsers());
+                mImageSeen.setVisibility(View.GONE);
+                mTextName.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+                mTextLastMessage.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+                mTextLastMessage.setTextColor(mBlack40);
+            } else {
+                mListner.onClickGroupItem(listUser.get(getAdapterPosition()).getGroups());
+                mImageSeen.setVisibility(View.GONE);
+                mTextName.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+                mTextLastMessage.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+                mTextLastMessage.setTextColor(mBlack40);
+            }
         }
 
     }

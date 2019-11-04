@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appchat_zalo.add_user.SentInviteActivity;
 import com.example.appchat_zalo.confirm_requets.ConfirmRequestActivity;
-import com.example.appchat_zalo.Message.MessageActivity;
+import com.example.appchat_zalo.message.MessageActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.friends.adapter.FriendNewsAdapter;
 import com.example.appchat_zalo.friends.adapter.FriendsOnlineAdapter;

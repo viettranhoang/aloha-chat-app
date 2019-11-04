@@ -27,6 +27,7 @@ public class AddPostAdapter extends RecyclerView.Adapter<AddPostAdapter.AddPostV
 
     public void setListImage(List<Bitmap> listImage) {
         this.listImage = listImage;
+        notifyDataSetChanged();
     }
 
     @NonNull

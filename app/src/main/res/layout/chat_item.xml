@@ -6,6 +6,7 @@
     android:layout_marginRight="6dp"
     android:layout_margin="8dp"
     android:weightSum="3"
+    android:id="@+id/layput_chat"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_marginLeft="7dp"
