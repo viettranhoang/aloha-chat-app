@@ -33,9 +33,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
     private List<Posts> mPostList = new ArrayList<>();
 
     private OnclickHomeFragmentItemListener listener;
-    private DatabaseReference mLikeRef, mPostRef;
-
-    private boolean mCheckLike = false;
+    private DatabaseReference mLikeRef, mPostRef, mRefCommet;
 
     public HomePostAdapter(OnclickHomeFragmentItemListener listener) {
         this.listener = listener;
@@ -63,6 +61,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
     private void initFirebase() {
         mPostRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
         mLikeRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE);
+        mRefCommet = FirebaseDatabase.getInstance().getReference(Constants.TABLE_COMMENT);
 
     }
 
@@ -109,6 +108,8 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
         @BindView(R.id.text_number_like)
         TextView mTextNumberLike;
 
+        @BindView(R.id.text_number_comment)
+        TextView mTextnumberComment;
 
 
         public HomePostViewHolder(@NonNull View itemView) {
@@ -135,6 +136,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
             initFirebase();
             checkLike(postKey);
             numberLike(postKey);
+            numberCommet(postKey);
             mImageLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -147,6 +149,20 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
                 }
             });
 
+        }
+
+        private void numberCommet(String postKey) {
+            mRefCommet.child(postKey).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    mTextnumberComment.setText(dataSnapshot.getChildrenCount() + " " + "comment");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
 
         private void numberLike(String postKey) {

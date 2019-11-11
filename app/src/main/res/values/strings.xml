@@ -6,4 +6,10 @@
     // choose friend
     <string name="choose_friend_error">Vui lòng chọn bạn bè!</string>
     <string name="choose_friend_invalid_name">Vui lòng nhập tên nhóm!</string>
+
+    // reset password
+    <string name="reset_password_invalid_email">Vui lòng nhập email!</string>
+    <string name="reset_password_check_email">Vui lòng kiểm tra tài khoản email của bạn!</string>
+    <string name="reset_password_error">Lỗi!!!</string>
+
 </resources>

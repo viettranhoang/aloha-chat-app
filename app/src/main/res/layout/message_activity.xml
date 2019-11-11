@@ -49,90 +49,66 @@
         </ScrollView>
 
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/layout_send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:gravity="center"
             android:layout_marginLeft="7dp"
+            android:orientation="horizontal"
             android:layout_marginRight="7dp"
             android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/image_icon_smile"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_smile"
+                android:tint="@color/blue1" />
+            <EditText
+                android:id="@+id/input_message"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="36dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/round_corner_gray_18"
+                android:drawableTint="@color/blue1"
+                android:hint="Nhập tin nhắn"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
 
 
             <ImageView
                 android:id="@+id/image_camera"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="7dp"
-                android:layout_marginBottom="13dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
                 android:src="@drawable/ic_camera"
                 android:tint="@color/blue1" />
 
             <ImageView
                 android:id="@+id/image_picture"
-                android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginBottom="13dp"
-                android:layout_toRightOf="@id/image_camera"
+                android:layout_width="34dp"
                 android:src="@drawable/icons_picture"
-                android:tint="@color/blue1" />
-
-            <ImageView
-                android:id="@+id/image_mic"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_centerInParent="true"
                 android:layout_marginLeft="15dp"
-                android:layout_marginBottom="13dp"
-                android:layout_toRightOf="@id/image_picture"
-                android:src="@drawable/ic_mic"
-                android:tint="@color/blue1" />
-
-            <ImageView
-                android:id="@+id/image_icon"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/ic_like"
                 android:tint="@color/blue1" />
 
             <ImageView
                 android:id="@+id/image_send"
-                android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="6dp"
+                android:layout_width="34dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
                 android:src="@drawable/ic_send"
                 android:tint="@color/blue1"
                 android:visibility="gone" />
 
-            <EditText
-                android:id="@+id/input_message"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="9dp"
-                android:layout_toLeftOf="@id/image_icon"
-                android:layout_toRightOf="@id/image_mic"
-                android:background="@drawable/round_corner_gray_18"
-                android:drawableRight="@drawable/ic_smile"
-                android:drawableTint="@color/blue1"
-                android:hint="Aa"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

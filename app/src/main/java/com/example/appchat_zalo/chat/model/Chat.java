@@ -1,6 +1,6 @@
 package com.example.appchat_zalo.chat.model;
 
-import com.example.appchat_zalo.message.model.Message;
+import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.model.Groups;
 import com.example.appchat_zalo.model.Users;
 

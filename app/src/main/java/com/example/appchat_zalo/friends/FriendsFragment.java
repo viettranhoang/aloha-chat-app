@@ -2,6 +2,7 @@ package com.example.appchat_zalo.friends;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,7 @@ public class FriendsFragment extends Fragment {
     private FriendsOnlineAdapter mFriendAdapter = new FriendsOnlineAdapter(users -> {
         Intent intent = new Intent(getContext(), MessageActivity.class);
         intent.putExtra("userId", users.getId());
+        intent.putExtra("avatar_user", users.getAvatar());
         startActivity(intent);
     });
 

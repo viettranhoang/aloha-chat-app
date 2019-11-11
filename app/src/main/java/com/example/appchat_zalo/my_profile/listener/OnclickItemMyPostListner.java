@@ -5,5 +5,6 @@ import com.example.appchat_zalo.model.Users;
 
 public interface OnclickItemMyPostListner {
     void onClickMyPostItem(Posts post);
+    void onClickMyPostComment(Posts post);
 
 }

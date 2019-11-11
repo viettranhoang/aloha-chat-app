@@ -78,7 +78,6 @@ public class FriendsOnlineAdapter extends RecyclerView.Adapter<FriendsOnlineAdap
         void bindata(Users users){
             mName.setText(users.getName());
 
-
             if(users.getAvatar().equals("default")){
                 mAvatar.setImageResource(R.drawable.background_main);
             }

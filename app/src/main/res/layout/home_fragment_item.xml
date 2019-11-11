@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@color/gray1"
-    android:layout_marginTop="6dp"
+    android:background="@color/gray"
+    android:layout_marginTop="5dp"
     android:layout_marginBottom="6dp"
     android:layout_height="wrap_content">
     <RelativeLayout
@@ -108,8 +108,6 @@
                 android:scaleType="center"
                 android:layout_height="200dp" />
 
-
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -124,18 +122,21 @@
             <ImageView
                 android:id="@+id/image_like"
                 android:src="@drawable/icon_like"
-                android:layout_width="34dp"
+                android:layout_width="32dp"
+                android:padding="5dp"
                 android:layout_alignParentLeft="true"
-                android:layout_height="34dp"/>
-
+                android:layout_height="32dp"/>
 
             <ImageView
                 android:id="@+id/image_comment"
-                android:src="@drawable/icon_more"
-                android:tint="@color/pinkLight"
-                android:layout_width="34dp"
-                android:layout_alignParentRight="true"
-                android:layout_height="34dp"/>
+                android:src="@drawable/icon_comment"
+                android:layout_width="32dp"
+                android:layout_toRightOf="@id/text_number_like"
+                android:layout_marginLeft="25dp"
+                android:tint="@color/gray"
+                android:padding="5dp"
+                android:layout_centerInParent="true"
+                android:layout_height="32dp"/>
 
             <TextView
                 android:id="@+id/text_number_like"
@@ -147,8 +148,18 @@
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-        </RelativeLayout>
 
+            <TextView
+                android:id="@+id/text_number_comment"
+                android:layout_toRightOf="@id/image_comment"
+                android:text="10 comment"
+                android:textSize="16sp"
+                android:textColor="@color/black87"
+                android:layout_marginLeft="15dp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
     </RelativeLayout>
 

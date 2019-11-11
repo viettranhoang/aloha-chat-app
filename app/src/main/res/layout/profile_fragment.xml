@@ -93,7 +93,7 @@
                     android:layout_toRightOf="@id/image_avatar"
                     android:fontFamily="sans-serif-medium"
                     android:text="Vũ Hạnh"
-                    android:textColor="@color/black87"
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <TextView
@@ -106,71 +106,8 @@
                     android:layout_toRightOf="@id/image_avatar"
                     android:fontFamily="sans-serif-medium"
                     android:text="Chó Kim ăn Shit :v "
-                    android:textColor="@color/black87"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
-
-                <!--                <TextView-->
-                <!--                    android:id="@+id/text_status"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_below="@id/text_name"-->
-                <!--                    android:layout_marginLeft="19dp"-->
-                <!--                    android:layout_marginTop="7dp"-->
-                <!--                    android:layout_toRightOf="@id/image_avatar"-->
-                <!--                    android:fontFamily="sans-serif-medium"-->
-                <!--                    android:text="Hặn yêu Bờm nhất <3 "-->
-                <!--                    android:textSize="18sp" />-->
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/image_avatar"-->
-                <!--                    android:layout_width="80dp"-->
-                <!--                    android:layout_height="80dp"-->
-                <!--                    android:clickable="true"-->
-                <!--                    android:layout_marginBottom="10dp"-->
-                <!--                    android:layout_marginLeft="10dp"-->
-                <!--                    android:layout_marginEnd="10dp"-->
-                <!--                    android:layout_alignParentBottom="true"-->
-                <!--                    android:background="@drawable/roun_avatar_news_blue"-->
-                <!--                    android:padding="3dp"-->
-                <!--                    android:scaleType="fitCenter" />-->
-
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/image_edit_avatar"-->
-                <!--                    android:layout_width="30dp"-->
-                <!--                    android:layout_height="30dp"-->
-                <!--                    android:layout_alignRight="@id/image_avatar"-->
-                <!--                    android:layout_alignBottom="@id/image_avatar"-->
-                <!--                    android:layout_alignParentBottom="true"-->
-                <!--                    android:layout_margin="10dp"-->
-                <!--                    android:background="@drawable/round_corner_gray_6"-->
-                <!--                    android:clickable="true"-->
-                <!--                    android:padding="9dp"-->
-                <!--                    android:src="@drawable/ic_camera"-->
-                <!--                    android:tint="@color/black_light" />-->
-
-                <!--                <TextView-->
-                <!--                    android:id="@+id/text_name"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:fontFamily="sans-serif-medium"-->
-                <!--                    android:text="Kim Cho"-->
-                <!--                    android:layout_toRightOf="@id/image_avatar"-->
-                <!--                    android:textColor="@color/black"-->
-                <!--                    android:textSize="21sp"-->
-                <!--                    android:textStyle="bold" />-->
-
-                <!--                <TextView-->
-                <!--                    android:id="@+id/text_status"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_below="@id/text_name"-->
-                <!--                    android:layout_toRightOf="@id/image_avatar"-->
-                <!--                    android:layout_marginTop="7dp"-->
-                <!--                    android:layout_alignParentBottom="true"-->
-                <!--                    android:fontFamily="sans-serif-medium"-->
-                <!--                    android:text="Chó Kim ăn Shit :v "-->
-                <!--                    android:textColor="@color/black"-->
-                <!--                    android:textSize="18sp"-->
-                <!--                    android:textStyle="normal" />-->
 
             </RelativeLayout>
 
@@ -233,7 +170,6 @@
             android:id="@+id/layout_four"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_below="@id/layout_three"
             android:layout_marginTop="8dp">
 
@@ -283,36 +219,53 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1.5"
                     android:padding="10dp" />
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
         <androidx.cardview.widget.CardView
+
+            android:layout_below="@+id/layout_four"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_four"
-            android:layout_marginTop="10dp">
-
+            android:layout_height="wrap_content">
             <androidx.recyclerview.widget.RecyclerView
-
-                android:id="@+id/list_my_posts"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="5dp"
-                android:padding="5dp">
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray1"
+                android:id="@+id/list_my_posts"
+                android:layout_height="wrap_content">
 
             </androidx.recyclerview.widget.RecyclerView>
-
         </androidx.cardview.widget.CardView>
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/layout_four"-->
+<!--            android:layout_marginTop="10dp">-->
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+
+<!--                android:id="@+id/list_my_posts"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="8dp"-->
+<!--                android:background="@color/gray1"-->
+<!--                android:layout_marginLeft="7dp"-->
+<!--                android:layout_marginTop="7dp"-->
+<!--                android:layout_marginRight="5dp"-->
+<!--                android:padding="5dp">-->
+
+<!--            </androidx.recyclerview.widget.RecyclerView>-->
+
+<!--        </androidx.cardview.widget.CardView>-->
 
 
     </RelativeLayout>

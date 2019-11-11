@@ -157,6 +157,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             mRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_COMMENT).child(idPost);
             checkLike(idComment);
             numberlike(idComment);
+//            numberComment(idComment);
 
             mTextLike.setOnClickListener(v -> {
                 if (mTextLike.getText().equals("thích")) {
@@ -273,6 +274,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         }
     }
+
+
 
 
 }

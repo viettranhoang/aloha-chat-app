@@ -14,9 +14,10 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.appchat_zalo.message.adapter.MessageTypeConfig;
-import com.example.appchat_zalo.message.model.Message;
+import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Groups;
+import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
 
@@ -35,12 +36,6 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
     public static final int MESSAGE_RIGHT = 2;
 
     private int selectedPosition = -100;
-
-    private Groups group;
-
-    public void setGroup(Groups group) {
-        this.group = group;
-    }
 
     public GroupMessageAdapter() {
     }
@@ -107,11 +102,11 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
         }
 
         void  bindata(Message message){
-//            Glide.with(itemView)
-//                    .load(group.getAvatar())
-//                    .circleCrop()
-//                    .into(mImageAvatar);
 
+            Glide.with(itemView)
+                    .load(message.getFrom_avatar())
+                    .circleCrop()
+                    .into(mImageAvatar);
             mTextTime.setText(Utils.getTime(message.getTime()));
 
             if (message.getType().equals(MessageTypeConfig.TEXT)){

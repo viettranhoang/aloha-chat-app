@@ -17,7 +17,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,7 +46,7 @@ import butterknife.OnClick;
 
 public class PostsActivity extends AppCompatActivity {
 
-    private List<Bitmap> mistBitmap;
+    private List<Bitmap> mListBitmap;
     private AddPostAdapter mAddPostAdapter;
     private static final int IMAGE_CHOOSE = 1;
     private static final int IMAGE_PHOTO = 2;
@@ -103,7 +102,7 @@ public class PostsActivity extends AppCompatActivity {
 
     private void initFirebase() {
         user = FirebaseAuth.getInstance().getCurrentUser();
-        refUser = FirebaseDatabase.getInstance().getReference().child("Users").child(Constants.UID);
+        refUser = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_USERS).child(Constants.UID);
         refPost = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_POSTS).child(Constants.UID);
 
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -116,7 +115,7 @@ public class PostsActivity extends AppCompatActivity {
     }
 
     private void intiRcv() {
-        mistBitmap = new ArrayList<>();
+        mListBitmap = new ArrayList<>();
         mRcvAddPosts.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         mRcvAddPosts.setHasFixedSize(true);
 
@@ -178,9 +177,7 @@ public class PostsActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         mSaveCurrentTime = currentTime.format(calendarDate.getTime());
         mPostRandomName = mSaveCurrentDate + mSaveCurrentTime;
-        Log.i("aa", "storagePictureToFirebase:  " +mUrl.getLastPathSegment());
-
-
+        Log.d("PostsActivity", "storagePictureToFirebase: " +mUrl.getLastPathSegment());
         StorageReference filePath = storageReference.child("UploadPost").child(mUrl.getLastPathSegment() + mPostRandomName + ".jpg");
 
 
@@ -241,8 +238,8 @@ public class PostsActivity extends AppCompatActivity {
                 try {
                     InputStream inputStream = getContentResolver().openInputStream(mUrl);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    mistBitmap.add(bitmap);
-                    mAddPostAdapter = new AddPostAdapter(mistBitmap);
+                    mListBitmap.add(bitmap);
+                    mAddPostAdapter = new AddPostAdapter(mListBitmap);
                     mRcvAddPosts.setAdapter(mAddPostAdapter);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -250,8 +247,8 @@ public class PostsActivity extends AppCompatActivity {
             } else if (requestCode == IMAGE_PHOTO) {
                 Bundle extras = data.getExtras();
                 Bitmap bitmap = (Bitmap) extras.get("data");
-                mistBitmap.add(bitmap);
-                mAddPostAdapter = new AddPostAdapter(mistBitmap);
+                mListBitmap.add(bitmap);
+                mAddPostAdapter = new AddPostAdapter(mListBitmap);
                 mRcvAddPosts.setAdapter(mAddPostAdapter);
             }
 

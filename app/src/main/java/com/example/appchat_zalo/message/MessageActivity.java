@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.message.adapter.MessageAdapter;
 import com.example.appchat_zalo.message.adapter.MessageTypeConfig;
-import com.example.appchat_zalo.message.model.Message;
+import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
@@ -68,14 +68,8 @@ public class MessageActivity extends AppCompatActivity {
     @BindView(R.id.image_picture)
     ImageView mImagePicture;
 
-    @BindView(R.id.image_mic)
-    ImageView mImageMic;
-
     @BindView(R.id.input_message)
     EditText mInputMessage;
-
-    @BindView(R.id.image_icon)
-    ImageView mImageIcon;
 
     @BindView(R.id.image_online)
     ImageView mImageOnline;
@@ -98,6 +92,7 @@ public class MessageActivity extends AppCompatActivity {
     StorageReference mStorageReference;
 
     private String userId;
+    private String avatar_from = Constants.UAVATAR;
     private Intent intent;
     private String mSaveCurrentDate;
     private String mSaveCurrentTime;
@@ -116,6 +111,7 @@ public class MessageActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         intent = getIntent();
         userId = intent.getStringExtra("userId");
+//        avatar_from =  intent.getStringExtra("avatar_user");
         initToolbar();
         initRcvMessage();
         initFirebase();
@@ -137,7 +133,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Users users = dataSnapshot.getValue(Users.class);
-                Log.d("ddd", "onDataChange: users " + users.toString());
+                Log.d("ddd", "onDataChange: users ===" + users.toString());
                 listUsers.add(users);
                 adapter.setUsers(users);
             }
@@ -159,16 +155,17 @@ public class MessageActivity extends AppCompatActivity {
 
     @OnClick(R.id.image_send)
     void OnClickSend() {
-        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(), MessageTypeConfig.TEXT);
+//        Log.d("MessageActivity", "OnClickSend: avatar users==" + avatar_from);
+        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(), MessageTypeConfig.TEXT, avatar_from);
         mInputMessage.setText("");
     }
 
-    @OnClick(R.id.image_icon)
-    void onClickIcon() {
-        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(), MessageTypeConfig.TEXT);
-        mInputMessage.setText("");
-
-    }
+//    @OnClick(R.id.image_icon)
+//    void onClickIcon() {
+//        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(), MessageTypeConfig.TEXT, avatar_from);
+//        mInputMessage.setText("");
+//
+//    }
 
     @OnClick(R.id.image_picture)
     void onclickPicture() {
@@ -180,6 +177,8 @@ public class MessageActivity extends AppCompatActivity {
 //        uploadImage();
 
     }
+
+
 
     private void uploadImage() {
         Calendar calendarDate = Calendar.getInstance();
@@ -205,7 +204,7 @@ public class MessageActivity extends AppCompatActivity {
                 Uri uri = (Uri) task.getResult();
                 urlDownload = uri.toString();
                 Toast.makeText(MessageActivity.this, "Picture is aup loading successful!!!", Toast.LENGTH_SHORT).show();
-                sendMessgae(Constants.UID, userId, urlDownload, MessageTypeConfig.IMAGE);
+                sendMessgae(Constants.UID, userId, urlDownload, MessageTypeConfig.IMAGE, avatar_from);
 
             } else {
                 String message = task.getException().getMessage();
@@ -218,10 +217,12 @@ public class MessageActivity extends AppCompatActivity {
     @OnTextChanged(R.id.input_message)
     void onTextChangeMessage() {
         if (!TextUtils.isEmpty(mInputMessage.getText())) {
-            mImageIcon.setVisibility(View.INVISIBLE);
+            mImageCamera.setVisibility(View.GONE);
+            mImagePicture.setVisibility(View.GONE);
             mImageSend.setVisibility(View.VISIBLE);
         } else {
-            mImageIcon.setVisibility(View.VISIBLE);
+            mImageCamera.setVisibility(View.VISIBLE);
+            mImagePicture.setVisibility(View.VISIBLE);
             mImageSend.setVisibility(View.INVISIBLE);
         }
     }
@@ -253,10 +254,10 @@ public class MessageActivity extends AppCompatActivity {
 //
     }
 
-    private void sendMessgae(String from, String receiver, String message, String type) {
+    private void sendMessgae(String from, String receiver, String message, String type, String avatar_from) {
 
         reference = FirebaseDatabase.getInstance().getReference();
-        Message message1 = new Message(message, from, false, System.currentTimeMillis(), type);
+        Message message1 = new Message(message, from, false, System.currentTimeMillis(), type,avatar_from);
         HashMap<String, Object> hashMap = new HashMap<>();
         String key = reference.child(Constants.TABLE_MESSAGE).child(from).child(receiver).push().getKey();
         hashMap.put("from", from);
@@ -264,6 +265,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("seen", message1.isSeen());
         hashMap.put("time", message1.getTime());
         hashMap.put("type", type);
+        hashMap.put("from_avatar", avatar_from);
 
         reference.child(Constants.TABLE_MESSAGE).child(from).child(receiver).child(key).updateChildren(hashMap).addOnSuccessListener(aVoid -> {
             mRcvMessage.scrollToPosition(adapter.getItemCount() - 1);

@@ -92,7 +92,7 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.user_profile_activity);
         ButterKnife.bind(this);
         Intent intent = getIntent();
         mUserId = intent.getStringExtra("userId");
@@ -162,14 +162,14 @@ public class UserProfileActivity extends AppCompatActivity {
             switch (mCurrentRelative) {
                 case NOT:
                     mImageAddFriend.setImageResource(R.drawable.ic_add_friends);
-                    mTextAddFriend.setText("Thêm bạn bè");
+                    mTextAddFriend.setText("Kết bạn");
                     mTextAddFriend.setTextColor(R.color.black);
                     SentInviteToFriend(Constants.UID, mUserId);
                     break;
 
                 case FRIEND:
                     mImageAddFriend.setImageResource(R.drawable.ic_account_check);
-                    mTextAddFriend.setText("Hủy kết bạn");
+                    mTextAddFriend.setText("Bạn bè");
                     mTextAddFriend.setTextColor(R.color.black);
                     Unfriend(Constants.UID, mUserId);
                     break;
@@ -225,7 +225,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             mImageAddFriend.setEnabled(true);
                             mImageAddFriend.setImageResource(R.drawable.ic_add_friends);
-                            mTextAddFriend.setText("Thêm bạn bè");
+                            mTextAddFriend.setText("Kết bạn");
                             mTextAddFriend.setTextColor(R.color.black);
                             mImageDeclineFriend.setVisibility(View.GONE);
                             mTextDeclineFriend.setVisibility(View.GONE);
@@ -251,7 +251,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                             mImageAddFriend.setEnabled(true);
                             mImageAddFriend.setImageResource(R.drawable.ic_account_check);
-                            mTextAddFriend.setText("Hủy kết bạn");
+                            mTextAddFriend.setText("Bạn bè");
                             mTextAddFriend.setTextColor(R.color.black);
                             mImageDeclineFriend.setVisibility(View.GONE);
                             mTextDeclineFriend.setVisibility(View.GONE);
@@ -311,7 +311,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             mImageAddFriend.setEnabled(true);
                             mImageAddFriend.setImageResource(R.drawable.ic_add_friends);
-                            mTextAddFriend.setText("Thêm bạn bè");
+                            mTextAddFriend.setText("Kết bạn");
                             mTextAddFriend.setTextColor(R.color.black);
                             mImageDeclineFriend.setVisibility(View.GONE);
                             mTextDeclineFriend.setVisibility(View.GONE);
@@ -447,7 +447,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
 //                                mCurrentRelative = SENT;
                                     mImageAddFriend.setImageResource(R.drawable.ic_add_friends);
-                                    mTextAddFriend.setText("Thêm bạn bè");
+                                    mTextAddFriend.setText("Kết bạn");
                                     mTextAddFriend.setTextColor(R.color.black);
                                     mImageDeclineFriend.setVisibility(View.GONE);
                                     mTextDeclineFriend.setVisibility(View.GONE);
@@ -471,7 +471,7 @@ public class UserProfileActivity extends AppCompatActivity {
                                     });
                                 } else if (mCurrentRelative.equals(FRIEND)) {
                                     mImageAddFriend.setImageResource(R.drawable.ic_account_check);
-                                    mTextAddFriend.setText("Hủy kết bạn");
+                                    mTextAddFriend.setText("Bạn bè");
                                     mTextAddFriend.setTextColor(R.color.black);
                                     mImageDeclineFriend.setVisibility(View.GONE);
                                     mTextDeclineFriend.setVisibility(View.GONE);
@@ -537,7 +537,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             mImageAddFriend.setEnabled(true);
                             mImageAddFriend.setImageResource(R.drawable.ic_add_friends);
-                            mTextAddFriend.setText("Thêm bạn bè");
+                            mTextAddFriend.setText("Kết bạn");
                             mTextAddFriend.setTextColor(R.color.black);
                             mImageDeclineFriend.setVisibility(View.GONE);
                             mTextDeclineFriend.setVisibility(View.GONE);

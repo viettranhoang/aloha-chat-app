@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appchat_zalo.choose_friends.ChooseActivity;
 import com.example.appchat_zalo.message.MessageActivity;
-import com.example.appchat_zalo.message.model.Message;
+import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.all_user.AllUserActivity;
 import com.example.appchat_zalo.chat.adapter.ChatAdapter;

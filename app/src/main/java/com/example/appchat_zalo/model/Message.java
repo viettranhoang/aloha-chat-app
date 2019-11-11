@@ -1,4 +1,4 @@
-package com.example.appchat_zalo.message.model;
+package com.example.appchat_zalo.model;
 
 public class Message {
 
@@ -7,16 +7,9 @@ public class Message {
     private boolean seen;
     private long time;
     private String type;
+    private String from_avatar;
 
     public Message() {
-    }
-
-    public Message(String message, String from, boolean seen, long time, String type) {
-        this.message = message;
-        this.from = from;
-        this.seen = seen;
-        this.time = time;
-        this.type = type;
     }
 
     public String getMessage() {
@@ -59,6 +52,23 @@ public class Message {
         this.type = type;
     }
 
+    public String getFrom_avatar() {
+        return from_avatar;
+    }
+
+    public void setFrom_avatar(String from_avatar) {
+        this.from_avatar = from_avatar;
+    }
+
+    public Message(String message, String from, boolean seen, long time, String type, String from_avatar) {
+        this.message = message;
+        this.from = from;
+        this.seen = seen;
+        this.time = time;
+        this.type = type;
+        this.from_avatar = from_avatar;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -67,6 +77,7 @@ public class Message {
                 ", seen=" + seen +
                 ", time=" + time +
                 ", type='" + type + '\'' +
+                ", from_avatar='" + from_avatar + '\'' +
                 '}';
     }
 }

@@ -31,9 +31,12 @@ import com.example.appchat_zalo.UpdatePostActivity;
 import com.example.appchat_zalo.LoginWithEmailActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.cache.PrefUtils;
+import com.example.appchat_zalo.comment.CommentActivity;
+import com.example.appchat_zalo.comment.model.Comment;
 import com.example.appchat_zalo.my_profile.adapter.ProfilePostsAdapter;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
+import com.example.appchat_zalo.my_profile.listener.OnclickItemMyPostListner;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -148,6 +151,7 @@ public class ProfileFragment extends Fragment {
                     mTextName.setText(users.getName());
                     Constants.UNAME = users.getName();
                     Constants.UAVATAR = users.getAvatar();
+                    Log.d("ProfileFragment", "onDataChange: avatar" + Constants.UAVATAR);
 
                     Glide.with(getActivity())
                             .load(users.getAvatar())
@@ -198,6 +202,7 @@ public class ProfileFragment extends Fragment {
 
         return view;
     }
+
     private void initFirebase() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         refUser = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
@@ -211,12 +216,6 @@ public class ProfileFragment extends Fragment {
         mRcvListMyPost.setHasFixedSize(true);
 
     }
-
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//    }
 
     private void addListner() {
         mImageLogout.setOnClickListener(new View.OnClickListener() {
@@ -244,7 +243,6 @@ public class ProfileFragment extends Fragment {
                 alertdialog.show();
             }
 
-
         });
 
         mImageEditCover.setOnClickListener(new View.OnClickListener() {
@@ -252,10 +250,9 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 chooseImage();
                 isUpdateAvatar = false;
-                isUpdateNews =  false;
+                isUpdateNews = false;
             }
         });
-
 
         mImageEditAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,9 +274,9 @@ public class ProfileFragment extends Fragment {
     }
 
     @OnClick(R.id.image_news)
-    void onClickNews(){
-       chooseImageNews();
-       isUpdateNews =  true;
+    void onClickNews() {
+        chooseImageNews();
+        isUpdateNews = true;
 
     }
 
@@ -326,8 +323,8 @@ public class ProfileFragment extends Fragment {
         progressDialog.setMessage("Uploading");
         progressDialog.show();
 
-        if(mUrl != null){
-            final  StorageReference storageReference = mStorgeNews.child(System.currentTimeMillis() + "." + getFileImage(mUrl));
+        if (mUrl != null) {
+            final StorageReference storageReference = mStorgeNews.child(System.currentTimeMillis() + "." + getFileImage(mUrl));
             mUpLoadTask = storageReference.putFile(mUrl);
             mUpLoadTask.continueWithTask((Continuation) task -> {
                 if (!task.isSuccessful()) {
@@ -338,13 +335,13 @@ public class ProfileFragment extends Fragment {
             }).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Uri urlDowlaod = (Uri) task.getResult();
                         String mUriDowload = urlDowlaod.toString();
                         refUser = FirebaseDatabase.getInstance().getReference("Users").child(Constants.UID);
                         HashMap<String, Object> hashMap = new HashMap<>();
                         if (isUpdateNews)
-                        hashMap.put("news", mUriDowload);
+                            hashMap.put("news", mUriDowload);
                         refUser.updateChildren(hashMap);
 
                         Toast.makeText(getContext(), "get news  succes full", Toast.LENGTH_SHORT).show();
@@ -382,8 +379,10 @@ public class ProfileFragment extends Fragment {
                     refUser = FirebaseDatabase.getInstance().getReference("Users").child(Constants.UID);
                     HashMap<String, Object> hashMap = new HashMap<>();
 //                    hashMap.put("news", mUriDowload);
-                    if (isUpdateAvatar == true && isUpdateNews == false) hashMap.put("avatar", mUriDowload);
-                    else if (isUpdateNews == false && isUpdateAvatar == false)hashMap.put("cover", mUriDowload);
+                    if (isUpdateAvatar == true && isUpdateNews == false)
+                        hashMap.put("avatar", mUriDowload);
+                    else if (isUpdateNews == false && isUpdateAvatar == false)
+                        hashMap.put("cover", mUriDowload);
 //                    if(isAddNews) hashMap.put("news", mUriDowload);
                     refUser.updateChildren(hashMap);
                     progressDialog.dismiss();
@@ -412,37 +411,15 @@ public class ProfileFragment extends Fragment {
 
             if (mUpLoadTask != null && mUpLoadTask.isInProgress()) {
                 Toast.makeText(getContext(), "image  is uploading", Toast.LENGTH_SHORT).show();
-            } else  if(isUpdateNews) {
+            } else if (isUpdateNews) {
                 uploadImageNews();
-            }
-            else {
+            } else {
 
                 upLoadImage();
             }
         }
 
-//        else if(resultCode == Activity.RESULT_OK){
-//
-//            Uri selectedImage = mUrl;
-//            getActivity().getContentResolver().notifyChange(selectedImage, null);
-//            ContentResolver cr = getActivity().getContentResolver();
-//            Bitmap bitmap;
-//            try {
-//                bitmap = android.provider.MediaStore.Images.Media
-//                        .getBitmap(cr, selectedImage);
-//            mImageNews.setImageBitmap(bitmap);
-//                Toast.makeText(getActivity(), selectedImage.toString(),
-//                        Toast.LENGTH_LONG).show();
-//            } catch (Exception e) {
-//                Toast.makeText(getActivity(), "Failed to load", Toast.LENGTH_SHORT)
-//                        .show();
-//                Log.e("Camera", e.toString());
-//            }
-//
-//        }
-
     }
-
 
 
     private void getMyPost() {
@@ -456,10 +433,20 @@ public class ProfileFragment extends Fragment {
                 }
 
                 Log.i("ha", "onDataChangePost: " + listMyPosts.toString());
-                profilePostsAdapter = new ProfilePostsAdapter(post -> {
-                    Intent intent = new Intent(getContext(), UpdatePostActivity.class);
-                    intent.putExtra("idPost",post.getIdPost());
-                    startActivity(intent);
+                profilePostsAdapter = new ProfilePostsAdapter(new OnclickItemMyPostListner() {
+                    @Override
+                    public void onClickMyPostItem(Posts post) {
+                        Intent intent = new Intent(getContext(), UpdatePostActivity.class);
+                        intent.putExtra("idPost", post.getIdPost());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onClickMyPostComment(Posts post) {
+                        Intent intent = new Intent(getContext(), CommentActivity.class);
+                        intent.putExtra("postId", post.getIdPost());
+                        startActivity(intent);
+                    }
                 });
                 profilePostsAdapter.setListMyPost(listMyPosts);
                 mRcvListMyPost.setAdapter(profilePostsAdapter);

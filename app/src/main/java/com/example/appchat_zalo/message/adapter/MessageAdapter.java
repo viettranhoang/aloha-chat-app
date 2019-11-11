@@ -1,5 +1,6 @@
 package com.example.appchat_zalo.message.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.appchat_zalo.message.model.Message;
+import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Users;
+import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,7 +33,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     private List<Message> mMessageList =  new ArrayList<>();
 
-    private  Users users ;
+    private  Users users;
 
     public void setUsers(Users users) {
         this.users = users;
@@ -62,7 +64,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         }
         else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item_right, parent, false);
-
             return new MessageViewHolder(view) ;
         }
     }
@@ -118,7 +119,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     .load(users.getAvatar())
                     .circleCrop()
                     .into(mImageAvatar);
-
+            if(Constants.UID.equals(users.getId())){
+                Constants.UAVATAR = users.getAvatar();
+            }
             mTextTime.setText(Utils.getTime(message.getTime()));
 
             String  seen = message.isSeen() ?  "đã xem" : "đã chuyển";

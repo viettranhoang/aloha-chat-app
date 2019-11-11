@@ -87,8 +87,7 @@
             android:layout_margin="8dp"
             android:textColor="@color/black" />
         <TextView
-            android:id="@+id/text_forget_password"
-
+            android:id="@+id/text_reset_password"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -97,8 +96,6 @@
             android:padding="3dp"
             android:text="Forget Password"
             android:layout_margin="8dp"/>
-
-
 
         <Button
             android:id="@+id/button_login"

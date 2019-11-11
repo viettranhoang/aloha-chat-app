@@ -13,9 +13,9 @@
 
         <ImageView
             android:id="@+id/image_avatar"
-            android:layout_width="40dp"
+            android:layout_width="45dp"
             android:padding="3dp"
-            android:layout_height="40dp" />
+            android:layout_height="45dp" />
         <ImageView
             android:id="@+id/image_online"
             android:padding="5dp"

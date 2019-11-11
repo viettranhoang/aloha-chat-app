@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appchat_zalo.cache.PrefUtils;
@@ -22,6 +23,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class LoginWithEmailActivity extends AppCompatActivity {
 
     private EditText mInputEmail;
@@ -31,6 +36,9 @@ public class LoginWithEmailActivity extends AppCompatActivity {
     private ProgressDialog loadingBar;
     private FirebaseAuth mAuth;
 
+    @BindView(R.id.text_reset_password)
+    TextView mTextResetPassword;
+
 //    private PrefUtils prefUtils;
 
     private FirebaseUser mCurrentUser;
@@ -39,6 +47,7 @@ public class LoginWithEmailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_with_email);
+        ButterKnife.bind(this);
 //        prefUtils = PrefUtils.getIntance(this);
         mAuth = FirebaseAuth.getInstance();
         mCurrentUser = mAuth.getCurrentUser();
@@ -46,6 +55,13 @@ public class LoginWithEmailActivity extends AppCompatActivity {
         addListner();
 
 
+    }
+
+    @OnClick(R.id.text_reset_password)
+    void onClickResetPassword(){
+        Intent intent = new Intent(LoginWithEmailActivity.this, ResetPasswordActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void addListner() {
