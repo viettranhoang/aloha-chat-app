@@ -8,6 +8,7 @@ public class Groups {
     private String id;
     private String name;
     private String avatar;
+    private String typeGroup;
     private List<String> members;
 
     public Groups(String id, String name, String avatar, List<String> members) {
@@ -18,6 +19,14 @@ public class Groups {
     }
 
     public Groups() {
+    }
+
+    public String getTypeGroup() {
+        return typeGroup;
+    }
+
+    public void setTypeGroup(String typeGroup) {
+        this.typeGroup = typeGroup;
     }
 
     public String getId() {

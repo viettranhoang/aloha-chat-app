@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -15,13 +16,20 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.appchat_zalo.MessageMeetingGroupActivity;
 import com.example.appchat_zalo.add_posts.adapter.AddPostAdapter;
 import com.example.appchat_zalo.fragment.PostsActivity;
 import com.example.appchat_zalo.group_message.GroupMessageActivity;
@@ -66,6 +74,7 @@ import butterknife.OnClick;
 
 public class ChooseActivity extends AppCompatActivity {
 
+    private static final String TAG = " ChooseAcitivity" ;
     @BindView(R.id.choose_toolbar)
     Toolbar mToolbarChoose;
 
@@ -84,6 +93,11 @@ public class ChooseActivity extends AppCompatActivity {
     @BindView(R.id.input_name_group)
     EditText mInputNameGroupp;
 
+    @BindView(R.id.spinner_group)
+    Spinner mSpinnerGroup;
+
+    private String[] typeGroup = {"meeting group", "learning group", "dating group"};
+
     private DatabaseReference mRef, mGroupRef, mMessRef;
 
     private ChooseVerticalAdapter mVerticalAdapter;
@@ -101,11 +115,15 @@ public class ChooseActivity extends AppCompatActivity {
 
     private static final int IMAGE_CHOOSE = 1;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_activity);
         ButterKnife.bind(this);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,typeGroup);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerGroup.setAdapter(adapter);
         progressDialog = new ProgressDialog(this);
         initToolbar();
         initRcv();
@@ -249,9 +267,9 @@ public class ChooseActivity extends AppCompatActivity {
                 .circleCrop()
                 .into(mImageUploadAvatar);
 
-//        String avatar = "https://images.penguinrandomhouse.com/cover/9781632368324";
+        String avatar = "https://images.penguinrandomhouse.com/cover/9781632368324";
 
-        if (name.isEmpty()) {
+        if (name.isEmpty() && avatar == null) {
             Toast.makeText(this, R.string.choose_friend_invalid_name, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -262,6 +280,8 @@ public class ChooseActivity extends AppCompatActivity {
         }
 
         Log.d("vbb", "createGroups: name" + name);
+        String groupType = ChooseTypeConfig.MEETING_GROUP;
+
         Groups groups = new Groups(idGroup, name, urlDownload, member);
         mGroupRef.child(idGroup).setValue(groups);
         Log.d("ChooseActivity", "createGroups: avaatrt " + Constants.UAVATAR);
@@ -273,11 +293,19 @@ public class ChooseActivity extends AppCompatActivity {
             hashMap.put(String.format("/%s/%s/%s", mem, groups.getId(), key), message);
         }
         mMessRef.updateChildren(hashMap);
-        Intent intent = new Intent(ChooseActivity.this, GroupMessageActivity.class);
-        intent.putExtra("groupId", groups.getId());
-        startActivity(intent);
-        finish();
+//        Intent intent1 = new Intent(ChooseActivity.this, MessageMeetingGroupActivity.class);
+//        intent1.putExtra("groupId", groups.getId());
+//        startActivity(intent1);
+//        finish();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }

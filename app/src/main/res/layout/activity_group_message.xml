@@ -30,24 +30,44 @@
             android:layout_below="@+id/toolbar_message"
             android:background="@color/black_light" />
 
-        <ScrollView
-            android:id="@+id/layout_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar_message"
-            android:layout_marginTop="7dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_message"
                 android:layout_width="match_parent"
+                android:background="@color/pinkLight"
+                android:layout_below="@+id/toolbar_message"
                 android:layout_height="match_parent"
-                android:layout_below="@id/toolbar_message"
+                android:layout_above="@+id/layout_send"
                 android:layout_margin="2dp"
+                android:layout_marginTop="3dp"
                 android:padding="3dp"></androidx.recyclerview.widget.RecyclerView>
 
 
-        </ScrollView>
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/layout_pin"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_below="@+id/toolbar_message"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <ImageView-->
+<!--                android:id="@+id/image_pin"-->
+<!--                android:src="@drawable/icon_pin"-->
+<!--                android:layout_width="32dp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:layout_toLeftOf="@id/input_date_meeting"-->
+<!--                android:layout_height="32dp"/>-->
 
+<!--            <EditText-->
+<!--                android:id="@+id/input_date_meeting"-->
+<!--                android:hint="thứ năm ngày 20 tháng 20"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_height="wrap_content"/>-->
+
+<!--        </RelativeLayout>-->
         <LinearLayout
             android:id="@+id/layout_send"
             android:layout_width="match_parent"
@@ -64,8 +84,7 @@
                 android:layout_width="34dp"
                 android:layout_height="34dp"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/ic_smile"
-                android:tint="@color/blue1" />
+                android:src="@drawable/ic_smile" />
             <EditText
                 android:id="@+id/input_message"
                 android:layout_width="0dp"
@@ -73,7 +92,7 @@
                 android:layout_height="36dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginBottom="9dp"
-                android:background="@drawable/round_corner_gray_18"
+                android:background="@drawable/roun_conner_message_gray_light"
                 android:drawableTint="@color/blue1"
                 android:hint="Nhập tin nhắn"
                 android:paddingLeft="10dp"
@@ -86,16 +105,14 @@
                 android:layout_height="34dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/ic_camera"
-                android:tint="@color/blue1" />
+                android:src="@drawable/ic_camera" />
 
             <ImageView
                 android:id="@+id/image_picture"
                 android:layout_height="34dp"
                 android:layout_width="34dp"
                 android:src="@drawable/icons_picture"
-                android:layout_marginLeft="15dp"
-                android:tint="@color/blue1" />
+                android:layout_marginLeft="15dp" />
 
             <ImageView
                 android:id="@+id/image_send"
@@ -108,7 +125,6 @@
                 android:visibility="gone" />
 
         </LinearLayout>
-
 
     </RelativeLayout>
 

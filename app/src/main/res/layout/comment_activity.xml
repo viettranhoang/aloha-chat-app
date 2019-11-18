@@ -13,39 +13,77 @@
         android:layout_below="@id/toolbar_comment"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <EditText
-        android:id="@+id/input_comment"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginRight="122dp"
-        android:padding="15dp"
-        android:hint="write a comment"
-        android:inputType="textMultiLine"
-        android:background="@null"
-        android:maxLines="1"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <ImageView
-        android:id="@+id/image_send"
-        android:src="@drawable/ic_send"
+    <RelativeLayout
+        android:id="@+id/layout_bottom_comment"
+        android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:padding="15dp"
-        android:tint="@color/blue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <ImageView
-        android:id="@+id/image_picture"
-        android:src="@drawable/icons_picture"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/image_send"
-        android:layout_marginRight="8dp"
-        android:tint="@color/blue"
-        android:padding="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/input_comment"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="122dp"
+            android:padding="15dp"
+            android:hint="write a comment"
+            android:inputType="textMultiLine"
+            android:background="@null"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/image_send"
+            android:src="@drawable/ic_send"
+            android:layout_alignParentEnd="true"
+            android:padding="15dp"
+            android:tint="@color/blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/image_picture"
+            android:src="@drawable/icons_picture"
+            android:layout_toLeftOf="@id/image_send"
+            android:layout_marginRight="8dp"
+            android:tint="@color/blue"
+            android:padding="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+<!--    <EditText-->
+<!--        android:id="@+id/input_comment"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginRight="122dp"-->
+<!--        android:padding="15dp"-->
+<!--        android:hint="write a comment"-->
+<!--        android:inputType="textMultiLine"-->
+<!--        android:background="@null"-->
+<!--        android:maxLines="1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/image_send"-->
+<!--        android:src="@drawable/ic_send"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:padding="15dp"-->
+<!--        android:tint="@color/blue"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
+<!--    <ImageView-->
+<!--        android:id="@+id/image_picture"-->
+<!--        android:src="@drawable/icons_picture"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_toLeftOf="@id/image_send"-->
+<!--        android:layout_marginRight="8dp"-->
+<!--        android:tint="@color/blue"-->
+<!--        android:padding="15dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
     <View
         android:id="@+id/view_layout_bottom"
         android:layout_width="match_parent"

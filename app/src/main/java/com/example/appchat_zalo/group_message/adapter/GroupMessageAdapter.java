@@ -16,8 +16,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.appchat_zalo.message.adapter.MessageTypeConfig;
 import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.R;
-import com.example.appchat_zalo.model.Groups;
-import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
 
@@ -103,8 +101,9 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
 
         void  bindata(Message message){
 
+            String avatar =  Constants.UAVATAR;
             Glide.with(itemView)
-                    .load(message.getFrom_avatar())
+                    .load(message.getFromAvatar())
                     .circleCrop()
                     .into(mImageAvatar);
             mTextTime.setText(Utils.getTime(message.getTime()));

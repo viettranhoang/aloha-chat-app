@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -258,10 +259,13 @@ public class PostsActivity extends AppCompatActivity {
     }
 
 
-//    private String getFileImage(Uri uri) {
-//        ContentResolver contentResolver = getApplicationContext().getContentResolver();
-//        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-//        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-//    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

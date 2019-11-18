@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">AppChat_Zalo</string>
-    <string name="facebook_app_id">2436908063257556</string>
-    <string name="fb_login_protocol_scheme">fb442494559834392</string>
+
+    <string name="facebook_app_id">583324425809394</string>
+    <string name="fb_login_protocol_scheme">fb583324425809394</string>
 
     // choose friend
     <string name="choose_friend_error">Vui lòng chọn bạn bè!</string>
@@ -12,4 +13,11 @@
     <string name="reset_password_check_email">Vui lòng kiểm tra tài khoản email của bạn!</string>
     <string name="reset_password_error">Lỗi!!!</string>
 
+
+    // choose a type group
+    <string-array name="group_type">
+        <item>meeting group</item>
+        <item>learning group</item>
+        <item>dating group</item>
+    </string-array>
 </resources>

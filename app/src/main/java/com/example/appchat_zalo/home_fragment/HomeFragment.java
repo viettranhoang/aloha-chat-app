@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.add_posts.adapter.AddPostAdapter;
 import com.example.appchat_zalo.comment.CommentActivity;
+import com.example.appchat_zalo.fragment.PostsActivity;
 import com.example.appchat_zalo.home_fragment.adapter.HomePostAdapter;
 import com.example.appchat_zalo.home_fragment.listner.OnclickHomeFragmentItemListener;
 import com.example.appchat_zalo.model.Posts;
@@ -69,6 +71,11 @@ public class HomeFragment extends Fragment {
         startActivity(intent);
     }
 
+    @OnClick(R.id.text_posts)
+    void onClickPost(){
+        Intent intent = new Intent(getContext(), PostsActivity.class);
+        startActivity(intent);
+    }
     private DatabaseReference mUserRef, mPostRef, mFriendRef, mRef, mLikeRef;
 
     @Nullable

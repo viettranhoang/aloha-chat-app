@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.UserProfileActivity;
@@ -61,8 +62,8 @@ public class SentInviteActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Users> mUserList = new ArrayList<>();
-                for (DataSnapshot  data :  dataSnapshot.child(Constants.TABLE_FRIEND).child(uid).getChildren()){
-                    if(data.getValue(String.class).contains(type)){
+                for (DataSnapshot data : dataSnapshot.child(Constants.TABLE_FRIEND).child(uid).getChildren()) {
+                    if (data.getValue(String.class).contains(type)) {
                         String idFriend = data.getKey();
                         mUserList.add(dataSnapshot.child(Constants.TABLE_USERS).child(idFriend).getValue(Users.class));
                     }
@@ -80,14 +81,14 @@ public class SentInviteActivity extends AppCompatActivity {
 
     private void initRcv() {
 
-        mSentInviteAdapter =  new SentInviteAdapter(new OnclickItemAddUser() {
+        mSentInviteAdapter = new SentInviteAdapter(new OnclickItemAddUser() {
             @Override
             public void onclickCancel(Users users) {
-                String userId =  users.getId();
+                String userId = users.getId();
                 mRef.child(Constants.TABLE_FRIEND).child(Constants.UID).child(userId).setValue(UserRelationshipConfig.NOT).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             mRef.child(Constants.TABLE_FRIEND).child(userId).child(Constants.UID).setValue(UserRelationshipConfig.NOT).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -122,6 +123,15 @@ public class SentInviteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

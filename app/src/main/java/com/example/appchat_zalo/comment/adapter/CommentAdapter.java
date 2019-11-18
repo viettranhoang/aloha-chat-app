@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
-import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.appchat_zalo.R;
-import com.example.appchat_zalo.chat.listner.OnclickChatItemListner;
 import com.example.appchat_zalo.comment.CommentTypeConfig;
 import com.example.appchat_zalo.comment.listener.OnclickCommentItemListener;
 import com.example.appchat_zalo.comment.model.Comment;
@@ -39,7 +37,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
@@ -132,7 +129,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                         .into(mImageComment);
 
             }
-//            if(comment.getType().equals(CommentTypeConfig.TEXT)){
+//            if(comment.getType().equals(ChooseTypeConfig.TEXT)){
 //                mTextContent.setText(comment.getContent());
 //                mTextContent.setVisibility(View.VISIBLE);
 //                mImageComment.setVisibility(View.GONE);

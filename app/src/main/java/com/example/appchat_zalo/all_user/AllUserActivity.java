@@ -2,6 +2,7 @@ package com.example.appchat_zalo.all_user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,7 +50,6 @@ public class AllUserActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initToolbar();
         initRcv();
-
         getListAllUser();
 
     }
@@ -101,6 +101,15 @@ public class AllUserActivity extends AppCompatActivity {
     private void initRcv() {
         mRcvAllUser.setLayoutManager(new LinearLayoutManager(this));
         mRcvAllUser.setHasFixedSize(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
