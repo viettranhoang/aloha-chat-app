@@ -181,7 +181,6 @@ public class PostsActivity extends AppCompatActivity {
         Log.d("PostsActivity", "storagePictureToFirebase: " +mUrl.getLastPathSegment());
         StorageReference filePath = storageReference.child("UploadPost").child(mUrl.getLastPathSegment() + mPostRandomName + ".jpg");
 
-
         filePath.putFile(mUrl).continueWithTask((Continuation) task -> {
             if (!task.isSuccessful()) {
                 throw task.getException();

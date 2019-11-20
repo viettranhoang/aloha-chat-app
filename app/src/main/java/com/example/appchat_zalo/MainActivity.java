@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            Constants.UID = mAuth.getUid();
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
                             startActivity(intent);
@@ -174,9 +175,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "signInWithCredential" + task.isSuccessful());
 
                 if (task.isSuccessful()) {
+                    Constants.UID = mAuth.getUid();
 
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    Log.d("MainActivity", "onComplete:  current user " + user.getEmail());
                     Toast.makeText(MainActivity.this, "login with facebook successful===== ", Toast.LENGTH_SHORT).show();
                     createNewUser();
 
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String idUser = user.getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_USERS).child(idUser);
-        HashMap<String, String> hashMap = new HashMap<>();
+        HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("id",idUser);
         hashMap.put("name",user.getDisplayName());
         hashMap.put("status","Yeu bom nhat");
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 //        hashMap.put("cover",user.getPhotoUrl().getLastPathSegment());
         hashMap.put("news","default");
         hashMap.put("posts","default");
-        hashMap.put("online","");
+        hashMap.put("online", 0);
         reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

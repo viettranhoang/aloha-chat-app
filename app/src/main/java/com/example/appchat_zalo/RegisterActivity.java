@@ -105,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                     FirebaseUser user =  mAuth.getCurrentUser();
                     String idUser = user.getUid();
                     reference = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_USERS).child(idUser);
-                    HashMap<String, String> hashMap = new HashMap<>();
+                    HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("id",idUser);
                     hashMap.put("name",name);
                     hashMap.put("status","Yeu bom nhat");
@@ -113,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("cover","default");
                     hashMap.put("news","default");
                     hashMap.put("posts","default");
-                    hashMap.put("online","");
+                    hashMap.put("online",0);
                     reference.setValue(hashMap).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

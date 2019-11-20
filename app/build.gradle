@@ -61,6 +61,10 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    annotationProcessor 'android.arch.lifecycle:compiler:1.1.1'
+
+//    implementation 'com.github.dhaval2404:imagepicker:1.1'
 }
 repositories {
     mavenCentral()
