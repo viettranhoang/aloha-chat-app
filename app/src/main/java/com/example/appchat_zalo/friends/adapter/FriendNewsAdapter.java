@@ -83,7 +83,6 @@ public class FriendNewsAdapter extends RecyclerView.Adapter<FriendNewsAdapter.Fr
         @BindView(R.id.image_news_friend)
         ImageView mImageNews;
 
-
         @BindView(R.id.image_avatar_friend)
         ImageView mImageAvatar;
 

@@ -1,5 +1,18 @@
 package com.example.appchat_zalo.choose_friends;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,45 +20,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.webkit.MimeTypeMap;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.example.appchat_zalo.MessageMeetingGroupActivity;
-import com.example.appchat_zalo.add_posts.adapter.AddPostAdapter;
-import com.example.appchat_zalo.fragment.PostsActivity;
-import com.example.appchat_zalo.group_message.GroupMessageActivity;
-import com.example.appchat_zalo.message.adapter.MessageTypeConfig;
-import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.choose_friends.adapter.ChooseVerticalAdapter;
+import com.example.appchat_zalo.group_message.GroupMessageActivity;
+import com.example.appchat_zalo.message.adapter.MessageTypeConfig;
 import com.example.appchat_zalo.model.Groups;
+import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
 import com.example.appchat_zalo.search.SearchActivity;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,20 +40,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -280,8 +260,6 @@ public class ChooseActivity extends AppCompatActivity {
         }
 
         Log.d("vbb", "createGroups: name" + name);
-        String groupType = ChooseTypeConfig.MEETING_GROUP;
-
         Groups groups = new Groups(idGroup, name, urlDownload, member);
         mGroupRef.child(idGroup).setValue(groups);
         Log.d("ChooseActivity", "createGroups: avaatrt " + Constants.UAVATAR);
@@ -293,10 +271,10 @@ public class ChooseActivity extends AppCompatActivity {
             hashMap.put(String.format("/%s/%s/%s", mem, groups.getId(), key), message);
         }
         mMessRef.updateChildren(hashMap);
-//        Intent intent1 = new Intent(ChooseActivity.this, MessageMeetingGroupActivity.class);
-//        intent1.putExtra("groupId", groups.getId());
-//        startActivity(intent1);
-//        finish();
+        Intent intent1 = new Intent(ChooseActivity.this, GroupMessageActivity.class);
+        intent1.putExtra("groupId", groups.getId());
+        startActivity(intent1);
+        finish();
     }
 
     @Override

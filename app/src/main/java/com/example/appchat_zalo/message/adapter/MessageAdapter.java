@@ -1,6 +1,5 @@
 package com.example.appchat_zalo.message.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
@@ -123,19 +122,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 Constants.UAVATAR = users.getAvatar();
             }
             mTextTime.setText(Utils.getTime(message.getTime()));
+//
+//            String  seen = message.isSeen() ?  "đã xem" : "đã chuyển";
+//            mTextSeen.setText(seen);
 
-            String  seen = message.isSeen() ?  "đã xem" : "đã chuyển";
-            mTextSeen.setText(seen);
-
-//            mTextSeen.setText(message.isSeen() ?  : "");
-//            boolean seen =  message.isSeen();
-//           if(seen){
-//               mTextSeen.setText("đã xem");
-//           }
-//           else {
-//               mTextSeen.setText("đã chuyển");
-//           }
-//            mTextSeen.setText(message.isSeen() ? "Đã xem" : "Đã chuyển")
+            mTextSeen.setText(message.isSeen() ? "Đã xem" : "Đã chuyển");
 
             if (message.getType().equals(MessageTypeConfig.TEXT)){
                 mTextMessage.setText(message.getMessage());

@@ -134,9 +134,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             mImageOnline.setVisibility(View.VISIBLE);
             mImageSeen.setVisibility(View.INVISIBLE);
 
-//            if (chat.getUsers().getOnline() == Constants.ONLINE) {
-//                mImageOnline.setVisibility(View.VISIBLE);
-//            }
+            if (chat.getUsers().getOnline() == Constants.ONLINE) {
+                mImageOnline.setVisibility(View.VISIBLE);
+            }
+            else {
+                mImageOnline.setVisibility(View.INVISIBLE);
+            }
 
             if (!chat.getLastMessage().isSeen() && !chat.getLastMessage().getFrom().equals(Constants.CURRENT_UID)) {
                 mImageSeen.setVisibility(View.VISIBLE);
