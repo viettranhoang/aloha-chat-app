@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
-import com.example.appchat_zalo.my_profile.listener.OnclickItemMyPostListner;
 import com.example.appchat_zalo.model.Posts;
+import com.example.appchat_zalo.my_profile.listener.OnclickItemMyPostListner;
+import com.example.appchat_zalo.notification.model.Notification;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,7 +35,7 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
     private List<Posts> listMyPost =  new ArrayList<>();
     private OnclickItemMyPostListner onlcickItemPost;
     private Posts posts;
-    private DatabaseReference mLikeRef, mPostRef, mRefCommet;
+    private DatabaseReference mLikeRef, mPostRef, mRefCommet, mNotiRef;
 
     public void setPosts(Posts posts) {
         this.posts = posts;
@@ -128,6 +129,7 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
                         .into(mPicturePost);
 
                 final String postKey = posts.getIdPost();
+                final String userId =  posts.getUserId();
                 initFirebase();
                 checkLike(postKey);
                 numberLike(postKey);
@@ -136,7 +138,10 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
                     @Override
                     public void onClick(View v) {
                         if (mImageLike.getTag().equals("like")) {
-                            FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE).child(postKey).child(Constants.UID).setValue("true");
+                            FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE).child(postKey). child(Constants.UID).setValue("true");
+                            if(!userId.equals(Constants.UID)){
+                                sendNotifications(userId, postKey);
+                            }
                         } else {
                             FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE).child(postKey).child(Constants.UID).removeValue();
 
@@ -152,6 +157,7 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
             mPostRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
             mLikeRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE);
             mRefCommet = FirebaseDatabase.getInstance().getReference(Constants.TABLE_COMMENT);
+            mNotiRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_NOTIFICATION);
 
         }
         private void numberCommet(String postKey) {
@@ -207,6 +213,18 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
 
         }
 
+        private void sendNotifications(String userId, String postId){
+            String notiId = mNotiRef.push().getKey();
+            mNotiRef.child(userId).child(notiId).setValue(new Notification(userId,"đã thích bài viết của bạn.",postId,notiId));
+//            mNotiRef.child(UID).child(notiId);
+//            HashMap<String,  Object>  hashMap = new HashMap<>();
+//            hashMap.put("userId" , UID);
+//            hashMap.put("text" , "đã thích bài viết này.");
+//            hashMap.put("postId", postId);
+//            hashMap.put("isPost", true);
+//            mNotiRef.push().setValue(hashMap);
+
+        }
 
         @OnClick(R.id.image_comment)
         void onclickComment(){

@@ -1,11 +1,5 @@
 package com.example.appchat_zalo.comment;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +8,12 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.UserProfileActivity;
@@ -41,6 +41,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.example.appchat_zalo.utils.Constants.UID;
+
 public class CommentActivity extends AppCompatActivity {
 
     @BindView(R.id.image_send)
@@ -62,7 +64,7 @@ public class CommentActivity extends AppCompatActivity {
     private CommentAdapter mAdapter;
     private List<Comment> mCommentList = new ArrayList<>();
 
-    private DatabaseReference mPostRef, mUserRef, mCommentRef, mRef;
+    private DatabaseReference mPostRef, mUserRef, mCommentRef, mNotiRef;
     private String mPostId;
     private String mSaveCurrentDate;
     private String mSaveCurrentTime;
@@ -139,6 +141,7 @@ public class CommentActivity extends AppCompatActivity {
         mUserRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
         mPostRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
         mCommentRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_COMMENT);
+        mNotiRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_NOTIFICATION);
         mStorageReference = FirebaseStorage.getInstance().getReference().child("upload_comment");
 //        mRef = FirebaseDatabase.getInstance().getReference();
 
@@ -208,7 +211,7 @@ public class CommentActivity extends AppCompatActivity {
         HashMap<String, Object> hashMap = new HashMap<>();
 
         hashMap.put("content", content);
-        hashMap.put("userId", Constants.UID);
+        hashMap.put("userId", UID);
         hashMap.put("time", timeComment);
         hashMap.put("postId", mPostId);
         hashMap.put("type", type);
@@ -216,9 +219,22 @@ public class CommentActivity extends AppCompatActivity {
 
         mCommentRef.child(mPostId).child(commentId).setValue(hashMap);
         Toast.makeText(this, "add comment success full", Toast.LENGTH_SHORT).show();
+//        sendNotifications(mPostId);
         mInputComment.setText("");
 
     }
+
+//    private void sendNotifications(String postId){
+//        String notiId = mNotiRef.push().getKey();
+//        mNotiRef.child(UID).child(notiId);
+//        HashMap<String,  Object>  hashMap = new HashMap<>();
+//        hashMap.put("userId" , UID);
+//        hashMap.put("text" , "đã thích bài viết này.");
+//        hashMap.put("postId", postId);
+//        hashMap.put("isPost", true);
+//        mNotiRef.push().setValue(hashMap);
+//
+//    }
 
     private void initRcv() {
         mAdapter = new CommentAdapter(new OnclickCommentItemListener() {

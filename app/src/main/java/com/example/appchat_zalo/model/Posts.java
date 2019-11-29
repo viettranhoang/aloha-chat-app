@@ -1,7 +1,5 @@
 package com.example.appchat_zalo.model;
 
-import java.io.Serializable;
-
 public class Posts {
     private String date;
     private String time;
@@ -10,10 +8,9 @@ public class Posts {
     private String avatar;
     private String name;
     private String idPost;
-    private String like;
+    private String userId;
 
-
-    public Posts(String date, String time, String content_posts, String picture, String avatar, String name, String idPost) {
+    public Posts(String date, String time, String content_posts, String picture, String avatar, String name, String idPost, String userId) {
         this.date = date;
         this.time = time;
         this.content_posts = content_posts;
@@ -21,6 +18,15 @@ public class Posts {
         this.avatar = avatar;
         this.name = name;
         this.idPost = idPost;
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getIdPost() {
@@ -92,6 +98,7 @@ public class Posts {
                 ", avatar='" + avatar + '\'' +
                 ", name='" + name + '\'' +
                 ", idPost='" + idPost + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

@@ -1,8 +1,5 @@
 package com.example.appchat_zalo;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.appchat_zalo.cache.PrefUtils;
 import com.example.appchat_zalo.utils.Constants;
-import com.facebook.login.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -39,7 +38,7 @@ public class LoginWithEmailActivity extends AppCompatActivity {
     @BindView(R.id.text_reset_password)
     TextView mTextResetPassword;
 
-//    private PrefUtils prefUtils;
+    private PrefUtils prefUtils;
 
     private FirebaseUser mCurrentUser;
 
@@ -48,7 +47,7 @@ public class LoginWithEmailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_with_email);
         ButterKnife.bind(this);
-//        prefUtils = PrefUtils.getIntance(this);
+        prefUtils = PrefUtils.getIntance(this);
         mAuth = FirebaseAuth.getInstance();
         mCurrentUser = mAuth.getCurrentUser();
         initView();
@@ -58,7 +57,7 @@ public class LoginWithEmailActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.text_reset_password)
-    void onClickResetPassword(){
+    void onClickResetPassword() {
         Intent intent = new Intent(LoginWithEmailActivity.this, ResetPasswordActivity.class);
         startActivity(intent);
         finish();
@@ -94,12 +93,11 @@ public class LoginWithEmailActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-//                                prefUtils.setCurrentUid(mAuth.getUid());
 //                                Intent intent = new Intent(LoginWithEmailActivity.this, HomeChatActivity.class);
 //                                startActivity(intent);
 //                                finish();
                                 Constants.UID = mAuth.getUid();
-
+                                prefUtils.setCurrentUid(mAuth.getUid());
                                 Intent intent = new Intent(LoginWithEmailActivity.this, HomeChatActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -162,6 +160,7 @@ public class LoginWithEmailActivity extends AppCompatActivity {
         mInputPasword.setText("111111");
 
     }
+
     @Override
     public void onBackPressed() {
     }

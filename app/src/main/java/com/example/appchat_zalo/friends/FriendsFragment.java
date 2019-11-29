@@ -107,6 +107,7 @@ public class FriendsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Users> listNewsFriend = new ArrayList<>();
                 for (DataSnapshot data : dataSnapshot.child(Constants.TABLE_FRIEND).child(Constants.UID).getChildren()) {
+                    Log.d("FriendsFragment", "onDataChange: data "  +  data );
                     if (data.getValue(String.class).equals(type)) {
                         String idFriend = data.getKey();
                         listNewsFriend.add(dataSnapshot.child(Constants.TABLE_USERS).child(idFriend).getValue(Users.class));

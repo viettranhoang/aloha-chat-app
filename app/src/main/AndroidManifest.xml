@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MessageMeetingGroupActivity"></activity>
+        <activity android:name=".notification.NotificationActivity"></activity>
+        <activity android:name=".MessageMeetingGroupActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".add_user.SentInviteActivity" />
         <activity android:name=".group_message.GroupMessageActivity" />
@@ -29,7 +30,6 @@
         <activity android:name=".LoginWithEmailActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".HomeChatActivity" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,7 +49,8 @@
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
-            <intent-filter><action android:name="android.intent.action.VIEW" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />

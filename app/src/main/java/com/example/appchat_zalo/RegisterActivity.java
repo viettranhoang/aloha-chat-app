@@ -1,8 +1,5 @@
 package com.example.appchat_zalo;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +7,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appchat_zalo.cache.PrefUtils;
 import com.example.appchat_zalo.utils.Constants;
@@ -40,13 +39,13 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressDialog loadingBar;
 
     private long  online = Constants.ONLINE;
-//    private PrefUtils prefUtils;
+    private PrefUtils prefUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-//        prefUtils = PrefUtils.getIntance(this);
+        prefUtils = PrefUtils.getIntance(this);
         mAuth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference();
         mInputEmail =  findViewById(R.id.input_email);
@@ -104,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     FirebaseUser user =  mAuth.getCurrentUser();
                     String idUser = user.getUid();
+                    prefUtils.setCurrentUid(mAuth.getUid());
                     reference = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_USERS).child(idUser);
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("id",idUser);

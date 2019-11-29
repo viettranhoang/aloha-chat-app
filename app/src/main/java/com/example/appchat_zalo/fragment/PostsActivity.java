@@ -202,7 +202,7 @@ public class PostsActivity extends AppCompatActivity {
     private void savePostsInfoToDatabase() {
         String postId = refPost.push().getKey();
         refPost.child(postId).setValue(new Posts(mSaveCurrentDate, mSaveCurrentTime,
-                mInputsContentPost.getText().toString(), urlDownload, Constants.UAVATAR, Constants.UNAME, postId))
+                mInputsContentPost.getText().toString(), urlDownload, Constants.UAVATAR, Constants.UNAME, postId, Constants.UID))
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()) {

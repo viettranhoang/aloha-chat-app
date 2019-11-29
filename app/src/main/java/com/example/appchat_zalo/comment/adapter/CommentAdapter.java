@@ -105,7 +105,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             super(itemView);
             ButterKnife.bind(this, itemView);
 
-
         }
 
         void bindata(Comment comment) {

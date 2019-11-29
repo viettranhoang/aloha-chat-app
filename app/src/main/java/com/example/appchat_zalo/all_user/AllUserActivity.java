@@ -56,10 +56,10 @@ public class AllUserActivity extends AppCompatActivity {
 
 
     private void initToolbar() {
-        setSupportActionBar(mToolbarAllUser);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+            setSupportActionBar(mToolbarAllUser);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     private void getListAllUser() {

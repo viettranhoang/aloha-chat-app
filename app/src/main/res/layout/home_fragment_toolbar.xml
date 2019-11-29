@@ -29,18 +29,18 @@
             android:textColor="@color/white"
             android:layout_centerInParent="true"
             android:layout_height="wrap_content" />
-<!--        <ImageView-->
+        <ImageView
 
-<!--            android:id="@+id/image_notification"-->
-<!--            android:layout_width="32dp"-->
-<!--            android:tint="@color/white"-->
-<!--            android:src="@drawable/icon_notification"-->
-<!--            android:layout_marginRight="15dp"-->
-<!--            android:layout_marginLeft="12dp"-->
-<!--            android:layout_alignParentRight="true"-->
-<!--            android:visibility="visible"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:layout_height="32dp" />-->
+            android:id="@+id/image_notification"
+            android:layout_width="32dp"
+            android:tint="@color/white"
+            android:src="@drawable/icon_notification"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="12dp"
+            android:layout_alignParentRight="true"
+            android:visibility="visible"
+            android:layout_centerInParent="true"
+            android:layout_height="32dp" />
 
 <!--        <ImageView-->
 

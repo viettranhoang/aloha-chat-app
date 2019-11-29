@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.appchat_zalo.cache.PrefUtils;
 import com.example.appchat_zalo.utils.Constants;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -27,7 +28,6 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-//    private PrefUtils prefUtils;
+    private PrefUtils prefUtils;
 
     private CallbackManager mCallBackManager;
     private GoogleSignInClient mGoogleSignInClient;
@@ -63,10 +63,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        prefUtils = PrefUtils.getIntance(this);
+        prefUtils = PrefUtils.getIntance(this);
 //        checkLogined();
-
-
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -205,7 +203,8 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
 
                 if (task.isSuccessful()) {
-//                    prefUtils.setCurrentUid(mAuth.getUid());
+//                    Constants.UID = mAuth.getUid();
+                    prefUtils.setCurrentUid(Constants.UID);
                     Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
                     startActivity(intent);
                     finish();
@@ -217,13 +216,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //    private void checkLogined() {
-//        if (prefUtils.getCurrentUid() != null) {
-//            Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
+        private void checkLogined() {
+
+        if (prefUtils.getCurrentUid() != null) {
+            Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
     private void addListner() {
         mButtonEmail.setOnClickListener(new View.OnClickListener() {
             @Override

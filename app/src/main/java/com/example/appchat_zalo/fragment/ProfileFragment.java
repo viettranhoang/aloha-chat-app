@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,15 +26,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.appchat_zalo.UpdatePostActivity;
 import com.example.appchat_zalo.LoginWithEmailActivity;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.UpdatePostActivity;
 import com.example.appchat_zalo.cache.PrefUtils;
 import com.example.appchat_zalo.comment.CommentActivity;
-import com.example.appchat_zalo.comment.model.Comment;
-import com.example.appchat_zalo.my_profile.adapter.ProfilePostsAdapter;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
+import com.example.appchat_zalo.my_profile.adapter.ProfilePostsAdapter;
 import com.example.appchat_zalo.my_profile.listener.OnclickItemMyPostListner;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.android.gms.tasks.Continuation;
@@ -153,14 +151,14 @@ public class ProfileFragment extends Fragment {
                     Constants.UAVATAR = users.getAvatar();
                     Log.d("ProfileFragment", "onDataChange: avatar" + Constants.UAVATAR);
 
-                    Glide.with(getActivity())
+                    Glide.with(getContext())
                             .load(users.getAvatar())
                             .circleCrop()
                             .into(mImageAvatar1);
                     if (users.getCover().equals("default")) {
                         mImageCover.setImageResource(R.drawable.anhbia1);
                     } else {
-                        Glide.with(getActivity())
+                        Glide.with(getContext())
                                 .load(users.getCover())
                                 .centerCrop()
                                 .into(mImageCover);
@@ -169,7 +167,7 @@ public class ProfileFragment extends Fragment {
                     if (users.getAvatar().equals("default")) {
                         mImageAvatar.setImageResource(R.drawable.background_main);
                     } else {
-                        Glide.with(getActivity())
+                        Glide.with(getContext())
                                 .load(users.getAvatar())
                                 .circleCrop()
                                 .into(mImageAvatar);
@@ -183,7 +181,7 @@ public class ProfileFragment extends Fragment {
                         RequestOptions requestOptions = new RequestOptions();
                         requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(20));
 
-                        Glide.with(getActivity())
+                        Glide.with(getContext())
                                 .load(users.getNews())
                                 .apply(requestOptions)
                                 .into(mImageMyNews);

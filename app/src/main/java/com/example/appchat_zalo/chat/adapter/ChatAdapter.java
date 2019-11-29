@@ -134,25 +134,30 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             mImageOnline.setVisibility(View.VISIBLE);
             mImageSeen.setVisibility(View.INVISIBLE);
 
-            if (chat.getUsers().getOnline() == Constants.ONLINE) {
-                mImageOnline.setVisibility(View.VISIBLE);
-            }
-            else {
-                mImageOnline.setVisibility(View.INVISIBLE);
+//            if (chat.getUsers().getOnline() == Constants.ONLINE) {
+//                mImageOnline.setVisibility(View.VISIBLE);
+//            }
+//            else {
+//                mImageOnline.setVisibility(View.INVISIBLE);
+//            }
+
+            if (Constants.CURRENT_UID != null) {
+                if (!chat.getLastMessage().isSeen() && !chat.getLastMessage().getFrom().equals(Constants.CURRENT_UID)) {
+                    mImageSeen.setVisibility(View.VISIBLE);
+                    mTextName.setTypeface(mTextName.getTypeface(), Typeface.DEFAULT_BOLD.getStyle());
+                    mTextLastMessage.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+                    mTextLastMessage.setTextColor(mBlack87);
+                } else {
+
+                    mImageSeen.setVisibility(View.GONE);
+                    mTextName.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+                    mTextLastMessage.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+                    mTextLastMessage.setTextColor(mBlack40);
+                }
+
             }
 
-            if (!chat.getLastMessage().isSeen() && !chat.getLastMessage().getFrom().equals(Constants.CURRENT_UID)) {
-                mImageSeen.setVisibility(View.VISIBLE);
-                mTextName.setTypeface(mTextName.getTypeface(), Typeface.DEFAULT_BOLD.getStyle());
-                mTextLastMessage.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
-                mTextLastMessage.setTextColor(mBlack87);
-            } else {
 
-                mImageSeen.setVisibility(View.GONE);
-                mTextName.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
-                mTextLastMessage.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
-                mTextLastMessage.setTextColor(mBlack40);
-            }
         }
 
         @OnClick(R.id.layput_chat)

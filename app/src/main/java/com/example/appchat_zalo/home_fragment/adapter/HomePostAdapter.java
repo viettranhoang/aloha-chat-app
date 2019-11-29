@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.home_fragment.listner.OnclickHomeFragmentItemListener;
 import com.example.appchat_zalo.model.Posts;
+import com.example.appchat_zalo.notification.model.Notification;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,7 +34,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
     private List<Posts> mPostList = new ArrayList<>();
 
     private OnclickHomeFragmentItemListener listener;
-    private DatabaseReference mLikeRef, mPostRef, mRefCommet;
+    private DatabaseReference mLikeRef, mPostRef, mRefCommet, mNotiRef;
 
     public HomePostAdapter(OnclickHomeFragmentItemListener listener) {
         this.listener = listener;
@@ -62,6 +63,8 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
         mPostRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
         mLikeRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE);
         mRefCommet = FirebaseDatabase.getInstance().getReference(Constants.TABLE_COMMENT);
+        mNotiRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_NOTIFICATION);
+
 
     }
 
@@ -133,6 +136,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
                     .into(mPicturePost);
 
             final String postKey = posts.getIdPost();
+            final String userId = posts.getUserId();
             initFirebase();
             checkLike(postKey);
             numberLike(postKey);
@@ -142,12 +146,29 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
                 public void onClick(View v) {
                     if (mImageLike.getTag().equals("like")) {
                         FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE).child(postKey).child(Constants.UID).setValue("true");
+//                        sendNotifications(Constants.UID, posts.getIdPost());
+
+                        if(!userId.equals(Constants.UID)){
+                            sendNotifications( userId,postKey);
+                        }
+
                     } else {
                         FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE).child(postKey).child(Constants.UID).removeValue();
-
                     }
                 }
             });
+
+        }
+
+        private void sendNotifications(String userId,String postId) {
+            String notiId = mNotiRef.push().getKey();
+            mNotiRef.child(userId).child(notiId).setValue(new Notification(Constants.UID,"đã thích bài viết của bạn", postId,notiId));
+//            HashMap<String,  Object> hashMap = new HashMap<>();
+//            hashMap.put("userId" , Constants.UID);
+//            hashMap.put("text" , "đã thích bài viết này.");
+//            hashMap.put("postId", postId);
+//            hashMap.put("isPost", true);
+//            mNotiRef.push().setValue(hashMap);
 
         }
 
@@ -194,7 +215,6 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
                         mImageLike.setImageResource(R.drawable.icon_like);
                         mImageLike.setTag("like");
                         mTextNumberLike.setTextColor(R.color.pinkLight);
-
                     }
                 }
 
@@ -212,44 +232,6 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
             listener.onClickHomeFragmentItem(mPostList.get(getAdapterPosition()));
         }
 
-//        @OnClick(R.id.image_like)
-//        void onclickLike(){
-//            int likes = Integer.parseInt(mPostList.get(getLayoutPosition()).getLike());
-//
-//            mCheckLike =  true;
-//
-//            //get id of user click like
-//
-//            String postIdlike = mPostList.get(getLayoutPosition()).getIdPost();
-//            mLikeRef.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                    // dda like,
-//                    if(dataSnapshot.child(postIdlike).hasChild(Constants.UID)){
-//                        mPostRef.child(postIdlike).child("like").setValue("" + (likes -1) );
-//                        mLikeRef.child(postIdlike).child(Constants.UID).removeValue();
-//                        mCheckLike  = false;
-//                    }
-//
-//                    else {
-//
-//                        // chua  like -->  like
-//
-//                         mPostRef.child(postIdlike).child("like").setValue("" + (likes + 1));
-//                         mLikeRef.child(postIdlike).child(Constants.UID).setValue("liked");
-//                         mCheckLike = false;
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
-//
-//        }
 
     }
 
