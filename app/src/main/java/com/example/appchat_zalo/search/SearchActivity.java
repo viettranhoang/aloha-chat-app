@@ -1,18 +1,18 @@
 package com.example.appchat_zalo.search;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import com.example.appchat_zalo.message.MessageActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.UserProfileActivity;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.search.adapter.SearchAdapter;
 import com.example.appchat_zalo.search.listener.OnclikItemSearchListener;
@@ -102,7 +102,7 @@ public class SearchActivity extends AppCompatActivity {
         mAdapterSearch =  new SearchAdapter(new OnclikItemSearchListener() {
             @Override
             public void onClickSearchItem(Users users) {
-                Intent intent = new Intent(SearchActivity.this, MessageActivity.class);
+                Intent intent = new Intent(SearchActivity.this, UserProfileActivity.class);
                 intent.putExtra("userId", users.getId());
 
                 startActivity(intent);

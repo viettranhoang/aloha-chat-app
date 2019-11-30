@@ -218,7 +218,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         private void initFirbase() {
             mUserRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
-            mLikeRef = FirebaseDatabase.getInstance().getReference("Like_Comment");
+            mLikeRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE_COMMENT);
         }
 
 

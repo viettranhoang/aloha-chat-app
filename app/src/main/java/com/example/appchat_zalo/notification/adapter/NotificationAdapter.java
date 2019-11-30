@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Users;
+import com.example.appchat_zalo.notification.listener.OnclickItemNotifiLikeListener;
 import com.example.appchat_zalo.notification.model.Notification;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
@@ -27,13 +28,17 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
 
     private List<Notification> mNotiList = new ArrayList<>();
+    private OnclickItemNotifiLikeListener mListner;
+
     private DatabaseReference mUserRef, mPostRef;
 
-    public NotificationAdapter() {
+    public NotificationAdapter(OnclickItemNotifiLikeListener mListner) {
+        this.mListner = mListner;
     }
 
     public void setmNotiList(List<Notification> mNotiList) {
@@ -163,6 +168,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 }
             });
 
+        }
+        @OnClick({R.id.layout_notification_item})
+        void onclickNotifiItem(){
+            mListner.onclickNotifiLikeItem(mNotiList.get(getAdapterPosition()));
         }
     }
 

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="6dp"
+    android:background="@color/gray"
+    android:orientation="vertical"
+    tools:context=".DetailPostActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_detail_post"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <TextView
+                android:id="@+id/text_name_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/image_avatar"
+                android:text="Vũ Hạnh"
+                android:textColor="@color/black"
+                android:textSize="19sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:id="@+id/view_layout_bottom"
+            android:layout_width="match_parent"
+            android:background="@color/black_light"
+            android:layout_above="@id/layout_post"
+            android:layout_height="0.1dp"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar_detail_post"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="3dp">
+
+            <ImageView
+                android:id="@+id/image_avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <ImageView
+                android:id="@+id/image_online"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignRight="@id/image_avatar"
+                android:layout_alignBottom="@id/image_avatar"
+                android:layout_centerInParent="true"
+                android:background="@drawable/roun_conner_online"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_name"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/image_avatar"
+                android:text="has been updated a posts"
+                android:textColor="@color/black_light"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/image_avatar"
+                android:text="Vũ Hạnh"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/text_date_posts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_name"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/text"
+                android:fontFamily="sans-serif"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="Monday"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_time_posts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_name"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/text_date_posts"
+                android:fontFamily="sans-serif"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="12:12"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layput_contet_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_post"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/text_content_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:fontFamily="sans-serif"
+                android:padding="3dp"
+                android:text="hihi  do con ga nay nay :))"
+                android:textColor="@color/black_light"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+            <ImageView
+                android:id="@+id/image_picture_posts"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/text_content_post"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:scaleType="center" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layput_contet_post"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:weightSum="3">
+
+            <ImageView
+                android:id="@+id/image_like"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:padding="5dp"
+                android:src="@drawable/icon_like" />
+
+            <ImageView
+                android:id="@+id/image_comment"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="25dp"
+                android:layout_toRightOf="@id/text_number_like"
+                android:padding="5dp"
+                android:src="@drawable/icon_comment"
+                android:tint="@color/gray" />
+
+            <TextView
+                android:id="@+id/text_number_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/image_like"
+                android:text="10  like"
+                android:textColor="@color/black87"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/text_number_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/image_comment"
+                android:text="10 comment"
+                android:textColor="@color/black87"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

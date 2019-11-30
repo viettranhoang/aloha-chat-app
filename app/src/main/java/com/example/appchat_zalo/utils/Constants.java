@@ -14,6 +14,7 @@ public class Constants {
     public static final String TABLE_MESSAGE = "Message";
     public static final String TABLE_FRIEND = "Friends";
     public static final String TABLE_LIKE = "Like";
+    public static final String TABLE_LIKE_COMMENT = "Like_Comment";
     public static final String TABLE_COMMENT = "Comments";
     public static final String TABLE_NOTIFICATION = "Notifications";
 

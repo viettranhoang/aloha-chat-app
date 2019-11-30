@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
     ImageView mImageNotifications;
 
     private DatabaseReference mUserRef, mPostRef, mFriendRef, mRef, mLikeRef;
-
+    private String mPostId;
 
     @OnClick(R.id.image_notification)
     void onclickNotification(){
@@ -91,6 +91,10 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) { //to prevent crash must check against null
+            String getData = bundle.getString("postId");
+        }
 
         initFirebase();
         innitRcvPost();

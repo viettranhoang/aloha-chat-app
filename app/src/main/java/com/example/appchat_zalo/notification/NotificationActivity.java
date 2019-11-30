@@ -1,5 +1,6 @@
 package com.example.appchat_zalo.notification;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -11,8 +12,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appchat_zalo.DetailPostActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.notification.adapter.NotificationAdapter;
+import com.example.appchat_zalo.notification.listener.OnclickItemNotifiLikeListener;
 import com.example.appchat_zalo.notification.model.Notification;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
@@ -89,7 +92,21 @@ public class NotificationActivity extends AppCompatActivity {
 
     private void initRcv() {
         mNotiList = new ArrayList<>();
-        mNotiAdapter =  new NotificationAdapter();
+        mNotiAdapter =  new NotificationAdapter(new OnclickItemNotifiLikeListener() {
+            @Override
+            public void onclickNotifiLikeItem(Notification notification) {
+
+//                Bundle bundle = new Bundle();
+//                bundle.putString("postId", notification.getmPostId());
+//
+//                fragment.setArguments(bundle);
+
+                Intent intent = new Intent(NotificationActivity.this, DetailPostActivity.class);
+                intent.putExtra("postId", notification.getmPostId());
+                startActivity(intent);
+                finish();
+            }
+        });
         mRcvNotification.setLayoutManager(new LinearLayoutManager(this));
         mRcvNotification.setHasFixedSize(true);
         mRcvNotification.setAdapter(mNotiAdapter);
