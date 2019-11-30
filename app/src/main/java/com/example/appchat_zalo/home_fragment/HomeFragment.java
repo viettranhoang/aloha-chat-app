@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment {
     private HomePostAdapter mHomePostAdapter = new HomePostAdapter(posts -> {
         Intent intent = new Intent(getContext(), CommentActivity.class);
         intent.putExtra("postId", posts.getIdPost());
+        intent.putExtra("userId", posts.getUserId());
         startActivity(intent);
 
     });

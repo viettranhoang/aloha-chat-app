@@ -20,6 +20,7 @@ import com.example.appchat_zalo.UserProfileActivity;
 import com.example.appchat_zalo.comment.adapter.CommentAdapter;
 import com.example.appchat_zalo.comment.listener.OnclickCommentItemListener;
 import com.example.appchat_zalo.comment.model.Comment;
+import com.example.appchat_zalo.notification.model.Notification;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.android.gms.tasks.Continuation;
 import com.google.firebase.database.DataSnapshot;
@@ -66,6 +67,7 @@ public class CommentActivity extends AppCompatActivity {
 
     private DatabaseReference mPostRef, mUserRef, mCommentRef, mNotiRef;
     private String mPostId;
+    private String mUserId;
     private String mSaveCurrentDate;
     private String mSaveCurrentTime;
     private String mPostRandomName;
@@ -86,6 +88,7 @@ public class CommentActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         mPostId = intent.getStringExtra("postId");
+        mUserId =  intent.getStringExtra("userId");
         initToolbar();
         initRcv();
 //        getUser();
@@ -123,10 +126,23 @@ public class CommentActivity extends AppCompatActivity {
             Toast.makeText(this, "you can't send comment", Toast.LENGTH_SHORT).show();
         } else {
             sendComment(mInputComment.getText().toString(), CommentTypeConfig.TEXT);
+            if(!UID.equals(mUserId)){
+                sendNotifications(mUserId,mPostId);
+
+            }
+
+
 //            mInputComment.setText("");
         }
     }
 
+
+    private void sendNotifications(String userId, String postId) {
+        String notiId = mNotiRef.push().getKey();
+        mNotiRef.child(userId).child(notiId)
+                .setValue(new Notification(Constants.UID,"đã bình luận bài viết của bạn" + mInputComment.getText().toString(), postId,notiId));
+
+    }
     @OnClick({R.id.image_picture})
     void onclickImage() {
 

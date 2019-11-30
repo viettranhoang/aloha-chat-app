@@ -100,7 +100,6 @@ public class NotificationActivity extends AppCompatActivity {
 //                bundle.putString("postId", notification.getmPostId());
 //
 //                fragment.setArguments(bundle);
-
                 Intent intent = new Intent(NotificationActivity.this, DetailPostActivity.class);
                 intent.putExtra("postId", notification.getmPostId());
                 startActivity(intent);
