@@ -128,21 +128,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                         .into(mImageComment);
 
             }
-//            if(comment.getType().equals(ChooseTypeConfig.TEXT)){
-//                mTextContent.setText(comment.getContent());
-//                mTextContent.setVisibility(View.VISIBLE);
-//                mImageComment.setVisibility(View.GONE);
-//            }
-//            else {
-//                mTextContent.setVisibility(View.INVISIBLE);
-//                mImageComment.setVisibility(View.VISIBLE);
-//                RequestOptions requestOptions = new RequestOptions();
-//                requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(10));
-//                Glide.with(itemView)
-//                        .load(comment.getContent())
-//                        .apply(requestOptions)
-//                        .into(mImageComment);
-//            }
 
             initFirbase();
             String userIdComment = comment.getUserId();
@@ -171,7 +156,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteComment(idComment);
+                        if(userIdComment.equals(Constants.UID)){
+                            deleteComment(idComment);
+
+                        }
 
                     }
                 });

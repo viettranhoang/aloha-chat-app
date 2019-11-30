@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appchat_zalo.DetailPostActivity;
+import com.example.appchat_zalo.detail_post.DetailPostActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.notification.adapter.NotificationAdapter;
 import com.example.appchat_zalo.notification.listener.OnclickItemNotifiLikeListener;
@@ -46,6 +46,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     private DatabaseReference mNotiRef;
 
+    private boolean checkNotifi = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,10 +101,14 @@ public class NotificationActivity extends AppCompatActivity {
 //                bundle.putString("postId", notification.getmPostId());
 //
 //                fragment.setArguments(bundle);
-                Intent intent = new Intent(NotificationActivity.this, DetailPostActivity.class);
-                intent.putExtra("postId", notification.getmPostId());
-                startActivity(intent);
-                finish();
+//                if (checkNotifi){
+                    checkNotifiPost();
+                    Intent intent = new Intent(NotificationActivity.this, DetailPostActivity.class);
+                    intent.putExtra("postId", notification.getmPostId());
+                    startActivity(intent);
+                    finish();
+//                }
+
             }
         });
         mRcvNotification.setLayoutManager(new LinearLayoutManager(this));
@@ -111,6 +116,11 @@ public class NotificationActivity extends AppCompatActivity {
         mRcvNotification.setAdapter(mNotiAdapter);
 
     }
+
+    private void checkNotifiPost() {
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

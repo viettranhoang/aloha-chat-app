@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailPostActivity"></activity>
+        <activity android:name=".detail_post.DetailPostActivity"></activity>
         <activity android:name=".notification.NotificationActivity" />
         <activity android:name=".MessageMeetingGroupActivity" />
         <activity android:name=".ResetPasswordActivity" />

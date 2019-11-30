@@ -1,4 +1,4 @@
-package com.example.appchat_zalo;
+package com.example.appchat_zalo.detail_post;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,8 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.UserProfileActivity;
+import com.example.appchat_zalo.comment.adapter.CommentAdapter;
+import com.example.appchat_zalo.comment.listener.OnclickCommentItemListener;
+import com.example.appchat_zalo.comment.model.Comment;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
@@ -65,9 +72,14 @@ public class DetailPostActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_detail_post)
     Toolbar mToolbarDetailPost;
 
-    private String mPostId;
+    @BindView(R.id.list_comment)
+    RecyclerView mRcvComment;
 
-    private DatabaseReference mPostRef, mLikeRef,mRefCommet;
+    private CommentAdapter mDetailPostAdapter;
+    private String mPostId;
+    private  List<Comment> mCommentList;
+
+    private DatabaseReference mPostRef, mLikeRef, mCommentRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +89,14 @@ public class DetailPostActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mPostId = intent.getStringExtra("postId");
         initToolbarDetailPost();
+        initRcv();
         initFirebase();
         getPost(mPostId);
         checkLike(mPostId);
         numberLike(mPostId);
         numberCommet(mPostId);
+
+        getComment();
 
 
 
@@ -89,10 +104,49 @@ public class DetailPostActivity extends AppCompatActivity {
 
     }
 
+    private void getComment() {
+        mCommentRef.child(mPostId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                mCommentList.clear();
+                for (DataSnapshot dataComment : dataSnapshot.getChildren()) {
+                    Comment comment = dataComment.getValue(Comment.class);
+                    Log.d("DetailPostActivity", "onDataChange: comment id" + comment.getUserId());
+//                    Log.d(TAG, "onDataChange:dddd " + comment.getUserId());
+                    mCommentList.add(comment);
+//                    mDetailPostAdapter.setmComentList(mCommentList);
+                }
+
+                mDetailPostAdapter.setmComentList(mCommentList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void initRcv() {
+        mCommentList = new ArrayList<>();
+        mDetailPostAdapter =  new CommentAdapter(new OnclickCommentItemListener() {
+            @Override
+            public void onclicCommentItem(Comment comment) {
+                Intent intent = new Intent(DetailPostActivity.this, UserProfileActivity.class);
+                intent.putExtra("userId", comment.getUserId());
+                startActivity(intent);
+            }
+        });
+        mRcvComment.setLayoutManager(new LinearLayoutManager(this));
+        mRcvComment.setHasFixedSize(true);
+        mRcvComment.setAdapter(mDetailPostAdapter);
+    }
+
     private void initFirebase() {
         mPostRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_POSTS);
         mLikeRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE);
-        mRefCommet = FirebaseDatabase.getInstance().getReference(Constants.TABLE_COMMENT);
+        mCommentRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_COMMENT);
 
     }
 
@@ -137,7 +191,7 @@ public class DetailPostActivity extends AppCompatActivity {
     }
 
     private void numberCommet(String postKey) {
-        mRefCommet.child(postKey).addValueEventListener(new ValueEventListener() {
+        mCommentRef.child(postKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mTextnumberComment.setText(dataSnapshot.getChildrenCount() + " " + "comment");
@@ -148,30 +202,6 @@ public class DetailPostActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void getLikePost(String mPostId) {
-        mPostRef.child(mPostId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-//                    List<String> listLike = new ArrayList<>();
-                    if (data.getValue(String.class).equals(CheckLikeTypeConfig.LIKE)) {
-//                        Log.d("DetailPostActivity", "onDataChange: like===" + );
-
-                    }
-
-//                    listLike.add(data.toString());
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
     private void getPost(String mPostId) {
