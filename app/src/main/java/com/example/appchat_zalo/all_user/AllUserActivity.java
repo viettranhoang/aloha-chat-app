@@ -2,6 +2,7 @@ package com.example.appchat_zalo.all_user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -72,11 +73,18 @@ public class AllUserActivity extends AppCompatActivity {
                 mListUser.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Users users = data.getValue(Users.class);
-                    assert users != null;
-                    assert user != null;
-                    if (!user.getUid().equals(users.getId())) {
+                    Log.d("AllUserActivity", "onDataChange: user  ==" + users.toString());
+                    if( users.getId() != Constants.UID){
                         mListUser.add(users);
+
                     }
+//                    Log.d("AllUserActivity", "onDataChange: user iss--" +users.toString() );
+//                    assert users != null;
+//                    assert user != null;
+//                    if (user != null && !user.equals(Constants.UID)) {
+//                        mListUser.add(users);
+//
+//                    }
                 }
                 mAdapter = new AllUserAdapter(new OnclickItemUserListener() {
                     @Override
@@ -87,7 +95,7 @@ public class AllUserActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                mAdapter.setmListUSer(mListUser);
+                mAdapter.setmListUser(mListUser);
                 mRcvAllUser.setAdapter(mAdapter);
             }
 

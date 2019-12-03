@@ -18,6 +18,8 @@ public class Constants {
     public static final String TABLE_COMMENT = "Comments";
     public static final String TABLE_NOTIFICATION = "Notifications";
 
+    public static final String TABLE_TOKEN = "Tokens";
+
     public static final String ROW_NAME = "name";
     public static final String ROW_AVATAR = "avatar";
     public static final String GROUP_ID = "group";

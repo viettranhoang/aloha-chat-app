@@ -56,7 +56,6 @@ public class NotificationActivity extends AppCompatActivity {
         initToolbarNotifications();
         getNotification();
 
-
     }
 
     private void initToolbarNotifications() {

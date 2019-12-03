@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,6 +75,16 @@ public class DetailPostActivity extends AppCompatActivity {
 
     @BindView(R.id.list_comment)
     RecyclerView mRcvComment;
+
+
+    @BindView(R.id.image_send)
+    ImageView mImageSend;
+
+    @BindView(R.id.image_picture)
+    ImageView mImagePicture;
+
+    @BindView(R.id.input_comment)
+    EditText mInputComment;
 
     private CommentAdapter mDetailPostAdapter;
     private String mPostId;

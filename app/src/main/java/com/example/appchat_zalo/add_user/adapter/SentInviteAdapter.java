@@ -80,10 +80,17 @@ public class SentInviteAdapter extends RecyclerView.Adapter<SentInviteAdapter.Ad
 
         void bindata(Users users) {
             mTextName.setText(users.getName());
-            Glide.with(itemView)
-                    .load(users.getAvatar())
-                    .circleCrop()
-                    .into(mImageAvatar);
+
+            if(users.getAvatar().equals("default")){
+                mImageAvatar.setImageResource(R.drawable.background_main);
+            }
+            else {
+                Glide.with(itemView)
+                        .load(users.getAvatar())
+                        .circleCrop()
+                        .into(mImageAvatar);
+            }
+
         }
 
         @OnClick(R.id.image_avatar)

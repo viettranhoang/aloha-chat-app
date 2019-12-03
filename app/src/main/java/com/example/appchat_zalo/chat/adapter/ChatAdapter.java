@@ -157,7 +157,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
             }
 
-
         }
 
         @OnClick(R.id.layput_chat)

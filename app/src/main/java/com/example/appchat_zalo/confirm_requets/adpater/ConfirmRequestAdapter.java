@@ -15,11 +15,6 @@ import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.confirm_requets.listenser.OnclickItemConfirmRequestListener;
 import com.example.appchat_zalo.model.Users;
-import com.example.appchat_zalo.utils.Constants;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,10 +83,17 @@ public class ConfirmRequestAdapter extends RecyclerView.Adapter<ConfirmRequestAd
 
         void bindata(Users users) {
             mTextName.setText(users.getName());
-            Glide.with(itemView)
-                    .load(users.getAvatar())
-                    .circleCrop()
-                    .into(mImageAvatar);
+
+            if(users.getAvatar().equals("default")){
+                mImageAvatar.setImageResource(R.drawable.background_main);
+            }
+            else {
+                Glide.with(itemView)
+                        .load(users.getAvatar())
+                        .circleCrop()
+                        .into(mImageAvatar);
+            }
+
 
         }
 

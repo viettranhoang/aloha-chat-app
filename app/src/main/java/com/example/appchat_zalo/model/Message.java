@@ -7,7 +7,7 @@ public class Message {
     private boolean seen;
     private long time;
     private String type;
-    private String from_avatar;
+    private String fromAvatar;
 
     public Message() {
     }
@@ -52,12 +52,12 @@ public class Message {
         this.type = type;
     }
 
-    public String getFrom_avatar() {
-        return from_avatar;
+    public String getFromAvatar() {
+        return fromAvatar;
     }
 
-    public void setFrom_avatar(String from_avatar) {
-        this.from_avatar = from_avatar;
+    public void setFromAvatar(String fromAvatar) {
+        this.fromAvatar = fromAvatar;
     }
 
     public Message(String message, String from, boolean seen, long time, String type, String from_avatar) {
@@ -66,7 +66,7 @@ public class Message {
         this.seen = seen;
         this.time = time;
         this.type = type;
-        this.from_avatar = from_avatar;
+        this.fromAvatar = from_avatar;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class Message {
                 ", seen=" + seen +
                 ", time=" + time +
                 ", type='" + type + '\'' +
-                ", from_avatar='" + from_avatar + '\'' +
+                ", fromAvatar='" + fromAvatar + '\'' +
                 '}';
     }
 }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.all_user.listener.OnclickItemUserListener;
-import com.example.appchat_zalo.friends.listener.OnclickItemFriendListener;
 import com.example.appchat_zalo.model.Users;
+import com.example.appchat_zalo.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AllUserAdapter extends RecyclerView.Adapter<AllUserAdapter.AllUserViewHolder> {
-    private List<Users> mListUSer = new ArrayList<>();
+    private List<Users> mListUser = new ArrayList<>();
 
     private OnclickItemUserListener listener;
 
@@ -31,8 +32,8 @@ public class AllUserAdapter extends RecyclerView.Adapter<AllUserAdapter.AllUserV
         this.listener = listener;
     }
 
-    public void setmListUSer(List<Users> mListUSer) {
-        this.mListUSer = mListUSer;
+    public void setmListUser(List<Users> mListUser) {
+        this.mListUser = mListUser;
         notifyDataSetChanged();
     }
 
@@ -45,13 +46,13 @@ public class AllUserAdapter extends RecyclerView.Adapter<AllUserAdapter.AllUserV
 
     @Override
     public void onBindViewHolder(@NonNull AllUserViewHolder holder, int position) {
-        holder.bindata(mListUSer.get(position));
+        holder.bindata(mListUser.get(position));
 
     }
 
     @Override
     public int getItemCount() {
-        return mListUSer.size();
+        return mListUser.size();
     }
 
     public class AllUserViewHolder extends RecyclerView.ViewHolder {
@@ -70,25 +71,44 @@ public class AllUserAdapter extends RecyclerView.Adapter<AllUserAdapter.AllUserV
             ButterKnife.bind(this, itemView);
         }
         void bindata(Users users){
-            mTextName.setText(users.getName());
 
-            if(users.getAvatar().equals("default")){
-                mImageAvatar.setImageResource(R.drawable.background_main);
+            if (users != null) {
+                mTextName.setText(users.getName());
+
+                try {
+                    if (users.getAvatar().equals("default")) {
+                        mImageAvatar.setImageResource(R.drawable.background_main);
+                    } else {
+                        Glide.with(itemView)
+                                .load(users.getAvatar())
+                                .circleCrop()
+                                .into(mImageAvatar);
+                    }
+                }
+                catch (NullPointerException exNull){
+
+                    Toast.makeText(itemView.getContext(), "message" + exNull, Toast.LENGTH_SHORT).show();
+                }
+
+
+
+                if (users.getOnline() == Constants.ONLINE) {
+                    mImageOnline.setVisibility(View.VISIBLE);
+                    Glide.with(itemView)
+                            .load(users.getOnline())
+                            .into(mImageOnline);
+                } else {
+                    mImageOnline.setVisibility(View.GONE);
+                }
+//            Glide.with(itemView)
+//                    .load(users.getOnline())
+//                    .into(mImageOnline);
             }
-            else {
-                Glide.with(itemView)
-                        .load(users.getAvatar())
-                        .circleCrop()
-                        .into(mImageAvatar);
-            }
-            Glide.with(itemView)
-                    .load(users.getOnline())
-                    .into(mImageOnline);
         }
 
         @OnClick(R.id.layout_user)
         void  onClickItem(){
-            listener.onClickFriendOnlineItem(mListUSer.get(getAdapterPosition()));
+            listener.onClickFriendOnlineItem(mListUser.get(getAdapterPosition()));
 
         }
     }
