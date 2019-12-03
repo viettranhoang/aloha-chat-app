@@ -69,18 +69,20 @@
                 android:textAllCaps="false"
                 android:textSize="18sp" />
 
-            <com.google.android.gms.common.SignInButton
+
+            <include
                 android:id="@+id/button_login_gg"
                 android:layout_width="300dp"
-                android:layout_marginTop="5dp"
-                android:layout_height="60dp"/>
+                layout="@layout/custom_button_login_google"
+                android:layout_height="60dp"
+                android:layout_marginTop="3dp" />
 
             <include
                 android:id="@+id/button_login_fb"
                 layout="@layout/custom_button_login_facebook"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
-                android:layout_margin="7dp" />
+                android:layout_marginTop="7dp"/>
 
             <!--<Button-->
             <!--android:id="@+id/button_phone"-->

@@ -1,11 +1,5 @@
 package com.example.appchat_zalo.group_message;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,13 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.example.appchat_zalo.message.MessageActivity;
-import com.example.appchat_zalo.message.adapter.MessageTypeConfig;
-import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.group_message.adapter.GroupMessageAdapter;
+import com.example.appchat_zalo.message.adapter.MessageTypeConfig;
 import com.example.appchat_zalo.model.Groups;
+import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;

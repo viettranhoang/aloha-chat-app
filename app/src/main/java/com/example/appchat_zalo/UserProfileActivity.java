@@ -74,7 +74,6 @@ public class UserProfileActivity extends AppCompatActivity {
     @BindView(R.id.text_message)
     TextView mTextAddMessage;
 
-
     @BindView(R.id.list_user_posts)
     RecyclerView mRcvUserPost;
 

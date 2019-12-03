@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,14 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
     private String TAG = " MainActivity";
     private Button mButtonFb;
+    private Button mButtonGg;
     private SignInButton mSigInGg;
-
-    private LinearLayout mLayputPhone;
-
     private FirebaseAuth mAuth;
-
     private PrefUtils prefUtils;
-
     private CallbackManager mCallBackManager;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth.AuthStateListener mAuthListner;
@@ -73,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
         initView();
-        mSigInGg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
-            }
-        });
+//        mSigInGg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                signIn();
+//            }
+//        });
         initFbLogin();
         addListner();
     }
@@ -174,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
                     Constants.UID = mAuth.getUid();
-
                     Toast.makeText(MainActivity.this, "login with facebook successful===== ", Toast.LENGTH_SHORT).show();
                     createNewUser();
 
@@ -193,8 +187,6 @@ public class MainActivity extends AppCompatActivity {
         hashMap.put("status","Yeu bom nhat");
         hashMap.put("avatar", "default");
         hashMap.put("cover", "default");
-//        hashMap.put("avatar",user.getPhotoUrl().getLastPathSegment());
-//        hashMap.put("cover",user.getPhotoUrl().getLastPathSegment());
         hashMap.put("news","default");
         hashMap.put("posts","default");
         hashMap.put("online", 0);
@@ -204,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
 //                    Constants.UID = mAuth.getUid();
-                    prefUtils.setCurrentUid(Constants.UID);
+//                    prefUtils.setCurrentUid(Constants.UID);
                     Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
                     startActivity(intent);
                     finish();
@@ -249,7 +241,8 @@ public class MainActivity extends AppCompatActivity {
         mButtonEmail = findViewById(R.id.button_login_email);
         mLoginFb = findViewById(R.id.loginfb_button);
         mButtonFb = findViewById(R.id.button_fb);
-        mSigInGg = findViewById(R.id.button_login_gg);
+        mButtonGg=  findViewById(R.id.button_gg);
+        mSigInGg = findViewById(R.id.login_gg_button);
 
     }
 
@@ -259,5 +252,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void onClickGoogleButton(View view) {
+        if (view == mButtonGg) {
+            mSigInGg.performClick();
+            signIn();
+        }
+    }
 
 }

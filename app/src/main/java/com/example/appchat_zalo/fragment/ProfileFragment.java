@@ -66,8 +66,6 @@ public class ProfileFragment extends Fragment {
     private ImageView mImageBack;
     private ImageView mImageCover;
     private ImageView mImageAvatar;
-    private ImageView mImageEditAvatar;
-    private ImageView mImageEditCover;
     private TextView mTextName;
     private TextView mTextStatus;
     private ImageView mImageAvatar1;
@@ -115,8 +113,6 @@ public class ProfileFragment extends Fragment {
         mImageBack = view.findViewById(R.id.image_back);
         mTextPost = view.findViewById(R.id.text_posts);
         mImageCover = view.findViewById(R.id.image_background);
-        mImageEditAvatar = view.findViewById(R.id.image_edit_avatar);
-        mImageEditCover = view.findViewById(R.id.image_edit_cover);
         mTextName = view.findViewById(R.id.text_name);
         mTextStatus = view.findViewById(R.id.text_status);
 
@@ -243,7 +239,7 @@ public class ProfileFragment extends Fragment {
 
         });
 
-        mImageEditCover.setOnClickListener(new View.OnClickListener() {
+        mImageCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chooseImage();
@@ -252,7 +248,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        mImageEditAvatar.setOnClickListener(new View.OnClickListener() {
+        mImageAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chooseImage();
