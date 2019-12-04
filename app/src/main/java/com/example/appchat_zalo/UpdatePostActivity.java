@@ -121,6 +121,6 @@ public class UpdatePostActivity extends AppCompatActivity {
         });
         Dialog dialog = builder.create();
         dialog.show();
-        dialog.getWindow().setBackgroundDrawableResource(R.color.blue);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.gray_light);
     }
 }
