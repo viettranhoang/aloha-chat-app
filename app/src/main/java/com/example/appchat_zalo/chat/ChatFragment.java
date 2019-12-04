@@ -14,24 +14,28 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appchat_zalo.choose_friends.ChooseActivity;
-import com.example.appchat_zalo.message.MessageActivity;
-import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.all_user.AllUserActivity;
 import com.example.appchat_zalo.chat.adapter.ChatAdapter;
 import com.example.appchat_zalo.chat.listner.OnclickChatItemListner;
 import com.example.appchat_zalo.chat.model.Chat;
+import com.example.appchat_zalo.choose_friends.ChooseActivity;
 import com.example.appchat_zalo.group_message.GroupMessageActivity;
+import com.example.appchat_zalo.message.MessageActivity;
 import com.example.appchat_zalo.model.Groups;
+import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.model.Users;
+import com.example.appchat_zalo.push_notification.Token;
 import com.example.appchat_zalo.search.SearchActivity;
 import com.example.appchat_zalo.utils.Constants;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +57,8 @@ public class ChatFragment extends Fragment {
     EditText mInputSearch;
 
     private DatabaseReference mRef;
+
+    private FirebaseUser fuser;
 
     @OnClick({R.id.input_search})
     void clickSearch() {
@@ -98,10 +104,19 @@ public class ChatFragment extends Fragment {
         View view = inflater.inflate(R.layout.chatfragment, container, false);
         ButterKnife.bind(this, view);
         initRcv();
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
         initFirebase();
         getChatList();
+        updateToken(FirebaseInstanceId.getInstance().getToken());
         return view;
     }
+
+    private void updateToken(String token) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
+        reference.child(fuser.getUid()).setValue(token1);
+    }
+
 
     private void getChatList() {
 
@@ -126,12 +141,12 @@ public class ChatFragment extends Fragment {
                     if (idSender.contains(Constants.GROUP_ID)) {
                         List<String> members = new ArrayList<>();
 
-                        for (DataSnapshot  dataMember : dataSnapshot.child(Constants.TABLE_GROUPS).child(idSender).child(ROW_MEMBERS).getChildren()){
+                        for (DataSnapshot dataMember : dataSnapshot.child(Constants.TABLE_GROUPS).child(idSender).child(ROW_MEMBERS).getChildren()) {
                             members.add(dataMember.getValue(String.class));
                         }
                         String name = (String) dataSnapshot.child(Constants.TABLE_GROUPS).child(idSender).child(ROW_NAME).getValue();
-                        String avatar =(String) dataSnapshot.child(Constants.TABLE_GROUPS).child(idSender).child(ROW_AVATAR).getValue();
-                        Groups group = new Groups(idSender,name,avatar,members);
+                        String avatar = (String) dataSnapshot.child(Constants.TABLE_GROUPS).child(idSender).child(ROW_AVATAR).getValue();
+                        Groups group = new Groups(idSender, name, avatar, members);
                         Log.d("ChatFragment", "onDataChange:group " + group.toString());
                         chat.setGroups(dataSnapshot.child(Constants.TABLE_GROUPS).child(idSender).getValue(Groups.class));
                     }

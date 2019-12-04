@@ -64,7 +64,11 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     annotationProcessor 'android.arch.lifecycle:compiler:1.1.1'
 
-//    implementation 'com.github.dhaval2404:imagepicker:1.1'
+    // push notification
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+
 }
 repositories {
     mavenCentral()
