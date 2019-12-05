@@ -1,5 +1,6 @@
 package com.example.appchat_zalo.group_message.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +107,8 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
                     .load(message.getFromAvatar())
                     .circleCrop()
                     .into(mImageAvatar);
+
+            Log.d("MessageViewHolder", "bindata: message " + message.toString());
             mTextTime.setText(Utils.getTime(message.getTime()));
 
             if (message.getType().equals(MessageTypeConfig.TEXT)){

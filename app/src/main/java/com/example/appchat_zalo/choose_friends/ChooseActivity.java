@@ -247,7 +247,7 @@ public class ChooseActivity extends AppCompatActivity {
                 .circleCrop()
                 .into(mImageUploadAvatar);
 
-        String avatar = "https://images.penguinrandomhouse.com/cover/9781632368324";
+        String avatar = urlDownload;
 
         if (name.isEmpty() && avatar == null) {
             Toast.makeText(this, R.string.choose_friend_invalid_name, Toast.LENGTH_SHORT).show();

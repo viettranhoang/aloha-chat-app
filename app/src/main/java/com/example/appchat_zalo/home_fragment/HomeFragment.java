@@ -130,7 +130,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 Users users = dataSnapshot.getValue(Users.class);
-                Glide.with(getActivity())
+                Glide.with(getContext())
                         .load(users.getAvatar())
                         .circleCrop()
                         .into(mImageAvatar);

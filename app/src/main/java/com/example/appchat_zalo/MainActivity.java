@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         prefUtils = PrefUtils.getIntance(this);
-//        checkLogined();
+        checkLogined();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -182,13 +182,13 @@ public class MainActivity extends AppCompatActivity {
         String idUser = user.getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_USERS).child(idUser);
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("id",idUser);
-        hashMap.put("name",user.getDisplayName());
-        hashMap.put("status","Yeu bom nhat");
+        hashMap.put("id", idUser);
+        hashMap.put("name", user.getDisplayName());
+        hashMap.put("status", "Yeu bom nhat");
         hashMap.put("avatar", "default");
         hashMap.put("cover", "default");
-        hashMap.put("news","default");
-        hashMap.put("posts","default");
+        hashMap.put("news", "default");
+        hashMap.put("posts", "default");
         hashMap.put("online", 0);
         reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
 //                    Constants.UID = mAuth.getUid();
-//                    prefUtils.setCurrentUid(Constants.UID);
+                    prefUtils.setCurrentUid(Constants.UID);
                     Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
                     startActivity(intent);
                     finish();
@@ -208,14 +208,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-        private void checkLogined() {
+    private void checkLogined() {
 
         if (prefUtils.getCurrentUid() != null) {
+            Constants.UID = prefUtils.getCurrentUid();
             Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
             startActivity(intent);
             finish();
         }
     }
+
     private void addListner() {
         mButtonEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonEmail = findViewById(R.id.button_login_email);
         mLoginFb = findViewById(R.id.loginfb_button);
         mButtonFb = findViewById(R.id.button_fb);
-        mButtonGg=  findViewById(R.id.button_gg);
+        mButtonGg = findViewById(R.id.button_gg);
         mSigInGg = findViewById(R.id.login_gg_button);
 
     }

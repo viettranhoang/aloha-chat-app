@@ -12,9 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".detail_post.DetailPostActivity"></activity>
+        <activity android:name=".detail_post.DetailPostActivity" />
         <activity android:name=".notification.NotificationActivity" />
-        <activity android:name=".MessageMeetingGroupActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".add_user.SentInviteActivity" />
         <activity android:name=".group_message.GroupMessageActivity" />
@@ -60,19 +59,20 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".push_notification.MyFirebaseIdService"
+        <service
+            android:name=".push_notification.MyFirebaseIdService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
-        <service android:name=".push_notification.MyFirebaseMessaging"
+        <service
+            android:name=".push_notification.MyFirebaseMessaging"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>
