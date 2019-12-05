@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.core.app.NotificationCompat;
@@ -30,20 +31,20 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         String currentUser = preferences.getString("currentuser", "none");
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser != null && sented.equals(firebaseUser.getUid())){
-            sendNotification(remoteMessage);
-
-        }
-
 //        if (firebaseUser != null && sented.equals(firebaseUser.getUid())){
-//            if (!currentUser.equals(user)) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    sendOreoNotification(remoteMessage);
-//                } else {
-//                    sendNotification(remoteMessage);
-//                }
-//            }
+//            sendNotification(remoteMessage);
+//
 //        }
+
+        if (firebaseUser != null && sented.equals(firebaseUser.getUid())){
+            if (!currentUser.equals(user)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    sendOreoNotification(remoteMessage);
+                } else {
+                    sendNotification(remoteMessage);
+                }
+            }
+        }
     }
 
     private void sendOreoNotification(RemoteMessage remoteMessage){
