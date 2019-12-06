@@ -146,6 +146,7 @@ public class ProfileFragment extends Fragment {
                 Users users = dataSnapshot.getValue(Users.class);
                 Log.d("ProfileFragment", "onDataChange: user current" + users.toString());
 
+                profilePostsAdapter.setUser(users);
                 if (Constants.UID.equals(users.getId())) {
                     mTextStatus.setText(users.getStatus());
                     mTextName.setText(users.getName());
@@ -212,9 +213,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initRCVMyPosts() {
+        profilePostsAdapter = new ProfilePostsAdapter();
         mRcvListMyPost.setLayoutManager(new LinearLayoutManager(getContext()));
         mRcvListMyPost.setHasFixedSize(true);
-
     }
 
     private void addListner() {
@@ -322,11 +323,13 @@ public class ProfileFragment extends Fragment {
 
         final EditText inputName = new EditText(getContext());
         inputName.setText(name);
+        profilePostsAdapter.changeName(name);
         builder.setView(inputName);
         builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 refUser.child(Constants.UID).child("name").setValue(inputName.getText().toString());
+
                 Toast.makeText(getContext(), "name updated successful...", Toast.LENGTH_SHORT).show();
             }
         });
@@ -503,7 +506,7 @@ public class ProfileFragment extends Fragment {
                 }
 
                 Log.i("ha", "onDataChangePost: " + listMyPosts.toString());
-                profilePostsAdapter = new ProfilePostsAdapter(new OnclickItemMyPostListner() {
+                profilePostsAdapter.setOnlcickItemPost(new OnclickItemMyPostListner() {
                     @Override
                     public void onClickMyPostItem(Posts post) {
                         Intent intent = new Intent(getContext(), UpdatePostActivity.class);

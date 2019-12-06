@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.model.Posts;
+import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.my_profile.listener.OnclickItemMyPostListner;
 import com.example.appchat_zalo.notification.model.Notification;
 import com.example.appchat_zalo.utils.Constants;
@@ -35,13 +36,23 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
     private List<Posts> listMyPost =  new ArrayList<>();
     private OnclickItemMyPostListner onlcickItemPost;
     private Posts posts;
+    private Users user;
     private DatabaseReference mLikeRef, mPostRef, mRefCommet, mNotiRef;
 
     public void setPosts(Posts posts) {
         this.posts = posts;
     }
 
-    public ProfilePostsAdapter(OnclickItemMyPostListner onlcickItemPost) {
+    public void setUser(Users user) {
+        this.user = user;
+        notifyDataSetChanged();
+    }
+    public void changeName(String name){
+        user.setName(name);
+        notifyDataSetChanged();
+    }
+
+    public void setOnlcickItemPost(OnclickItemMyPostListner onlcickItemPost) {
         this.onlcickItemPost = onlcickItemPost;
     }
 
@@ -114,13 +125,13 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
 
         }
         void bindata(Posts posts){
-            if (Constants.UID.equals(Constants.UID)) {
+            if (user != null) {
                 Glide.with(itemView)
-                        .load(Constants.UAVATAR)
+                        .load(user.getAvatar())
                         .circleCrop()
                         .into(mAvatar);
 
-                mName.setText(posts.getName());
+                mName.setText(user.getName());
                 mContentPost.setText(posts.getContent_posts());
                 mTimePost.setText(posts.getTime());
                 mDatePost.setText(posts.getDate());

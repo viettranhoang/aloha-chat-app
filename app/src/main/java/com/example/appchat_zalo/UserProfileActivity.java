@@ -78,7 +78,7 @@ public class UserProfileActivity extends AppCompatActivity {
     RecyclerView mRcvUserPost;
 
     private List<Posts> mUserPostList = new ArrayList<>();
-    private ProfilePostsAdapter mPostsAdapter;
+    private ProfilePostsAdapter mUserPostAdapter;
 
     private String mUserId;
 
@@ -376,30 +376,35 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void getUserPost() {
-        mUserPost.child(mUserId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUserPostList.clear();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    Posts posts = data.getValue(Posts.class);
-                    mUserPostList.add(posts);
+        if(!mUserId.equals(Constants.UID)){
+            Log.d("UserProfileActivity", "getUserPost: u");
+            mUserPost.child(mUserId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    mUserPostList.clear();
+
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Posts posts = data.getValue(Posts.class);
+                        mUserPostList.add(posts);
+                    }
+                    Log.d("aa", "listUSerPost" + mUserPostList);
+                    mUserPostAdapter.setListMyPost(mUserPostList);
+                    mRcvUserPost.setAdapter(mUserPostAdapter);
+
                 }
-                Log.d("aa", "listUSerPost" + mUserPostList);
-                mPostsAdapter.setListMyPost(mUserPostList);
-                mRcvUserPost.setAdapter(mPostsAdapter);
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
 
-            }
-        });
 
     }
 
     private void initRcv() {
-        mPostsAdapter = new ProfilePostsAdapter();
+        mUserPostAdapter = new ProfilePostsAdapter();
         mRcvUserPost.setLayoutManager(new LinearLayoutManager(this));
         mRcvUserPost.setHasFixedSize(true);
     }
@@ -410,6 +415,7 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 Users users = dataSnapshot.getValue(Users.class);
+                mUserPostAdapter.setUser(users);
                 mName.setText(users.getName());
                 mStatus.setText(users.getStatus());
                 Glide.with(getApplicationContext())
@@ -432,7 +438,6 @@ public class UserProfileActivity extends AppCompatActivity {
                                 mCurrentRelative = dataSnapshot.child(mUserId).getValue().toString();
 
                                 if (mCurrentRelative.equals(SENT)) {
-
 //                                mCurrentRelative = SENT;
                                     mImageAddFriend.setImageResource(R.drawable.ic_sent_invite_friend);
                                     mTextAddFriend.setText("Hủy yêu cầu");
