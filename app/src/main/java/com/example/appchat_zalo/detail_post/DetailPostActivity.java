@@ -90,7 +90,7 @@ public class DetailPostActivity extends AppCompatActivity {
     private String mPostId;
     private  List<Comment> mCommentList;
 
-    private DatabaseReference mPostRef, mLikeRef, mCommentRef;
+    private DatabaseReference mPostRef, mLikeRef, mCommentRef, mUserRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +159,7 @@ public class DetailPostActivity extends AppCompatActivity {
         mLikeRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_LIKE);
         mCommentRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_COMMENT);
 
+        mUserRef = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS);
     }
 
     private void checkLike(String postKey) {
@@ -252,6 +253,7 @@ public class DetailPostActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 
     @Override

@@ -94,27 +94,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             String userId = notification.getmUserId();
             getInforUser(userId);
             String postId = notification.getmPostId();
-//            getPostImage(userId,postId);
-//            if(notification.isPost())
-//            {
-//                mImagePost.setVisibility(View.VISIBLE);
-//                getPostImage(postId);
-//            }
-//            else {
-//                mImagePost.setVisibility(View.GONE);
-//            }
-
-
-//            mLayoutNotifiItem.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if( notification.isPost()){
-//                        SharedPreferences.Editor editor =
-//                    }
-//                }
-//            });
-
-
         }
 
         private void getPostImage(String userId, String postId) {
@@ -148,6 +127,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             mUserRef.child(userId).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.d("NotificationViewHolder", "onDataChange: user + " +dataSnapshot.getValue());
 
                     Users users = dataSnapshot.getValue(Users.class);
                     Log.d("dd", "onDataChange: dd" + users.getName());

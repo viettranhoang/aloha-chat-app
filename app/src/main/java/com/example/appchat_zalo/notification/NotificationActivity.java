@@ -101,7 +101,6 @@ public class NotificationActivity extends AppCompatActivity {
 //
 //                fragment.setArguments(bundle);
 //                if (checkNotifi){
-                    checkNotifiPost();
                     Intent intent = new Intent(NotificationActivity.this, DetailPostActivity.class);
                     intent.putExtra("postId", notification.getmPostId());
                     startActivity(intent);
@@ -116,9 +115,6 @@ public class NotificationActivity extends AppCompatActivity {
 
     }
 
-    private void checkNotifiPost() {
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

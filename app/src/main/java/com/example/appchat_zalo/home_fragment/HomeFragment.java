@@ -129,11 +129,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Users users = dataSnapshot.getValue(Users.class);
-                Glide.with(getContext())
-                        .load(users.getAvatar())
-                        .circleCrop()
-                        .into(mImageAvatar);
+                if(isAdded()){
+                    Users users = dataSnapshot.getValue(Users.class);
+                    Glide.with(getContext())
+                            .load(users.getAvatar())
+                            .circleCrop()
+                            .into(mImageAvatar);
+                }
+
             }
 
             @Override
@@ -142,7 +145,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
     private void initFirebase() {
         mPostRef = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_POSTS);
         mUserRef = FirebaseDatabase.getInstance().getReference().child(Constants.TABLE_USERS);
@@ -163,6 +165,7 @@ public class HomeFragment extends Fragment {
                 }
 
                 for (DataSnapshot data : dataSnapshot.child(Constants.TABLE_FRIEND).child(Constants.UID).getChildren()) {
+                    Log.d("HomeFragment", "onDataChange: valuee + " + data.getValue());
 
                     if (data.getValue(String.class).equals(UserRelationshipConfig.FRIEND)) {
                         String idFriend = data.getKey();

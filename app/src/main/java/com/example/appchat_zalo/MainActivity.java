@@ -67,6 +67,17 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
+        mAuthListner = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                // User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            } else {
+                // User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
+            }
+            // ...
+        };
         initView();
 //        mSigInGg.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -77,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         initFbLogin();
         addListner();
     }
+
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -261,4 +273,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListner);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mAuthListner != null) {
+            mAuth.removeAuthStateListener(mAuthListner);
+        }
+    }
 }

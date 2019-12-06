@@ -1,5 +1,6 @@
 package com.example.appchat_zalo.fragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,6 +95,7 @@ public class ProfileFragment extends Fragment {
     private Uri mUrl;
     private boolean isUpdateAvatar = true;
     private boolean isUpdateNews = true;
+    private String name, status;
 
     private PrefUtils prefUtils;
     private ProfilePostsAdapter profilePostsAdapter;
@@ -138,7 +141,10 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                Log.d("ProfileFragment", "onDataChange: user value" + dataSnapshot.getValue());
+
                 Users users = dataSnapshot.getValue(Users.class);
+                Log.d("ProfileFragment", "onDataChange: user current" + users.toString());
 
                 if (Constants.UID.equals(users.getId())) {
                     mTextStatus.setText(users.getStatus());
@@ -147,7 +153,7 @@ public class ProfileFragment extends Fragment {
                     Constants.UAVATAR = users.getAvatar();
                     Log.d("ProfileFragment", "onDataChange: avatar" + Constants.UAVATAR);
 
-                    Glide.with(getContext())
+                    Glide.with(getActivity().getApplicationContext())
                             .load(users.getAvatar())
                             .circleCrop()
                             .into(mImageAvatar1);
@@ -171,7 +177,7 @@ public class ProfileFragment extends Fragment {
 
 
                     if (users.getNews().equals("default")) {
-                        mImageNews.setImageResource(R.drawable.boder_news_gray);
+                        mImageNews.setImageResource(R.drawable.anhbia);
                     } else {
 
                         RequestOptions requestOptions = new RequestOptions();
@@ -265,6 +271,76 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        mTextName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editName();
+            }
+        });
+
+        mTextStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editStatus();
+            }
+        });
+    }
+
+    private void editStatus() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Edit Status:");
+
+        final EditText inputStatus = new EditText(getContext());
+        inputStatus.setText(status);
+        builder.setView(inputStatus);
+        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                refUser.child(Constants.UID).child("status").setValue(inputStatus.getText().toString());
+                Log.d("ProfileFragment", "onClick: ");
+                Toast.makeText(getContext(), "name updated successful...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                dialogInterface.cancel();
+            }
+        });
+        Dialog dialog = builder.create();
+        dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.gray_light);
+    }
+
+    private void editName() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Edit Name:");
+
+        final EditText inputName = new EditText(getContext());
+        inputName.setText(name);
+        builder.setView(inputName);
+        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                refUser.child(Constants.UID).child("name").setValue(inputName.getText().toString());
+                Toast.makeText(getContext(), "name updated successful...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                dialogInterface.cancel();
+            }
+        });
+        Dialog dialog = builder.create();
+        dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.gray_light);
     }
 
     @OnClick(R.id.image_news)
