@@ -475,9 +475,11 @@ public class UserProfileActivity extends AppCompatActivity {
                                     mImageAddFriend.setImageResource(R.drawable.ic_receive_invite_friend);
                                     mTextAddFriend.setText("Trả lời");
                                     mTextAddFriend.setTextColor(R.color.black);
+                                    mImageDeclineFriend.setEnabled(true);
                                     mImageDeclineFriend.setVisibility(View.VISIBLE);
                                     mTextDeclineFriend.setVisibility(View.VISIBLE);
-                                    mImageDeclineFriend.setEnabled(true);
+                                    mTextDeclineFriend.setText("Từ chối");
+                                    mTextDeclineFriend.setTextColor(R.color.black);
                                     mImageDeclineFriend.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {

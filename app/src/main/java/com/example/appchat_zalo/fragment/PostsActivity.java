@@ -81,9 +81,6 @@ public class PostsActivity extends AppCompatActivity {
     @BindView(R.id.image_camera)
     ImageView mCamera;
 
-    @BindView(R.id.image_video)
-    ImageView mVideo;
-
     @BindView(R.id.input_content_posts)
     EditText mInputsContentPost;
 

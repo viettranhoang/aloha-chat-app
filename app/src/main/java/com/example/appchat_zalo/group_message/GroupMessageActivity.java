@@ -79,7 +79,6 @@ public class GroupMessageActivity extends AppCompatActivity {
     @BindView(R.id.image_send)
     ImageView mImageSend;
 
-
     GroupMessageAdapter adapter;
     List<Message> listMessage = new ArrayList<>();
 

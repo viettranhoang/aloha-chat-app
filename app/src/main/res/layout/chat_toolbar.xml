@@ -12,6 +12,7 @@
             android:src="@drawable/icon_search"
             android:layout_alignParentLeft="true"
             android:layout_width="32dp"
+            android:padding="2dp"
             android:tint="@color/white"
             android:layout_centerInParent="true"
             android:layout_height="32dp" />
@@ -34,6 +35,7 @@
 
             android:id="@+id/image_create_group"
             android:layout_width="32dp"
+            android:padding="2dp"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_add"
             android:tint="@color/white"
@@ -47,6 +49,7 @@
             android:id="@+id/image_contact"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:padding="2dp"
             android:layout_centerInParent="true"
             android:layout_toLeftOf="@id/image_create_group"
             android:layout_marginRight="15dp"

@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,9 +41,11 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.input_search)
     EditText mInputSearch;
 
+    @BindView(R.id.search_toolbar)
+    Toolbar mToolbarSearch;
+
     private List<Users> mFriendList;
     private SearchAdapter mAdapterSearch;
-
     private String type = UserRelationshipConfig.FRIEND;
 
     @Override
@@ -50,6 +53,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_activity);
         ButterKnife.bind(this);
+        initToolbarSearch();
         iniRcv();
         mInputSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -69,7 +73,13 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         getFriend(type);
+    }
 
+    private void initToolbarSearch() {
+        setSupportActionBar(mToolbarSearch);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     private void getFriend(String type) {

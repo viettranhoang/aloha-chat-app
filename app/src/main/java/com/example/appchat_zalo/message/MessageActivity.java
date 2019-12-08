@@ -91,7 +91,6 @@ public class MessageActivity extends AppCompatActivity {
     @BindView(R.id.image_send)
     ImageView mImageSend;
 
-
     MessageAdapter adapter;
     List<Message> listMessage = new ArrayList<>();
     List<Users> listUsers = new ArrayList<>();

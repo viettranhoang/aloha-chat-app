@@ -99,11 +99,11 @@
 
         <TextView
             android:id="@+id/text_add_content"
-            android:layout_width="wrap_content"
+            android:layout_width="280dp"
             android:text="Thêm vào bài viết của bạn"
             android:textStyle="normal"
             android:textColor="@color/black_light"
-            android:textSize="19sp"
+            android:textSize="17sp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="7dp"
@@ -113,38 +113,28 @@
 
         <ImageView
             android:id="@+id/image_picture"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_marginLeft="15dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="13dp"
+            android:padding="2dp"
             android:tint="@color/blue1"
             android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/text_add_content"
+            android:layout_toLeftOf="@+id/image_camera"
             android:src="@drawable/icons_picture" />
 
         <ImageView
             android:id="@+id/image_camera"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="2dp"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="13dp"
             android:tint="@color/blue1"
-            android:layout_marginLeft="18dp"
             android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/image_picture"
             android:src="@drawable/ic_camera" />
-
-        <ImageView
-            android:id="@+id/image_video"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:tint="@color/blue1"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_video" />
-
-
 
     </RelativeLayout>
 

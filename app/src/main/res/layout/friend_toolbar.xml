@@ -13,6 +13,7 @@
             android:layout_alignParentLeft="true"
             android:layout_width="32dp"
             android:tint="@color/white"
+            android:padding="2dp"
             android:layout_centerInParent="true"
             android:layout_height="32dp" />
 
@@ -35,6 +36,7 @@
             android:id="@+id/image_add"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:padding="2dp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:layout_marginRight="10dp"
@@ -47,6 +49,7 @@
             android:id="@+id/image_confirm"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:padding="2dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@id/image_add"

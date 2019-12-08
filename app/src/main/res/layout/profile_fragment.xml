@@ -25,22 +25,6 @@
                     android:layout_height="260dp"
                     android:background="@color/pinkLight" />
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/image_edit_cover"-->
-<!--                    android:layout_width="33dp"-->
-<!--                    android:layout_height="33dp"-->
-<!--                    android:layout_alignRight="@id/image_background"-->
-<!--                    android:layout_alignBottom="@id/image_background"-->
-<!--                    android:layout_margin="9dp"-->
-<!--                    android:background="@drawable/round_corner_gray_6"-->
-<!--                    android:clickable="true"-->
-<!--                    android:paddingLeft="10dp"-->
-<!--                    android:paddingTop="3dp"-->
-<!--                    android:paddingRight="10dp"-->
-<!--                    android:paddingBottom="3dp"-->
-<!--                    android:src="@drawable/ic_camera"-->
-<!--                    android:tint="@color/black_light" />-->
-
                 <ImageView
                     android:id="@+id/image_back"
                     android:layout_width="30dp"
@@ -72,17 +56,6 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/roun_avatar_news_blue"
                     android:padding="3dp" />
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/image_edit_avatar"-->
-<!--                    android:layout_width="26dp"-->
-<!--                    android:layout_height="26dp"-->
-<!--                    android:layout_alignRight="@id/image_avatar"-->
-<!--                    android:layout_alignBottom="@id/image_avatar"-->
-<!--                    android:background="@drawable/round_corner_gray_6"-->
-<!--                    android:clickable="true"-->
-<!--                    android:padding="7dp"-->
-<!--                    android:src="@drawable/ic_camera" />-->
 
                 <TextView
                     android:id="@+id/text_name"
@@ -228,44 +201,46 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
 
-            android:layout_below="@+id/layout_four"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_four">
+
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/gray1"
                 android:id="@+id/list_my_posts"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="2dp"
+                android:background="@color/gray1">
 
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.cardview.widget.CardView>
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/layout_four"-->
-<!--            android:layout_marginTop="10dp">-->
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@id/layout_four"-->
+        <!--            android:layout_marginTop="10dp">-->
 
-<!--            <androidx.recyclerview.widget.RecyclerView-->
+        <!--            <androidx.recyclerview.widget.RecyclerView-->
 
-<!--                android:id="@+id/list_my_posts"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="8dp"-->
-<!--                android:background="@color/gray1"-->
-<!--                android:layout_marginLeft="7dp"-->
-<!--                android:layout_marginTop="7dp"-->
-<!--                android:layout_marginRight="5dp"-->
-<!--                android:padding="5dp">-->
+        <!--                android:id="@+id/list_my_posts"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_margin="8dp"-->
+        <!--                android:background="@color/gray1"-->
+        <!--                android:layout_marginLeft="7dp"-->
+        <!--                android:layout_marginTop="7dp"-->
+        <!--                android:layout_marginRight="5dp"-->
+        <!--                android:padding="5dp">-->
 
-<!--            </androidx.recyclerview.widget.RecyclerView>-->
+        <!--            </androidx.recyclerview.widget.RecyclerView>-->
 
-<!--        </androidx.cardview.widget.CardView>-->
+        <!--        </androidx.cardview.widget.CardView>-->
 
 
     </RelativeLayout>
