@@ -156,7 +156,7 @@ public class LoginWithEmailActivity extends AppCompatActivity {
         mButtonLogin = findViewById(R.id.button_login);
         mImageBack = findViewById(R.id.image_back);
         loadingBar = new ProgressDialog(this);
-        mInputEmail.setText("b@gmail.com");
+        mInputEmail.setText("vit@gmail.com");
         mInputPasword.setText("111111");
 
     }

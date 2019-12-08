@@ -112,9 +112,12 @@ public class ChatFragment extends Fragment {
     }
 
     private void updateToken(String token) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
-        Token token1 = new Token(token);
-        reference.child(fuser.getUid()).setValue(token1);
+        if(fuser != null){
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.TABLE_TOKEN);
+            Token token1 = new Token(token);
+            reference.child(fuser.getUid()).setValue(token1);
+        }
+
     }
 
 

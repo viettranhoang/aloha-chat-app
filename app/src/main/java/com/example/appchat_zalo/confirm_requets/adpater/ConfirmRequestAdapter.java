@@ -33,7 +33,9 @@ public class ConfirmRequestAdapter extends RecyclerView.Adapter<ConfirmRequestAd
         this.mListener = mListener;
     }
 
-
+    public  void  addUser(Users users){
+        mUserList.add(users);
+    }
     public void setmUserList(List<Users> mUserList) {
         this.mUserList = mUserList;
         notifyDataSetChanged();
@@ -82,33 +84,38 @@ public class ConfirmRequestAdapter extends RecyclerView.Adapter<ConfirmRequestAd
         }
 
         void bindata(Users users) {
-            mTextName.setText(users.getName());
+            if (users != null) {
+                mTextName.setText(users.getName());
 
-            if(users.getAvatar().equals("default")){
-                mImageAvatar.setImageResource(R.drawable.background_main);
-            }
-            else {
-                Glide.with(itemView)
-                        .load(users.getAvatar())
-                        .circleCrop()
-                        .into(mImageAvatar);
-            }
+                if("default".equalsIgnoreCase(users.getAvatar())){
 
+                    if (users.getAvatar().equals("default")) {
+                        mImageAvatar.setImageResource(R.drawable.background_main);
+                    } else {
+                        Glide.with(itemView)
+                                .load(users.getAvatar())
+                                .circleCrop()
+                                .into(mImageAvatar);
+                    }
+
+                }
+
+            }
 
         }
 
         @OnClick(R.id.image_avatar)
-         void  onClickRecive(){
+        void onClickRecive() {
             mListener.onclickRecive(mUserList.get(getAdapterPosition()));
         }
 
         @OnClick(R.id.button_accept)
-        void onClickAccept(){
+        void onClickAccept() {
             mListener.onclickAccpet(mUserList.get(getAdapterPosition()));
         }
 
         @OnClick(R.id.button_cancel)
-        void onClickCancel(){
+        void onClickCancel() {
             mListener.onclickCancel(mUserList.get(getAdapterPosition()));
         }
 

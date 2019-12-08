@@ -163,12 +163,6 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.HomePo
         private void sendNotifications(String userId,String postId) {
             String notiId = mNotiRef.push().getKey();
             mNotiRef.child(userId).child(notiId).setValue(new Notification(Constants.UID,"đã thích bài viết của bạn", postId,notiId));
-//            HashMap<String,  Object> hashMap = new HashMap<>();
-//            hashMap.put("userId" , Constants.UID);
-//            hashMap.put("text" , "đã thích bài viết này.");
-//            hashMap.put("postId", postId);
-//            hashMap.put("isPost", true);
-//            mNotiRef.push().setValue(hashMap);
 
         }
 

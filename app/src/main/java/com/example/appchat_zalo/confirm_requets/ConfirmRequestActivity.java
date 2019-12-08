@@ -1,21 +1,20 @@
 package com.example.appchat_zalo.confirm_requets;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.UserProfileActivity;
 import com.example.appchat_zalo.confirm_requets.adpater.ConfirmRequestAdapter;
 import com.example.appchat_zalo.confirm_requets.listenser.OnclickItemConfirmRequestListener;
-import com.example.appchat_zalo.friends.model.Friend;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
 import com.example.appchat_zalo.utils.Constants;
@@ -57,7 +56,6 @@ public class ConfirmRequestActivity extends AppCompatActivity {
         getRequestFriend(Constants.UID, type);
 
     }
-
     private void getRequestFriend(String currentId, String type) {
         mRef.addValueEventListener(new ValueEventListener() {
             @Override

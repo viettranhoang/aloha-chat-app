@@ -1,6 +1,5 @@
 package com.example.appchat_zalo.notification;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,8 +11,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appchat_zalo.detail_post.DetailPostActivity;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.detail_post.DetailPostActivity;
 import com.example.appchat_zalo.notification.adapter.NotificationAdapter;
 import com.example.appchat_zalo.notification.listener.OnclickItemNotifiLikeListener;
 import com.example.appchat_zalo.notification.model.Notification;
@@ -43,10 +42,8 @@ public class NotificationActivity extends AppCompatActivity {
 
     private List<Notification> mNotiList;
     private NotificationAdapter mNotiAdapter;
-
     private DatabaseReference mNotiRef;
 
-    private boolean checkNotifi = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,16 +93,7 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onclickNotifiLikeItem(Notification notification) {
 
-//                Bundle bundle = new Bundle();
-//                bundle.putString("postId", notification.getmPostId());
-//
-//                fragment.setArguments(bundle);
-//                if (checkNotifi){
-                    Intent intent = new Intent(NotificationActivity.this, DetailPostActivity.class);
-                    intent.putExtra("postId", notification.getmPostId());
-                    startActivity(intent);
-                    finish();
-//                }
+                DetailPostActivity.openDetailActivity(NotificationActivity.this, notification.getmPostId(), notification.getmUserId());
 
             }
         });

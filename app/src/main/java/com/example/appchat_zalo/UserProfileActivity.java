@@ -18,6 +18,7 @@ import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
 import com.example.appchat_zalo.my_profile.adapter.ProfilePostsAdapter;
+import com.example.appchat_zalo.my_profile.listener.OnclickItemMyPostListner;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -405,6 +406,17 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void initRcv() {
         mUserPostAdapter = new ProfilePostsAdapter();
+        mUserPostAdapter.setOnlcickItemPost(new OnclickItemMyPostListner() {
+            @Override
+            public void onClickMyPostItem(Posts post) {
+//                DetailPostActivity.openDetailActivity(UserProfileActivity.this, post.getIdPost(), post.getUserId());
+            }
+
+            @Override
+            public void onClickMyPostComment(Posts post) {
+
+            }
+        });
         mRcvUserPost.setLayoutManager(new LinearLayoutManager(this));
         mRcvUserPost.setHasFixedSize(true);
     }

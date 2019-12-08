@@ -133,7 +133,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     Log.d("dd", "onDataChange: dd" + users.getName());
                     String avatar = users.getAvatar();
                     String name = users.getName();
-                    Glide.with(itemView)
+                    Glide.with(itemView.getContext())
                             .load(avatar)
                             .circleCrop()
                             .into(mImageAvatar);

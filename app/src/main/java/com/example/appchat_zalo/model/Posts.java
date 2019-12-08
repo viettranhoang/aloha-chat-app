@@ -1,6 +1,8 @@
 package com.example.appchat_zalo.model;
 
-public class Posts {
+import java.io.Serializable;
+
+public class Posts implements Serializable {
     private String date;
     private String time;
     private String content_posts;

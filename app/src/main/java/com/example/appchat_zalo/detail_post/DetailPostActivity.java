@@ -1,6 +1,7 @@
 package com.example.appchat_zalo.detail_post;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.example.appchat_zalo.comment.adapter.CommentAdapter;
 import com.example.appchat_zalo.comment.listener.OnclickCommentItemListener;
 import com.example.appchat_zalo.comment.model.Comment;
 import com.example.appchat_zalo.model.Posts;
+import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +38,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DetailPostActivity extends AppCompatActivity {
+
+    public static final String EXTRA_POST_ID = "EXTRA_POST_ID";
+    public static final String EXTRA_USER_ID = "EXTRA_USER_ID";
+
+    public  static  void openDetailActivity(Activity activity, String postId, String userId){
+        Intent intent = new Intent(activity, DetailPostActivity.class);
+        intent.putExtra(EXTRA_POST_ID, postId);
+        intent.putExtra(EXTRA_USER_ID, userId);
+        activity.startActivity(intent);
+    }
 
     @BindView(R.id.image_avatar)
     ImageView mAvatar;
@@ -87,7 +99,7 @@ public class DetailPostActivity extends AppCompatActivity {
     EditText mInputComment;
 
     private CommentAdapter mDetailPostAdapter;
-    private String mPostId;
+    private String mPostId, mUserId;
     private  List<Comment> mCommentList;
 
     private DatabaseReference mPostRef, mLikeRef, mCommentRef, mUserRef;
@@ -97,12 +109,10 @@ public class DetailPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_post);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        mPostId = intent.getStringExtra("postId");
+        initFirebase();
         initToolbarDetailPost();
         initRcv();
-        initFirebase();
-        getPost(mPostId);
+        getPost(Constants.UID, mPostId);
         checkLike(mPostId);
         numberLike(mPostId);
         numberCommet(mPostId);
@@ -216,14 +226,15 @@ public class DetailPostActivity extends AppCompatActivity {
         });
     }
 
-    private void getPost(String mPostId) {
+    private void getPost(String userId, String mPostId) {
+        Log.d("DetailPostActivity", "getPost: id user " + userId + mPostId);
         mPostRef.child(Constants.UID).child(mPostId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Posts> postsList = new ArrayList<>();
+
+                Log.d("DetailPostActivity", "onDataChange: data " + dataSnapshot);
                 Posts posts = dataSnapshot.getValue(Posts.class);
-                Log.d("DetailPostActivity", "onDataChange: id post=== " + posts.getIdPost());
-                Glide.with(getApplicationContext())
+                Glide.with(DetailPostActivity.this)
                         .load(posts.getAvatar())
                         .circleCrop()
                         .into(mAvatar);
@@ -236,8 +247,6 @@ public class DetailPostActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(posts.getPicture())
                         .into(mPicturePost);
-                postsList.add(posts);
-//                Log.d("DetailPostActivity", "onDataChange: post ==" + post.toString() );
 
             }
 
@@ -249,10 +258,29 @@ public class DetailPostActivity extends AppCompatActivity {
     }
 
     private void initToolbarDetailPost() {
+        Intent intent = getIntent();
+        mPostId = intent.getStringExtra(EXTRA_POST_ID);
+        mUserId = intent.getStringExtra(EXTRA_USER_ID);
         setSupportActionBar(mToolbarDetailPost);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        mUserRef.child(Constants.UID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Users users = dataSnapshot.getValue(Users.class);
+                Log.d("aa", "onDataChange: avatar  user" + users.getAvatar());
+                mName.setText(users.getName());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 

@@ -115,7 +115,6 @@ public class MessageActivity extends AppCompatActivity {
 
     boolean notify = false;
 
-
     private static final int IMAGE_CHOOSE = 1;
     private static final int IMAGE_PHOTO = 2;
 
