@@ -348,7 +348,6 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void initToolbar() {

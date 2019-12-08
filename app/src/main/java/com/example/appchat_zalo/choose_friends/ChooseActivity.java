@@ -249,7 +249,7 @@ public class ChooseActivity extends AppCompatActivity {
 
         String avatar = urlDownload;
 
-        if (name.isEmpty() && avatar == null) {
+        if (name.isEmpty()) {
             Toast.makeText(this, R.string.choose_friend_invalid_name, Toast.LENGTH_SHORT).show();
             return;
         }

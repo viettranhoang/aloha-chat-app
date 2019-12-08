@@ -51,12 +51,6 @@
             android:layout_marginRight="7dp"
             android:background="@color/white">
 
-            <ImageView
-                android:id="@+id/image_icon_smile"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_marginRight="15dp"
-                android:src="@drawable/ic_smile" />
             <EditText
                 android:id="@+id/input_message"
                 android:layout_width="0dp"
@@ -75,16 +69,20 @@
                 android:id="@+id/image_camera"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
+                android:tint="@color/blue"
+                android:padding="2dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="2dp"
                 android:src="@drawable/ic_camera" />
 
             <ImageView
                 android:id="@+id/image_picture"
                 android:layout_height="34dp"
                 android:layout_width="34dp"
+                android:tint="@color/blue"
+                android:padding="2dp"
                 android:src="@drawable/icons_picture"
-                android:layout_marginLeft="15dp" />
+                android:layout_marginLeft="8dp" />
 
             <ImageView
                 android:id="@+id/image_send"
