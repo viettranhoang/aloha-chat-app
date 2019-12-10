@@ -32,6 +32,7 @@ import com.example.appchat_zalo.push_notification.Sender;
 import com.example.appchat_zalo.push_notification.Token;
 import com.example.appchat_zalo.utils.Constants;
 import com.example.appchat_zalo.utils.Utils;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.Continuation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -191,6 +192,14 @@ public class MessageActivity extends AppCompatActivity {
 //        sendMessgae(Constants.UID, userId, mInputMessage.getText().toString(), MessageTypeConfig.IMAGE);
 //        uploadImage();
 
+    }
+
+    @OnClick(R.id.image_camera)
+    void onClickCamera() {
+        ImagePicker.Companion.with(this)
+                .cameraOnly()
+                .compress(500)
+                .start();
     }
 
 
@@ -389,7 +398,7 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMAGE_CHOOSE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (resultCode == RESULT_OK && data != null && data.getData() != null) {
             mUrl = data.getData();
 
             if (mUpLoadTask != null && mUpLoadTask.isInProgress()) {

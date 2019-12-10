@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,6 +25,7 @@ import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.add_posts.adapter.AddPostAdapter;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.utils.Constants;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.Continuation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -135,17 +135,15 @@ public class PostsActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.image_camera)
-    void takePhoto() {
-
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, IMAGE_PHOTO);
-        }
+    void onClickCamera() {
+        ImagePicker.Companion.with(this)
+                .cameraOnly()
+                .compress(500)
+                .start();
     }
 
     @OnClick({R.id.text_posts})
-    void post()
-    {
+    void post() {
         ValidatePostInfo();
     }
 
@@ -175,7 +173,7 @@ public class PostsActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         mSaveCurrentTime = currentTime.format(calendarDate.getTime());
         mPostRandomName = mSaveCurrentDate + mSaveCurrentTime;
-        Log.d("PostsActivity", "storagePictureToFirebase: " +mUrl.getLastPathSegment());
+        Log.d("PostsActivity", "storagePictureToFirebase: " + mUrl.getLastPathSegment());
         StorageReference filePath = storageReference.child("UploadPost").child(mUrl.getLastPathSegment() + mPostRandomName + ".jpg");
 
         filePath.putFile(mUrl).continueWithTask((Continuation) task -> {
@@ -229,31 +227,22 @@ public class PostsActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (data != null && resultCode == RESULT_OK) {
-            if (requestCode == IMAGE_CHOOSE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-                mUrl = data.getData();
-                try {
-                    InputStream inputStream = getContentResolver().openInputStream(mUrl);
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    mListBitmap.add(bitmap);
-                    mAddPostAdapter = new AddPostAdapter(mListBitmap);
-                    mRcvAddPosts.setAdapter(mAddPostAdapter);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            } else if (requestCode == IMAGE_PHOTO) {
-                Bundle extras = data.getExtras();
-                Bitmap bitmap = (Bitmap) extras.get("data");
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+            mUrl = data.getData();
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(mUrl);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 mListBitmap.add(bitmap);
                 mAddPostAdapter = new AddPostAdapter(mListBitmap);
                 mRcvAddPosts.setAdapter(mAddPostAdapter);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
-
-            super.onActivityResult(requestCode, resultCode, data);
         }
 
-    }
 
+    }
 
 
     @Override

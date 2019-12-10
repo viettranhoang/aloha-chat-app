@@ -25,6 +25,7 @@ import com.example.appchat_zalo.message.adapter.MessageTypeConfig;
 import com.example.appchat_zalo.model.Groups;
 import com.example.appchat_zalo.model.Message;
 import com.example.appchat_zalo.utils.Constants;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -179,6 +180,14 @@ public class GroupMessageActivity extends AppCompatActivity {
 
     }
 
+    @OnClick(R.id.image_camera)
+    void onClickCamera() {
+        ImagePicker.Companion.with(this)
+                .cameraOnly()
+                .compress(500)
+                .start();
+    }
+
     private void uploadImage() {
         Calendar calendarDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
@@ -213,7 +222,7 @@ public class GroupMessageActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMAGE_CHOOSE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (resultCode == RESULT_OK && data != null && data.getData() != null) {
             mUrl = data.getData();
 
             if (mUpLoadTask != null && mUpLoadTask.isInProgress()) {
