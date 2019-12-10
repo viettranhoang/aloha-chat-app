@@ -3,6 +3,7 @@
     android:layout_width="150dp"
     android:layout_height="230dp"
     android:layout_margin="4dp"
+    android:id="@+id/layout_news"
     android:background="@drawable/boder_news_gray">
 
     <ImageView

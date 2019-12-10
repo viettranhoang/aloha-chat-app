@@ -318,8 +318,9 @@ public class GroupMessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listMessage.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Log.d("GroupMessageActivity", "onDataChange: data" + data);
                     Message message = data.getValue(Message.class);
-                    Log.d(TAG, "onDataChange: messsage " + message.getMessage());
+                    Log.d("GroupMessageActivity", "onDataChange: mesage group" +message.toString());
                     listMessage.add(message);
                 }
 

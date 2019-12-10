@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.appchat_zalo.R;
+import com.example.appchat_zalo.friends.listener.OnClickFriendNewsItemListener;
 import com.example.appchat_zalo.model.Users;
 
 import java.util.ArrayList;
@@ -22,10 +24,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FriendNewsAdapter extends RecyclerView.Adapter<FriendNewsAdapter.FriendNewsViewHolder> {
 
     private List<Users> mUserNewsList = new ArrayList<>();
+
+    private OnClickFriendNewsItemListener mNewslistener;
 
     public static final int NEWS_FIRST = 1;
 
@@ -34,7 +39,8 @@ public class FriendNewsAdapter extends RecyclerView.Adapter<FriendNewsAdapter.Fr
         notifyDataSetChanged();
     }
 
-    public FriendNewsAdapter() {
+    public FriendNewsAdapter(OnClickFriendNewsItemListener mNewslistener) {
+        this.mNewslistener = mNewslistener;
     }
 
     public void setmUserNewsList(List<Users> mUserNewsList) {
@@ -89,6 +95,10 @@ public class FriendNewsAdapter extends RecyclerView.Adapter<FriendNewsAdapter.Fr
         @BindView(R.id.text_name)
         TextView mTextName;
 
+        @BindView(R.id.layout_news)
+        RelativeLayout mLayoutNews;
+
+
         public FriendNewsViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -116,6 +126,11 @@ public class FriendNewsAdapter extends RecyclerView.Adapter<FriendNewsAdapter.Fr
                         .into(mImageAvatar);
             }
 
+        }
+
+        @OnClick(R.id.layout_news)
+        void onclickItem(){
+            mNewslistener.onclickFriendNewsItem(getAdapterPosition());
         }
 
     }

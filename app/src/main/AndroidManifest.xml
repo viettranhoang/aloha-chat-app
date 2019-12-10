@@ -19,7 +19,7 @@
         <activity android:name=".group_message.GroupMessageActivity" />
         <activity android:name=".confirm_requets.ConfirmRequestActivity" />
         <activity android:name=".comment.CommentActivity" />
-        <activity android:name=".NewsActivity" />
+        <activity android:name=".news.NewsActivity" />
         <activity android:name=".all_user.AllUserActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".UpdatePostActivity" />
