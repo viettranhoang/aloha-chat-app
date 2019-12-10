@@ -19,9 +19,16 @@ class NewsActivity : AppCompatActivity() {
 
         user = intent.getParcelableExtra(EXTRA_USER)
 
-        Glide.with(this)
-                .load(user.news)
-                .into(imageNews)
+        user.also {
+            Glide.with(this)
+                    .load(it.news)
+                    .into(imageNews)
+            textName.text = it.name
+            Glide.with(this)
+                    .load(it.avatar)
+                    .circleCrop()
+                    .into(imageAvatar)
+        }
 
     }
 
