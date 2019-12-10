@@ -181,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
                     Constants.UID = mAuth.getUid();
+
                     Toast.makeText(MainActivity.this, "login with facebook successful===== ", Toast.LENGTH_SHORT).show();
                     createNewUser();
 
@@ -224,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (prefUtils.getCurrentUid() != null) {
             Constants.UID = prefUtils.getCurrentUid();
+            Constants.UAVATAR = prefUtils.getCurrentUAvatar();
             Intent intent = new Intent(MainActivity.this, HomeChatActivity.class);
             startActivity(intent);
             finish();

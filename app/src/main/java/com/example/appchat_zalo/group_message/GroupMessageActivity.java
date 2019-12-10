@@ -248,7 +248,7 @@ public class GroupMessageActivity extends AppCompatActivity {
         hashMap.put("seen", message1.isSeen());
         hashMap.put("time", message1.getTime());
         hashMap.put("type", type);
-        hashMap.put("from_avatar", mFromAvatar);
+        hashMap.put("fromAvatar", mFromAvatar);
 
         reference.child(Constants.TABLE_GROUPS).child(receive).child(ROW_MEMBERS).addValueEventListener(new ValueEventListener() {
             @Override

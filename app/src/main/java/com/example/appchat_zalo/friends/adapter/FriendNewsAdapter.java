@@ -130,7 +130,7 @@ public class FriendNewsAdapter extends RecyclerView.Adapter<FriendNewsAdapter.Fr
 
         @OnClick(R.id.layout_news)
         void onclickItem(){
-            mNewslistener.onclickFriendNewsItem(getAdapterPosition());
+            mNewslistener.onclickFriendNewsItem(mUserNewsList.get(getAdapterPosition()));
         }
 
     }

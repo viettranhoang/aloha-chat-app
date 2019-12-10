@@ -103,7 +103,7 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
         void  bindata(Message message){
 
             String avatar =  Constants.UAVATAR;
-            Glide.with(itemView.getContext())
+            Glide.with(itemView)
                     .load(message.getFromAvatar())
                     .circleCrop()
                     .into(mImageAvatar);

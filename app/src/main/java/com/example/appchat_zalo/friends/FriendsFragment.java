@@ -20,7 +20,6 @@ import com.example.appchat_zalo.add_user.SentInviteActivity;
 import com.example.appchat_zalo.confirm_requets.ConfirmRequestActivity;
 import com.example.appchat_zalo.friends.adapter.FriendNewsAdapter;
 import com.example.appchat_zalo.friends.adapter.FriendsOnlineAdapter;
-import com.example.appchat_zalo.friends.listener.OnClickFriendNewsItemListener;
 import com.example.appchat_zalo.message.MessageActivity;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
@@ -73,14 +72,8 @@ public class FriendsFragment extends Fragment {
         startActivity(intent);
     }
 
-    private FriendNewsAdapter mNewsAdapter = new FriendNewsAdapter(new OnClickFriendNewsItemListener() {
-        @Override
-        public void onclickFriendNewsItem(int position) {
-//            Intent intent =  new Intent(getContext(), NewsActivity.class);
-//            intent.putExtra("possition", position);
-//            startActivity(intent);
-            NewsActivity.moveNewsActivity(getActivity(), --position);
-        }
+    private FriendNewsAdapter mNewsAdapter = new FriendNewsAdapter(users -> {
+        NewsActivity.Companion.openNewsActivity(getActivity(), users);
     });
 
     private FriendsOnlineAdapter mFriendAdapter = new FriendsOnlineAdapter(users -> {

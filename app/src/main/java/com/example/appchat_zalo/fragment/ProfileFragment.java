@@ -152,6 +152,7 @@ public class ProfileFragment extends Fragment {
                     mTextName.setText(users.getName());
                     Constants.UNAME = users.getName();
                     Constants.UAVATAR = users.getAvatar();
+                    prefUtils.setCurrentUAvatar(users.getAvatar());
                     Log.d("ProfileFragment", "onDataChange: avatar" + Constants.UAVATAR);
 
                     Glide.with(getActivity().getApplicationContext())

@@ -67,12 +67,21 @@ public class PrefUtils {
         return get(PREF_KEY.CURRENT_USER_ID, null);
     }
 
+    public String getCurrentUAvatar() {
+        return get(PREF_KEY.CURRENT_USER_AVATAR, null);
+    }
+
     public void setCurrentUid(String uid){
         set(PrefUtils.PREF_KEY.CURRENT_USER_ID, uid);
     }
 
+    public void setCurrentUAvatar(String avatar){
+        set(PREF_KEY.CURRENT_USER_AVATAR, avatar);
+    }
+
     public interface PREF_KEY {
         String CURRENT_USER_ID = "CURRENT_USER_ID";
+        String CURRENT_USER_AVATAR = "CURRENT_USER_AVATAR";
 
     }
 }

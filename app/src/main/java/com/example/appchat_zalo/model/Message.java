@@ -1,5 +1,7 @@
 package com.example.appchat_zalo.model;
 
+import com.google.firebase.database.PropertyName;
+
 public class Message {
 
     private String message;
