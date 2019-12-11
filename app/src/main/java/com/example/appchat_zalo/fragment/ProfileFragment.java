@@ -220,31 +220,17 @@ public class ProfileFragment extends Fragment {
     }
 
     private void addListner() {
-        mImageLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder alertdialog = new AlertDialog.Builder(getActivity());
-                alertdialog.setTitle("Logout");
-                alertdialog.setMessage("Are you sure you Want to logOut??");
-                alertdialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logOut();
-                    }
-                });
+        mImageLogout.setOnClickListener(view -> {
+            AlertDialog.Builder alertdialog = new AlertDialog.Builder(getActivity());
+            alertdialog.setTitle("Logout");
+            alertdialog.setMessage("Are you sure you Want to logOut??");
+            alertdialog.setPositiveButton("yes", (dialog, which) -> logOut());
 
-                alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+            alertdialog.setNegativeButton("No", (dialog, which) -> dialog.cancel());
 
 
-                AlertDialog alert = alertdialog.create();
-                alertdialog.show();
-            }
-
+            AlertDialog alert = alertdialog.create();
+            alertdialog.show();
         });
 
         mImageCover.setOnClickListener(new View.OnClickListener() {

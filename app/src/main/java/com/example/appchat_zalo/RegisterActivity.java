@@ -111,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("status","Yeu bom nhat");
                     hashMap.put("avatar","default");
                     hashMap.put("cover","default");
-                    hashMap.put("news",R.drawable.anhbia);
+                    hashMap.put("news", "default");
                     hashMap.put("posts","default");
                     hashMap.put("online",0);
                     reference.setValue(hashMap).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<Void>() {
