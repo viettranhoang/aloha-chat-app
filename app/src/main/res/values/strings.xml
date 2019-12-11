@@ -4,6 +4,28 @@
     <string name="facebook_app_id">583324425809394</string>
     <string name="fb_login_protocol_scheme">fb583324425809394</string>
 
+    // login with email
+    <string name="input_email">Vui lòng nhập đủ thông tin</string>
+    <string name="input_email_error">Thông tin đăng nhập không đúng</string>
+    <string name="input_password_error">Mật khẩu phải có ít nhất 6 kí tự</string>
+
+    //  add post
+    <string name="add_content_post">Vui lòng nhập nội dung bài đăng</string>
+    <string name="add_post_successful">Bạn đã đăng bài thành công!</string>
+    <string name="add_post_fail">Bạn đã đăng bài thất bại!!</string>
+    <string name="delete_post_successful">Bài đăng đã được xóa thành công!</string>
+    <string name="edit_post_successful">Bài đăng được chỉnh sửa thành công!”</string>
+
+    // comment post
+    <string name="add_comment_post">bạn gửi comment thành công!</string>
+
+
+    // notification
+    <string name="like_notificationt">đã thích bài viết của bạn</string>
+    <string name="comment_notificationt">đã bình luận bài viết của bạn</string>
+
+
+
     // choose friend
     <string name="choose_friend_error">Vui lòng chọn bạn bè!</string>
     <string name="choose_friend_invalid_name">Vui lòng nhập tên nhóm!</string>

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.appchat_zalo.comment.CommentActivity;
 import com.example.appchat_zalo.model.Posts;
 import com.example.appchat_zalo.model.Users;
 import com.example.appchat_zalo.my_profile.UserRelationshipConfig;
@@ -102,46 +103,6 @@ public class UserProfileActivity extends AppCompatActivity {
         getUserPost();
 
     }
-
-//    private void getRelationship(String fromId, String toId) {
-//        mFriendRequestRef.child(fromId).child(toId).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                switch (mCurrentRelative) {
-//                    case NOT:
-//                        mImageAddFriend.setImageResource(R.drawable.ic_add_friends);
-//                        mTextAddFriend.setText("Thêm bạn bè");
-//                        mTextAddFriend.setTextColor(R.color.black);
-//                        break;
-//
-//                    case FRIEND:
-//                        mImageAddFriend.setImageResource(R.drawable.ic_account_check);
-//                        mTextAddFriend.setText("Hủy kết bạn");
-//                        mTextAddFriend.setTextColor(R.color.black);
-//                        break;
-//
-//                    case SENT:
-//                        mImageAddFriend.setImageResource(R.drawable.ic_sent_invite_friend);
-//                        mTextAddFriend.setText("Hủy yêu cầu");
-//                        mTextAddFriend.setTextColor(R.color.black);
-//                        break;
-//
-//                    case RECEIVE:
-//                        mImageAddFriend.setImageResource(R.drawable.ic_receive_invite_friend);
-//                        mTextAddFriend.setText("Trả lời");
-//                        mTextAddFriend.setTextColor(R.color.black);
-//                        break;
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//    }
 
     @OnClick(R.id.image_decline_friend)
     void onClickDeclineFriend() {
@@ -415,6 +376,10 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onClickMyPostComment(Posts post) {
 
+                Intent intent = new Intent(UserProfileActivity.this, CommentActivity.class);
+                intent.putExtra("postId", post.getIdPost());
+                intent.putExtra("userId", post.getUserId());
+                startActivity(intent);
             }
         });
         mRcvUserPost.setLayoutManager(new LinearLayoutManager(this));

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.appchat_zalo.HomeChatActivity;
 import com.example.appchat_zalo.R;
 import com.example.appchat_zalo.add_posts.adapter.AddPostAdapter;
 import com.example.appchat_zalo.model.Posts;
@@ -153,7 +154,7 @@ public class PostsActivity extends AppCompatActivity {
         if (mPicture == null) {
             Toast.makeText(this, "Please choose Picture...", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(textContentPost)) {
-            Toast.makeText(this, "Please say something about....", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.add_content_post, Toast.LENGTH_SHORT).show();
         } else {
 
             progressDialog.setTitle("Add New Posts");
@@ -213,12 +214,14 @@ public class PostsActivity extends AppCompatActivity {
 //                        ProfileFragment profileFragment =  new ProfileFragment();
 //                        profileFragment.setArguments(bundle);
 //                        fragmentManager.beginTransaction().replace(R.id.frame_layout_post, profileFragment).commit();
-                        Toast.makeText(PostsActivity.this, "New posts is updated successful!!!", Toast.LENGTH_SHORT).show();
+                        Intent intent =  new Intent(PostsActivity.this, HomeChatActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(PostsActivity.this, R.string.add_post_successful, Toast.LENGTH_SHORT).show();
 
                         progressDialog.dismiss();
                     } else {
 
-                        Toast.makeText(PostsActivity.this, "New posts is updated Fail!!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PostsActivity.this, R.string.add_post_fail, Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
 
                     }

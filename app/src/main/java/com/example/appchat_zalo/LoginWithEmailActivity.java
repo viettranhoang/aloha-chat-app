@@ -81,9 +81,9 @@ public class LoginWithEmailActivity extends AppCompatActivity {
                 String email = mInputEmail.getText().toString();
                 String password = mInputPasword.getText().toString();
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginWithEmailActivity.this, "All  filed  are  requeied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginWithEmailActivity.this, R.string.input_email, Toast.LENGTH_SHORT).show();
                 } else if (password.length() < 6) {
-                    Toast.makeText(LoginWithEmailActivity.this, "password must be at  least 6 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginWithEmailActivity.this, R.string.input_password_error, Toast.LENGTH_SHORT).show();
                 } else {
                     loadingBar.setTitle("Sign In");
                     loadingBar.setMessage("Please Wait for loading...");
@@ -106,7 +106,7 @@ public class LoginWithEmailActivity extends AppCompatActivity {
 
 
                             } else {
-                                Toast.makeText(LoginWithEmailActivity.this, "Login  fail", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginWithEmailActivity.this, R.string.input_email_error, Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
 
                             }
@@ -115,39 +115,6 @@ public class LoginWithEmailActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void LoginWithEmail() {
-        String inputEmail = mInputEmail.getText().toString();
-        String inputPassword = mInputPasword.getText().toString();
-
-        if (TextUtils.isEmpty(inputEmail) || TextUtils.isEmpty(inputPassword)) {
-            Toast.makeText(LoginWithEmailActivity.this, "All  filed  are  requeied", Toast.LENGTH_SHORT).show();
-        } else if (inputPassword.length() < 6) {
-            Toast.makeText(LoginWithEmailActivity.this, "password must be at  least 6 characters", Toast.LENGTH_SHORT).show();
-        } else {
-
-            loadingBar.setTitle("Sign In");
-            loadingBar.setMessage("Please Wait for loading...");
-            loadingBar.setCanceledOnTouchOutside(true);
-            loadingBar.show();
-            mAuth.signInWithEmailAndPassword(inputEmail, inputPassword).addOnCompleteListener(LoginWithEmailActivity.this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                    if (task.isSuccessful()) {
-
-                        Toast.makeText(LoginWithEmailActivity.this, "Login is successful!", Toast.LENGTH_SHORT).show();
-                        loadingBar.dismiss();
-                    } else {
-                        Toast.makeText(LoginWithEmailActivity.this, "Login is Fail!", Toast.LENGTH_SHORT).show();
-
-                        loadingBar.dismiss();
-                    }
-                }
-            });
-
-        }
     }
 
     private void initView() {

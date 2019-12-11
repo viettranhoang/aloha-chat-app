@@ -182,6 +182,7 @@ public class GroupMessageActivity extends AppCompatActivity {
 
     @OnClick(R.id.image_camera)
     void onClickCamera() {
+
         ImagePicker.Companion.with(this)
                 .cameraOnly()
                 .compress(500)

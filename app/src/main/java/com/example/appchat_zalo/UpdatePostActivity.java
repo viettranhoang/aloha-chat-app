@@ -90,7 +90,7 @@ public class UpdatePostActivity extends AppCompatActivity {
     @OnClick(R.id.button_delete_post)
     void deldePost() {
         refPost.removeValue();
-        Toast.makeText(this, "Posts is deleted!!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.delete_post_successful, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, HomeChatActivity.class);
         startActivity(intent);
         finish();
@@ -108,7 +108,7 @@ public class UpdatePostActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 refPost.child("content_posts").setValue(inputContentPost.getText().toString());
-                Toast.makeText(UpdatePostActivity.this, "posts updated successful...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdatePostActivity.this, R.string.edit_post_successful, Toast.LENGTH_SHORT).show();
             }
         });
 

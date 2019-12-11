@@ -155,7 +155,7 @@ public class ProfileFragment extends Fragment {
                     prefUtils.setCurrentUAvatar(users.getAvatar());
                     Log.d("ProfileFragment", "onDataChange: avatar" + Constants.UAVATAR);
 
-                    Glide.with(getActivity().getApplicationContext())
+                    Glide.with(getActivity().getApplication())
                             .load(users.getAvatar())
                             .circleCrop()
                             .into(mImageAvatar1);
