@@ -140,7 +140,7 @@ public class CommentActivity extends AppCompatActivity {
     private void sendNotifications(String userId, String postId) {
         String notiId = mNotiRef.push().getKey();
         mNotiRef.child(userId).child(notiId)
-                .setValue(new Notification(Constants.UID,R.string.comment_notificationt + mInputComment.getText().toString(), postId,notiId));
+                .setValue(new Notification(Constants.UID,"đã bình luận bài viết của bạn" + mInputComment.getText().toString(), postId,notiId));
 
     }
     @OnClick({R.id.image_picture})

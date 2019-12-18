@@ -318,25 +318,25 @@ public class MessageActivity extends AppCompatActivity {
         });
 
     }
-    private void sendNotifiaction(String receiver, final String username, final String message){
+    private void sendNotifiaction(String receiver, final String username, final String message) {
         DatabaseReference tokens = FirebaseDatabase.getInstance().getReference(Constants.TABLE_TOKEN);
         Query query = tokens.orderByKey().equalTo(receiver);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Token token = snapshot.getValue(Token.class);
-                    Data data = new Data(user.getUid(), R.mipmap.ic_launcher, username+": "+message, "New Message",
+                    Data data = new Data(user.getUid(), R.mipmap.ic_launcher, username + ": " + message, "New Message",
                             userId);
 
-                    Log.d("MessageActivity", "onDataChange: token " +token.toString());
+                    Log.d("MessageActivity", "onDataChange: token " + token.toString());
                     Sender sender = new Sender(data, token.getToken());
-                    apiService.sendNotification(sender) .enqueue(new Callback<MyRespone>(){
+                    apiService.sendNotification(sender).enqueue(new Callback<MyRespone>() {
                         @Override
                         public void onResponse(Call<MyRespone> call, Response<MyRespone> response) {
-                            if (response.code() == 200){
-                                if (response.body().success != 1){
+                            if (response.code() == 200) {
+                                if (response.body().success != 1) {
                                     Toast.makeText(MessageActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -348,7 +348,7 @@ public class MessageActivity extends AppCompatActivity {
                         }
 
                     });
-                    }
+                }
             }
 
             @Override

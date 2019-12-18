@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -83,15 +84,15 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void getFriend(String type) {
-        DatabaseReference  mRef =  FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot dataFriend : dataSnapshot.child(Constants.TABLE_FRIEND).child(Constants.UID).getChildren()){
-                    Log.d("SearchActivity", "onDataChange: data  -- " + dataFriend );
-                    if (dataFriend.getValue(String.class).equals(type)){
-                        String idFriend =  dataFriend.getKey();
+                for (DataSnapshot dataFriend : dataSnapshot.child(Constants.TABLE_FRIEND).child(Constants.UID).getChildren()) {
+                    Log.d("SearchActivity", "onDataChange: data  -- " + dataFriend);
+                    if (dataFriend.getValue(String.class).equals(type)) {
+                        String idFriend = dataFriend.getKey();
                         Log.d("SearchActivity", "onDataChange: id friend is " + idFriend);
                         mFriendList.add(dataSnapshot.child(Constants.TABLE_USERS).child(idFriend).getValue(Users.class));
 
@@ -124,7 +125,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void iniRcv() {
         mFriendList = new ArrayList<>();
-        mAdapterSearch =  new SearchAdapter(new OnclikItemSearchListener() {
+        mAdapterSearch = new SearchAdapter(new OnclikItemSearchListener() {
             @Override
             public void onClickSearchItem(Users users) {
                 Intent intent = new Intent(SearchActivity.this, UserProfileActivity.class);
@@ -139,14 +140,14 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void searchUser(String s) {
-        Query query = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS).orderByChild("name").startAt(s).endAt(s+"\uf8ff");
+        Query query = FirebaseDatabase.getInstance().getReference(Constants.TABLE_USERS).orderByChild("name").startAt(s).endAt(s + "\uf8ff");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mFriendList.clear();
-                for (DataSnapshot data : dataSnapshot.getChildren()){
-                    Users users =  data.getValue(Users.class);
-                    if(!users.getId().contains(Constants.UID)){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Users users = data.getValue(Users.class);
+                    if (!users.getId().contains(Constants.UID)) {
                         mFriendList.add(users);
                     }
                 }
@@ -160,5 +161,14 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                             Log.d("MainActivity", "onComplete:  email  user" + user.getEmail());
-//                            createNewUser();
+                            createNewUser();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
